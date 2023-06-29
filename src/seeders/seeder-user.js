@@ -10,6 +10,8 @@ module.exports = {
       address: '123LA',
       gender: '1',
       roleId: '1',
+      phoneNumber: '0102030405',
+      positionId: '01',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
