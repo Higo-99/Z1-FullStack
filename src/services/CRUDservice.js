@@ -15,7 +15,7 @@ const hashUserPassword = (password) => {
     })
 }
 
-const CRUDservice = (data) => {
+const postInfo = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             const passwordHashed = await hashUserPassword(data.password);
@@ -37,4 +37,20 @@ const CRUDservice = (data) => {
     })
 }
 
-export default CRUDservice
+const getAllUser = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const userInfo = db.User.findAll({ raw: true });
+            resolve(userInfo);
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
+
+// export default postInfo
+module.exports = {
+    postInfo,
+    getAllUser
+}
