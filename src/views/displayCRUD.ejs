@@ -9,6 +9,29 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
+<style>
+    .btn {
+        cursor: pointer;
+        outline: none;
+        border: none;
+    }
+
+    .btn.edit {
+        background-color: rgb(244, 187, 42);
+        color: white;
+    }
+
+    .btn.delete {
+        background-color: crimson;
+        color: azure;
+    }
+
+    .btn:hover {
+        background-color: mediumturquoise;
+        color: black;
+    }
+</style>
+
 <body>
     <h1>Display informations in db</h1>
     <table class="table table-striped">
@@ -21,13 +44,14 @@
                 <th scope="col">Gender</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
             <% for(var i=0; i < dataTable.length; i++) { %>
                 <tr>
                     <th scope="row">
-                        <%= [i+1] %>
+                        <%= dataTable[i].id %>
                     </th>
                     <td>
                         <%= dataTable[i].email %>
@@ -46,6 +70,14 @@
                     </td>
                     <td>
                         <%= dataTable[i].address %>
+                    </td>
+                    <td>
+                        <a href="/edit-crud?id=<%= dataTable[i].id %>">
+                            <button type="button" class="btn edit">Edit</button>
+                        </a>
+                        <a href="">
+                            <button type="button" class="btn delete">Delete</button>
+                        </a>
                     </td>
                 </tr>
                 <% } %>

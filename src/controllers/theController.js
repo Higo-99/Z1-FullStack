@@ -1,5 +1,5 @@
 import db from '../models/index'
-import { postInfo, getAllUser } from '../services/CRUDservice';
+import { postInfo, getAllUser, getUserById, updateUserInfo } from '../services/CRUDservice';
 
 const homePagesite = async (req, res) => {
     try {
@@ -13,7 +13,7 @@ const homePagesite = async (req, res) => {
     }
 };
 
-const intoCRUD = async (req, res) => {
+const intopostCRUD = async (req, res) => {
     try {
         return (res.render('crud.ejs'));
     }
@@ -24,8 +24,7 @@ const intoCRUD = async (req, res) => {
 
 const postCRUD = async (req, res) => {
     try {
-        const result = await postInfo(req.body);
-        console.log(result);
+        await postInfo(req.body);
         return res.send('CRUD post succeeded');
     }
     catch (e) {
@@ -46,9 +45,40 @@ const displayCRUD = async (req, res) => {
     }
 }
 
+const intoEditCRUD = async (req, res) => {
+    try {
+        const userId = req.query.id;
+        if (userId) {
+            const userData = await getUserById(userId);
+            return res.render('editCRUD.ejs', { user: userData })
+        }
+        else {
+            return res.send('User not found!')
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+const editCRUD = async (req, res) => {
+    try {
+        const newData = req.body;
+        const newList = await updateUserInfo(newData);
+        return (res.render('displayCRUD.ejs', {
+            dataTable: newList
+        }));
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 module.exports = {
     homePagesite,
-    intoCRUD,
+    intopostCRUD,
     postCRUD,
-    displayCRUD
+    displayCRUD,
+    intoEditCRUD,
+    editCRUD
 }
