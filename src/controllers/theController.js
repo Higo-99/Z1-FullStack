@@ -1,5 +1,5 @@
 import db from '../models/index'
-import { postInfo, getAllUser, getUserById, updateUserInfo } from '../services/CRUDservice';
+import { postInfo, getAllUser, getUserById, updateUserInfo, deleteUser } from '../services/CRUDservice';
 
 const homePagesite = async (req, res) => {
     try {
@@ -35,7 +35,6 @@ const postCRUD = async (req, res) => {
 const displayCRUD = async (req, res) => {
     try {
         const dataUser = await getAllUser();
-        // console.log(dataUser);
         return (res.render('displayCRUD.ejs', {
             dataTable: dataUser
         }));
@@ -74,11 +73,25 @@ const editCRUD = async (req, res) => {
     }
 }
 
+const intoDeleteCRUD = async (req, res) => {
+    const userId = req.query.id;
+    if (userId) {
+        const newList = await deleteUser(userId);
+        return (res.render('displayCRUD.ejs', {
+            dataTable: newList
+        }));
+    }
+    else {
+        return res.send('User not found!!!');
+    }
+}
+
 module.exports = {
     homePagesite,
     intopostCRUD,
     postCRUD,
     displayCRUD,
     intoEditCRUD,
-    editCRUD
+    editCRUD,
+    intoDeleteCRUD
 }

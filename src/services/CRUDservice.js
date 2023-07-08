@@ -92,9 +92,28 @@ const updateUserInfo = (newInfo) => {
     })
 }
 
+const deleteUser = (delId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const user = await db.User.findOne({
+                where: { id: delId }
+            });
+            if (user) {
+                await user.destroy();
+            }
+            const allNewData = db.User.findAll();
+            resolve(allNewData);
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+}
+
 module.exports = {
     postInfo,
     getAllUser,
     getUserById,
-    updateUserInfo
+    updateUserInfo,
+    deleteUser
 }
