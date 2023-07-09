@@ -1,4 +1,4 @@
-import express from 'express'
+const express = require('express');
 
 const viewEngine = (app) => {
     app.use(express.static("./src/public"));
@@ -6,4 +6,4 @@ const viewEngine = (app) => {
     app.set("views", "./src/views")
 }
 
-export default viewEngine
+module.exports = viewEngine

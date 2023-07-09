@@ -1,5 +1,5 @@
-import db from '../models/index'
-import { postInfo, getAllUser, getUserById, updateUserInfo, deleteUser } from '../services/CRUDservice';
+const db = require('../models/index');
+const { postInfo, getAllUser, getUserById, updateUserInfo, deleteUser } = require('../services/CRUDservice');
 
 const homePagesite = async (req, res) => {
     try {

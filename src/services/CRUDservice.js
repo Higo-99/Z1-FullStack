@@ -1,5 +1,5 @@
-import bcryt from 'bcryptjs';
-import db from '../models/index'
+const bcryt = require('bcryptjs');
+const db = require('../models/index');
 
 const salt = bcryt.genSaltSync(10);
 
