@@ -1,5 +1,6 @@
-import express from 'express'
-import {
+const express = require('express');
+
+const {
     homePagesite,
     intopostCRUD,
     postCRUD,
@@ -7,7 +8,7 @@ import {
     intoEditCRUD,
     editCRUD,
     intoDeleteCRUD
-} from '../controllers/theController';
+} = require('../controllers/theController');
 
 const router = express.Router();
 
@@ -28,4 +29,4 @@ const routeweb = (app) => {
     )
 }
 
-export default routeweb
+module.exports = routeweb
