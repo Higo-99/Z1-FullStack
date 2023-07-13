@@ -1,30 +1,41 @@
 const db = require('../models/index');
-const { postInfo, getAllUser, getUserById, updateUserInfo, deleteUser } = require('../services/CRUDservice');
+const { postInfo, getAllUser, getUserById,
+    updateUserInfo, deleteUser } = require('../services/CRUDservice');
+const DBconection = require('../config/DBconection');
 
 const homePagesite = async (req, res) => {
     try {
-        const data = await db.User.findAll();
-        return (res.render('homepage.ejs', {
-            data: JSON.stringify(data)
-        }));
+        // DBconection.query(
+        //     'SELECT * FROM Users',
+        //     function (err, results, fields) {
+        //         const data = results;
+        //         return (res.render('homepage.ejs', {
+        //             data: JSON.stringify(data)
+        //         }));
+        //     }
+        // );
+
+        return (res.render('homepage.ejs'));
     }
     catch (e) {
         console.log(e);
     }
 };
 
-const intopostCRUD = async (req, res) => {
+const intoCreateUser = async (req, res) => {
     try {
-        return (res.render('crud.ejs'));
+        return (res.render('createNew.ejs'));
     }
     catch (e) {
         console.log(e);
     }
 }
 
-const postCRUD = async (req, res) => {
+const postCreate = async (req, res) => {
     try {
-        await postInfo(req.body);
+        // await postInfo(req.body);
+        const creatData = await req.body;
+        console.log(creatData);
         return res.send('CRUD post succeeded');
     }
     catch (e) {
@@ -32,10 +43,10 @@ const postCRUD = async (req, res) => {
     }
 }
 
-const displayCRUD = async (req, res) => {
+const displayAllUsers = async (req, res) => {
     try {
         const dataUser = await getAllUser();
-        return (res.render('displayCRUD.ejs', {
+        return (res.render('displayAllUsers.ejs', {
             dataTable: dataUser
         }));
     }
@@ -64,7 +75,7 @@ const editCRUD = async (req, res) => {
     try {
         const newData = req.body;
         const newList = await updateUserInfo(newData);
-        return (res.render('displayCRUD.ejs', {
+        return (res.render('displayAllUsers.ejs', {
             dataTable: newList
         }));
     }
@@ -77,7 +88,7 @@ const intoDeleteCRUD = async (req, res) => {
     const userId = req.query.id;
     if (userId) {
         const newList = await deleteUser(userId);
-        return (res.render('displayCRUD.ejs', {
+        return (res.render('displayAllUsers.ejs', {
             dataTable: newList
         }));
     }
@@ -88,9 +99,9 @@ const intoDeleteCRUD = async (req, res) => {
 
 module.exports = {
     homePagesite,
-    intopostCRUD,
-    postCRUD,
-    displayCRUD,
+    intoCreateUser,
+    postCreate,
+    displayAllUsers,
     intoEditCRUD,
     editCRUD,
     intoDeleteCRUD
