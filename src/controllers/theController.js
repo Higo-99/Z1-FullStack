@@ -1,20 +1,9 @@
-const db = require('../models/index');
-const { postInfo, getAllUser, getUserById,
+const { createUserData, getAllUser, getUserById,
     updateUserInfo, deleteUser } = require('../services/CRUDservice');
 const DBconection = require('../config/DBconection');
 
 const homePagesite = async (req, res) => {
     try {
-        // DBconection.query(
-        //     'SELECT * FROM Users',
-        //     function (err, results, fields) {
-        //         const data = results;
-        //         return (res.render('homepage.ejs', {
-        //             data: JSON.stringify(data)
-        //         }));
-        //     }
-        // );
-
         return (res.render('homepage.ejs'));
     }
     catch (e) {
@@ -33,9 +22,8 @@ const intoCreateUser = async (req, res) => {
 
 const postCreate = async (req, res) => {
     try {
-        // await postInfo(req.body);
-        const creatData = await req.body;
-        console.log(creatData);
+        const newdata = await req.body;
+        createUserData(newdata);
         return res.send('CRUD post succeeded');
     }
     catch (e) {

@@ -1,5 +1,5 @@
 const bcryt = require('bcryptjs');
-const db = require('../models/index');
+const DBconection = require('../config/DBconection');
 
 const salt = bcryt.genSaltSync(10);
 
@@ -15,20 +15,19 @@ const hashUserPassword = (password) => {
     })
 }
 
-const postInfo = (data) => {
+const createUserData = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const passwordHashed = await hashUserPassword(data.password);
-            await db.User.create({
-                email: data.email,
-                password: passwordHashed,
-                firstName: data.firstName,
-                lastName: data.lastName,
-                address: data.address,
-                phoneNumber: data.phoneNumber,
-                gender: data.gender === '1' ? true : false,
-                roleId: data.roleId,
-            })
+            const { email, password, firstName, lastName, address, phoneNumber, gender, roleId } = data;
+            const passwordHashed = await hashUserPassword(password);
+            DBconection.query(
+                `INSERT INTO Users (email, password, firstName, lastName, address, phoneNumber, gender, roleId)
+            VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )`,
+                [email, passwordHashed, firstName, lastName, address, phoneNumber, gender, roleId],
+                function (err, results) {
+                    console.log(results);
+                }
+            );
             resolve('Success!!!');
         }
         catch (e) {
@@ -111,7 +110,7 @@ const deleteUser = (delId) => {
 }
 
 module.exports = {
-    postInfo,
+    createUserData,
     getAllUser,
     getUserById,
     updateUserInfo,

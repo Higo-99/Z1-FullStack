@@ -13,6 +13,7 @@ router.get('/createUser', intoCreateUser);
 router.post('/create', postCreate);
 
 router.get('/allUsers', displayAllUsers);
+
 router.get('/edit-crud', intoEditCRUD);
 router.post('/put-crud', editCRUD);
 
