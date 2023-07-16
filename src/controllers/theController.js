@@ -22,7 +22,7 @@ const getCreateUser = async (req, res) => {
 const postCreating = async (req, res) => {
     try {
         const newdata = await req.body;
-        createUserData(newdata);
+        await createUserData(newdata);
         return res.redirect('/allUsers');
     }
     catch (e) {
@@ -71,7 +71,18 @@ const postEdit = async (req, res) => {
 }
 
 const intoDeleteUser = async (req, res) => {
-    const user = req.params.userId;
+    try {
+        const user = req.params.userId;
+        const userData = await getUserById(user);
+        return res.render('deleteUser.ejs', { delUser: userData });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
+const deleteUserById = async (req, res) => {
+    const user = req.body.id;
     if (user) {
         await deleteUser(user);
         return res.redirect('/allUsers');
@@ -88,5 +99,6 @@ module.exports = {
     displayAllUsers,
     intoEditUser,
     postEdit,
-    intoDeleteUser
+    intoDeleteUser,
+    deleteUserById
 }
