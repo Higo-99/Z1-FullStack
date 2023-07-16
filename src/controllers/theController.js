@@ -71,16 +71,6 @@ const postEdit = async (req, res) => {
 }
 
 const intoDeleteUser = async (req, res) => {
-    // const userId = req.query.id;
-    // if (userId) {
-    //     const newList = await deleteUser(userId);
-    //     return (res.render('displayAllUsers.ejs', {
-    //         dataTable: newList
-    //     }));
-    // }
-    // else {
-    //     return res.send('User not found!!!');
-    // }    
     const user = req.params.userId;
     if (user) {
         await deleteUser(user);

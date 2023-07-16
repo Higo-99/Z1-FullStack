@@ -45,7 +45,6 @@ const getAllUsers = async () => {
     })
 }
 
-//userId below is from theController.js
 const getUserById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -81,14 +80,6 @@ const updateUserInfo = (newInfo) => {
 const deleteUser = (delId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            // const user = await db.User.findOne({
-            //     where: { id: delId }
-            // });
-            // if (user) {
-            //     await user.destroy();
-            // }
-            // const allNewData = db.User.findAll();
-            // resolve(allNewData);
             const [results, fields] = await DBconection.query(`DELETE FROM Users WHERE id = ?`, [delId]);
             resolve(results);
         }
