@@ -1,6 +1,5 @@
-const { createUserData, getAllUser, getUserById,
+const { createUserData, getAllUsers, getUserById,
     updateUserInfo, deleteUser } = require('../services/CRUDservice');
-const DBconection = require('../config/DBconection');
 
 const homePagesite = async (req, res) => {
     try {
@@ -11,20 +10,20 @@ const homePagesite = async (req, res) => {
     }
 };
 
-const intoCreateUser = async (req, res) => {
+const getCreateUser = async (req, res) => {
     try {
-        return (res.render('createNew.ejs'));
+        return (res.render('createNewUser.ejs'));
     }
     catch (e) {
         console.log(e);
     }
 }
 
-const postCreate = async (req, res) => {
+const postCreating = async (req, res) => {
     try {
         const newdata = await req.body;
         createUserData(newdata);
-        return res.send('CRUD post succeeded');
+        return res.redirect('/allUsers');
     }
     catch (e) {
         console.log(e);
@@ -33,22 +32,23 @@ const postCreate = async (req, res) => {
 
 const displayAllUsers = async (req, res) => {
     try {
-        const dataUser = await getAllUser();
-        return (res.render('displayAllUsers.ejs', {
-            dataTable: dataUser
-        }));
+        const dataUsers = await getAllUsers();
+        return res.render('displayUserList.ejs', {
+            allData: dataUsers
+        });
     }
     catch (e) {
         console.log(e);
     }
 }
 
-const intoEditCRUD = async (req, res) => {
+const intoEditUser = async (req, res) => {
     try {
-        const userId = req.query.id;
+        const userId = req.params.userId;
         if (userId) {
             const userData = await getUserById(userId);
-            return res.render('editCRUD.ejs', { user: userData })
+            console.log(userData);
+            return res.render('editUser.ejs', { user: userData })
         }
         else {
             return res.send('User not found!')
@@ -59,26 +59,32 @@ const intoEditCRUD = async (req, res) => {
     }
 }
 
-const editCRUD = async (req, res) => {
+const postEdit = async (req, res) => {
     try {
         const newData = req.body;
-        const newList = await updateUserInfo(newData);
-        return (res.render('displayAllUsers.ejs', {
-            dataTable: newList
-        }));
+        await updateUserInfo(newData);
+        return res.redirect('/allUsers');
     }
     catch (e) {
         console.log(e);
     }
 }
 
-const intoDeleteCRUD = async (req, res) => {
-    const userId = req.query.id;
-    if (userId) {
-        const newList = await deleteUser(userId);
-        return (res.render('displayAllUsers.ejs', {
-            dataTable: newList
-        }));
+const intoDeleteUser = async (req, res) => {
+    // const userId = req.query.id;
+    // if (userId) {
+    //     const newList = await deleteUser(userId);
+    //     return (res.render('displayAllUsers.ejs', {
+    //         dataTable: newList
+    //     }));
+    // }
+    // else {
+    //     return res.send('User not found!!!');
+    // }    
+    const user = req.params.userId;
+    if (user) {
+        await deleteUser(user);
+        return res.redirect('/allUsers');
     }
     else {
         return res.send('User not found!!!');
@@ -87,10 +93,10 @@ const intoDeleteCRUD = async (req, res) => {
 
 module.exports = {
     homePagesite,
-    intoCreateUser,
-    postCreate,
+    getCreateUser,
+    postCreating,
     displayAllUsers,
-    intoEditCRUD,
-    editCRUD,
-    intoDeleteCRUD
+    intoEditUser,
+    postEdit,
+    intoDeleteUser
 }
