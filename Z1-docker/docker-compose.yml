@@ -1,0 +1,23 @@
+services:
+  database:
+    image: mysql:8.0.33
+    restart: always
+    environment:
+      - MYSQL_DATABASE=backend
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - "3308:3306"
+    # expose:
+    #   - 3306
+
+    # backend:
+    #   build:
+    #     context: ../Z1-Backend
+    #     dockerfile: Dockerfile
+    #   restart: unless-stopped
+    #   environment:
+    #     # - DB_PORT = 3306
+    #     # - DB_HOST = database
+    #     - DB_HOST = host.docker.internal
+    #   ports:
+    #     - 3300:3300
