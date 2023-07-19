@@ -1,5 +1,4 @@
 const bcryt = require('bcryptjs');
-const DBconection = require('../config/DBconection');
 const db = require('../models/index');
 
 const salt = bcryt.genSaltSync(10);
@@ -19,13 +18,6 @@ const hashUserPassword = (password) => {
 const createUserData = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            // const { email, password, firstName, lastName, address, phoneNumber, gender, roleId } = data;
-            // const passwordHashed = await hashUserPassword(password);
-            // const [results, fields] = await DBconection.query(
-            //     `INSERT INTO Users (email, password, firstName, lastName, address, phoneNumber, gender, roleId)
-            // VALUES ( ?, ?, ?, ?, ?, ?, ?, ? )`,
-            //     [email, passwordHashed, firstName, lastName, address, phoneNumber, gender, roleId]
-            // );
             const passwordHashed = await hashUserPassword(data.password);
             await db.User.create({
                 email: data.email,
@@ -48,8 +40,6 @@ const createUserData = (data) => {
 const getAllUsers = async () => {
     return new Promise(async (resolve, reject) => {
         try {
-            // const [results, fields] = await DBconection.query('SELECT * FROM Users');
-            // resolve(results);
             const userInfo = db.User.findAll({ raw: true });
             resolve(userInfo);
         }
@@ -62,10 +52,6 @@ const getAllUsers = async () => {
 const getUserById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            // const [results, fields] = await DBconection.query(`SELECT * FROM Users WHERE id = ?`, [userId]);
-            // if (results && results.length > 0) {
-            //     resolve(results[0]);
-            // }
             const user = await db.User.findOne({ where: { id: userId }, raw: true })
             if (user) {
                 resolve(user);
@@ -83,11 +69,18 @@ const getUserById = (userId) => {
 const updateUserInfo = (newInfo) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const [results, fields] = await DBconection.query(`UPDATE Users 
-            SET firstName = ?, lastName = ?, address = ?, phoneNumber = ?
-            WHERE id = ?`,
-                [newInfo.firstName, newInfo.lastName, newInfo.address, newInfo.phoneNumber, newInfo.id])
-            resolve(results);
+            const user = await db.User.findOne({
+                where: { id: newInfo.id }
+            })
+            if (user) {
+                user.firstName = newInfo.firstName;
+                user.lastName = newInfo.lastName;
+                user.address = newInfo.address;
+                await user.save();
+
+                const allNewData = db.User.findAll();
+                resolve(allNewData);
+            }
         }
         catch (e) {
             console.log(e);
@@ -98,8 +91,14 @@ const updateUserInfo = (newInfo) => {
 const deleteUser = (delId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const [results, fields] = await DBconection.query(`DELETE FROM Users WHERE id = ?`, [delId]);
-            resolve(results);
+            const user = await db.User.findOne({
+                where: { id: delId }
+            });
+            if (user) {
+                await user.destroy();
+            }
+            const allNewData = db.User.findAll();
+            resolve(allNewData);
         }
         catch (e) {
             reject(e);
