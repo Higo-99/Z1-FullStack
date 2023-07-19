@@ -1,34 +1,41 @@
+
 const { createUserData, getAllUsers, getUserById,
     updateUserInfo, deleteUser } = require('../services/CRUDservice');
 
 const homePagesite = async (req, res) => {
     try {
         return (res.render('homepage.ejs'));
+
     }
     catch (e) {
         console.log(e);
     }
 };
 
+
 const getCreateUser = async (req, res) => {
     try {
         return (res.render('createNewUser.ejs'));
+
     }
     catch (e) {
         console.log(e);
     }
 }
 
+
 const postCreating = async (req, res) => {
     try {
         const newdata = await req.body;
         await createUserData(newdata);
         return res.redirect('/allUsers');
+
     }
     catch (e) {
         console.log(e);
     }
 }
+
 
 const displayAllUsers = async (req, res) => {
     try {
@@ -36,6 +43,7 @@ const displayAllUsers = async (req, res) => {
         return res.render('displayUserList.ejs', {
             allData: dataUsers
         });
+
     }
     catch (e) {
         console.log(e);
@@ -49,6 +57,7 @@ const intoEditUser = async (req, res) => {
             const userData = await getUserById(userId);
             console.log(userData);
             return res.render('editUser.ejs', { user: userData })
+
         }
         else {
             return res.send('User not found!')
@@ -59,16 +68,19 @@ const intoEditUser = async (req, res) => {
     }
 }
 
+
 const postEdit = async (req, res) => {
     try {
         const newData = req.body;
         await updateUserInfo(newData);
         return res.redirect('/allUsers');
+
     }
     catch (e) {
         console.log(e);
     }
 }
+
 
 const intoDeleteUser = async (req, res) => {
     try {
@@ -86,6 +98,7 @@ const deleteUserById = async (req, res) => {
     if (user) {
         await deleteUser(user);
         return res.redirect('/allUsers');
+
     }
     else {
         return res.send('User not found!!!');
@@ -101,4 +114,5 @@ module.exports = {
     postEdit,
     intoDeleteUser,
     deleteUserById
+
 }
