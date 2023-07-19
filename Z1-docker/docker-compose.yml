@@ -1,13 +1,14 @@
 version: '3.8'
 services:
-  database:
+  mysql-database:
     image: mysql:8.0
+    container_name: z1_db
     restart: always
     environment:
       - MYSQL_DATABASE=backend
       - MYSQL_ROOT_PASSWORD=123456
     ports:
-      - '3307:3306'
+      - '3306:3306'
     expose:
       - 3306
 
@@ -15,10 +16,12 @@ services:
     build:
       context: ../Z1-Backend
       dockerfile: Dockerfile
+    container_name: z1_backend
     restart: unless-stopped
     environment:
       - DB_PORT = 3306
-      - DB_HOST = database
-      # - DB_HOST = host.docker.internal
+      - DB_HOST=mysql-database
     ports:
       - 8080:8080
+    links:
+      - mysql-database
