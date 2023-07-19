@@ -1,4 +1,5 @@
 const express = require('express');
+
 const {
     homePagesite, getCreateUser, postCreating, displayAllUsers,
     intoEditUser, postEdit, intoDeleteUser, deleteUserById
@@ -19,3 +20,4 @@ router.get('/deleteUser/:userId', intoDeleteUser);
 router.post('/deleteCurrentUser', deleteUserById);
 
 module.exports = router;
+

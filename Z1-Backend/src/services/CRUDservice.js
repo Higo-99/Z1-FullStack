@@ -15,7 +15,9 @@ const hashUserPassword = (password) => {
     })
 }
 
+
 const createUserData = (data) => {
+
     return new Promise(async (resolve, reject) => {
         try {
             const passwordHashed = await hashUserPassword(data.password);
@@ -37,7 +39,9 @@ const createUserData = (data) => {
     })
 }
 
+
 const getAllUsers = async () => {
+
     return new Promise(async (resolve, reject) => {
         try {
             const userInfo = db.User.findAll({ raw: true });
@@ -48,6 +52,7 @@ const getAllUsers = async () => {
         }
     })
 }
+
 
 const getUserById = (userId) => {
     return new Promise(async (resolve, reject) => {
@@ -81,6 +86,7 @@ const updateUserInfo = (newInfo) => {
                 const allNewData = db.User.findAll();
                 resolve(allNewData);
             }
+
         }
         catch (e) {
             console.log(e);
@@ -107,8 +113,10 @@ const deleteUser = (delId) => {
 }
 
 module.exports = {
+
     createUserData,
     getAllUsers,
+
     getUserById,
     updateUserInfo,
     deleteUser

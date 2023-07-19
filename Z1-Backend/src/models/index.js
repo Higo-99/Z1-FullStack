@@ -7,6 +7,7 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
+
 const db = {};
 
 process.on('uncaughtException', function (err) {
@@ -30,6 +31,7 @@ sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   customizeConfig
 );
+
 
 fs
   .readdirSync(__dirname)
