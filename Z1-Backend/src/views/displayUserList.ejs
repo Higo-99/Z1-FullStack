@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All User</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/displayUser.css">
+</head>
+
+<body>
+    <header class="topnav">
+        <a href="/">Home</a>
+        <a href="/createUser">Create User</a>
+        <a class="active" href="/allUsers">User List</a>
+        <a href="#about">About</a>
+    </header>
+
+    <h2>All Users</h2>
+
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Address</th>
+            <th>Gender</th>
+            <th>PhoneNumber</th>
+            <th>Image</th>
+            <th colspan="2">
+                <div class="thcontent">Action</div>
+            </th>
+        </tr>
+        <!-- <% for (let i=0; i < allData.length; i++) { %>
+            <tr>
+                <td>
+                    <%= allData[i].id %>
+                </td>
+                <td>
+                    <%= allData[i].email %>
+                </td>
+                <td>
+                    <%= allData[i].firstName %>
+                </td>
+                <td>
+                    <%= allData[i].lastName %>
+                </td>
+                <td>
+                    <%= allData[i].address %>
+                </td>
+                <td>
+                    <%= allData[i].gender %>
+                </td>
+                <td>
+                    <%= allData[i].phoneNumber %>
+                </td>
+                <td>
+                    <%= allData[i].image %>
+                </td>
+                <td>
+                    <a href=""> <button>Edit</button> </a>
+                    <a href=""> <button>Delete</button> </a>
+                </td>
+            </tr>
+            <% } %> -->
+        <% allData.forEach( function(data) { %>
+            <tr>
+                <td>
+                    <%= data.id %>
+                </td>
+                <td>
+                    <%= data.email %>
+                </td>
+                <td>
+                    <%= data.firstName %>
+                </td>
+                <td>
+                    <%= data.lastName %>
+                </td>
+                <td>
+                    <%= data.address %>
+                </td>
+                <td>
+                    <%= data.gender %>
+                </td>
+                <td>
+                    <%= data.phoneNumber %>
+                </td>
+                <td>
+                    <%= data.image %>
+                </td>
+                <td>
+                    <a class="btntag" href="/editUser/<%= data.id %>"> <button class="EditBtn">Edit</button> </a>
+                </td>
+                <td>
+                    <a class="btntag" href="/deleteUser/<%= data.id %>"> <button class="DelBtn">Delete</button> </a>
+                </td>
+            </tr>
+            <% }); %>
+    </table>
+</body>
+
+</html>

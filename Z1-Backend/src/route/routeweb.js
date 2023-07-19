@@ -1,32 +1,23 @@
 const express = require('express');
 
 const {
-    homePagesite,
-    intopostCRUD,
-    postCRUD,
-    displayCRUD,
-    intoEditCRUD,
-    editCRUD,
-    intoDeleteCRUD
+    homePagesite, getCreateUser, postCreating, displayAllUsers,
+    intoEditUser, postEdit, intoDeleteUser, deleteUserById
 } = require('../controllers/theController');
-
 const router = express.Router();
 
-const routeweb = (app) => {
-    router.get('/', homePagesite);
+router.get('/', homePagesite);
 
-    router.get('/crud', intopostCRUD);
-    router.post('/post-crud', postCRUD);
+router.get('/createUser', getCreateUser);
+router.post('/creating', postCreating);
 
-    router.get('/getinfo', displayCRUD);
-    router.get('/edit-crud', intoEditCRUD);
-    router.post('/put-crud', editCRUD);
+router.get('/allUsers', displayAllUsers);
 
-    router.get('/delete-crud', intoDeleteCRUD);
+router.get('/editUser/:userId', intoEditUser);
+router.post('/editting', postEdit);
 
-    return (
-        app.use("/", router)
-    )
-}
+router.get('/deleteUser/:userId', intoDeleteUser);
+router.post('/deleteCurrentUser', deleteUserById);
 
-module.exports = routeweb
+module.exports = router;
+

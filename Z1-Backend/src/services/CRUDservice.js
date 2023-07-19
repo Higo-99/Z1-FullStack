@@ -15,7 +15,9 @@ const hashUserPassword = (password) => {
     })
 }
 
-const postInfo = (data) => {
+
+const createUserData = (data) => {
+
     return new Promise(async (resolve, reject) => {
         try {
             const passwordHashed = await hashUserPassword(data.password);
@@ -37,7 +39,9 @@ const postInfo = (data) => {
     })
 }
 
-const getAllUser = () => {
+
+const getAllUsers = async () => {
+
     return new Promise(async (resolve, reject) => {
         try {
             const userInfo = db.User.findAll({ raw: true });
@@ -49,7 +53,7 @@ const getAllUser = () => {
     })
 }
 
-//userId below is from theController.js
+
 const getUserById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -82,9 +86,7 @@ const updateUserInfo = (newInfo) => {
                 const allNewData = db.User.findAll();
                 resolve(allNewData);
             }
-            else {
-                resolve();
-            }
+
         }
         catch (e) {
             console.log(e);
@@ -111,8 +113,10 @@ const deleteUser = (delId) => {
 }
 
 module.exports = {
-    postInfo,
-    getAllUser,
+
+    createUserData,
+    getAllUsers,
+
     getUserById,
     updateUserInfo,
     deleteUser

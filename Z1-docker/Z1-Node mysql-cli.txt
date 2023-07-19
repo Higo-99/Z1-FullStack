@@ -1,0 +1,62 @@
+CREATE TABLE Users ( 
+id int NOT NULL AUTO_INCREMENT PRIMARY KEY , 
+email varchar(255), 
+password varchar(255), 
+firstName varchar(255), 
+lastName varchar(255), 
+address varchar(255),
+gender bool,
+roleId varchar(255),
+phoneNumber varchar(255),
+image varchar(255)
+); 
+
+CREATE TABLE Allcodes ( 
+Akey varchar(255), 
+Atype varchar(255), 
+valueEn varchar(255), 
+valueVi varchar(255)
+);
+
+CREATE TABLE Bookings(
+statusId varchar(255), 
+doctorId int,
+patientId int,
+date date,
+timeType varchar(255), 
+);
+
+CREATE TABLE Clinics (
+name varchar(255), 
+address varchar(255),
+description text,
+image varchar(255)
+);
+
+CREATE TABLE  Doctor_Clinic_Specialty (
+doctorId int,
+clinicId int,
+specialtyId int
+);
+
+CREATE TABLE Histories(
+patientId int,
+doctorId int,
+description text,
+files text
+);
+
+CREATE TABLE Schedules(
+currentNumber int,
+maxNumber int,
+date date,
+timeType varchar(255), 
+doctorId int
+);
+
+CREATE TABLE Spectialties(
+name varchar(255),
+description text,
+image varchar(255)
+);
+
