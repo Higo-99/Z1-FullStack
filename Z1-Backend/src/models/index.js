@@ -22,6 +22,7 @@ const customizeConfig = {
   query: {
     "raw": true
   },
+  timezone: "+07:00",
   timezone: "+07:00"
 }
 

@@ -1,11 +1,9 @@
-
 const { createUserData, getAllUsers, getUserById,
     updateUserInfo, deleteUser } = require('../services/CRUDservice');
 
 const homePagesite = async (req, res) => {
     try {
         return (res.render('homepage.ejs'));
-
     }
     catch (e) {
         console.log(e);
@@ -114,5 +112,4 @@ module.exports = {
     postEdit,
     intoDeleteUser,
     deleteUserById
-
 }
