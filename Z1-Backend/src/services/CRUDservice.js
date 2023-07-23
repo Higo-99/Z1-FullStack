@@ -1,12 +1,12 @@
-const bcryt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const db = require('../models/index');
 
-const salt = bcryt.genSaltSync(10);
+const salt = bcrypt.genSaltSync(10);
 
 const hashUserPassword = (password) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const hashingPassword = await bcryt.hashSync(password, salt);
+            const hashingPassword = await bcrypt.hashSync(password, salt);
             resolve(hashingPassword);
         }
         catch (e) {
@@ -101,10 +101,11 @@ const deleteUser = (delId) => {
                 where: { id: delId }
             });
             if (user) {
-                await user.destroy();
+                await db.User.destroy({
+                    where: { id: delId }
+                });
             }
-            const allNewData = db.User.findAll();
-            resolve(allNewData);
+            resolve();
         }
         catch (e) {
             reject(e);
@@ -113,10 +114,8 @@ const deleteUser = (delId) => {
 }
 
 module.exports = {
-
     createUserData,
     getAllUsers,
-
     getUserById,
     updateUserInfo,
     deleteUser
