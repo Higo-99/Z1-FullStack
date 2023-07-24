@@ -51,7 +51,7 @@ const handleUserLogin = (userEmail, userPassword) => {
             }
             else {
                 userData.errCode = 1;
-                userData.errMessage = `Your Email doesn't exist. Try again`;
+                userData.errMessage = `Your Email doesn't exist. Try again!`;
             }
             resolve(userData);
         }

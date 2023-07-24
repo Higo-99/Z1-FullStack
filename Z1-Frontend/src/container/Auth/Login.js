@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
 import './Login.scss';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faGooglePlusSquare } from '@fortawesome/free-brands-svg-icons'
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-
-library.add(faFacebook, faGooglePlusSquare, faEye, faEyeSlash);
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareFacebook, faSquareGooglePlus } from '@fortawesome/free-brands-svg-icons';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { handleLogin } from '../Service/userService'
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setpassword] = useState('');
+    const [passType, setPassType] = useState('password');
+    const [psIcon, setPsIcon] = useState(faEyeSlash);
+    const [err, setErr] = useState('');
 
     const emailHandle = (e) => {
         setEmail(e.target.value);
-    }
+    };
     const passwordHandle = (e) => {
         setpassword(e.target.value);
-    }
-    const [passType, setPassType] = useState('password');
-    const [psIcon, setPsIcon] = useState(faEyeSlash);
+    };
     const handlePasswordToggle = () => {
         if (passType === 'password') {
             setPsIcon(faEye);
@@ -27,10 +26,30 @@ const Login = () => {
             setPsIcon(faEyeSlash)
             setPassType('password')
         }
-    }
-    const submitHandle = () => {
-        console.log(email, password);
-    }
+    };
+
+    const submitHandle = async () => {
+        setErr('');
+        try {
+            const data = await handleLogin(email, password);
+            console.log(data);
+            if (data && data.errCode === 0) {
+                console.log('logging success');
+            }
+            if (data && data.errCode !== 0) {
+                setErr(data.message)
+            }
+        }
+        catch (e) {
+            if (e.response) {
+                if (e.response.data) {
+                    setErr(e.response.data.message)
+                }
+            }
+            console.log('Error: ' + e.response);
+        }
+
+    };
 
     return (
         <div className="loginbackground center">
@@ -57,6 +76,9 @@ const Login = () => {
                             </button>
                         </div>
                     </div>
+                    <div className="logInMessage center">
+                        <p>{err}</p>
+                    </div>
                     <div >
                         <button className="login-btn" type="button" onClick={submitHandle}>Log in</button>
                     </div>
@@ -64,19 +86,19 @@ const Login = () => {
                 </form>
 
                 <div className="forgotpass">
-                    <a href="">Forgot your password?</a>
+                    <a href="/$">Forgot your password?</a>
                 </div>
                 <div className="other-login center">
                     <p>Login with</p>
                     <div className="icon">
-                        <a href=""><FontAwesomeIcon icon="fa-brands fa-facebook" /></a>
-                        <a href=""><FontAwesomeIcon icon="fa-brands fa-square-google-plus" /></a>
+                        <a href="/$"><FontAwesomeIcon icon={faSquareGooglePlus} /></a>
+                        <a href="/$"><FontAwesomeIcon icon={faSquareFacebook} /></a>
 
                     </div>
                 </div>
                 <div className="sign-up center">
                     <p>Don't have account?</p>
-                    <a href="">SIGN UP</a>
+                    <a href="/$">SIGN UP</a>
                 </div>
 
             </div>

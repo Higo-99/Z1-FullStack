@@ -5,19 +5,18 @@ const viewEngine = require('./config/viewEngine');
 const routeweb = require('./route/routeweb');
 const DBconection = require('./config/DBconection')
 require('dotenv').config();
-
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors({ origin: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 app.use("/", routeweb);
 
 viewEngine(app);
 DBconection();
-
 
 const port = process.env.PORT || 3131;
 
