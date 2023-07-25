@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import './Login.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareFacebook, faSquareGooglePlus } from '@fortawesome/free-brands-svg-icons';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { handleLogin } from '../Service/userService'
+import { handleLogin } from '../Service/userService';
+import { Link } from 'react-router-dom'
+import './form.scss';
+import './Login.scss';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -48,15 +50,14 @@ const Login = () => {
             }
             console.log('Error: ' + e.response);
         }
-
     };
 
     return (
-        <div className="loginbackground center">
+        <section className="background center">
 
-            <div className="logincontainer center">
+            <div className="container center">
                 <h1 className='headform' >Login</h1>
-                <form className='loginform center' action="">
+                <form className='baseform center' action="" onSubmit={submitHandle} >
 
                     <div className="email input">
                         <label htmlFor="">Email:</label>
@@ -69,41 +70,46 @@ const Login = () => {
                         <label htmlFor="">Password:</label>
                         <div className='passwordBox'>
                             <input type={passType} name="password" id="password" className='password'
-                                placeholder='Password' value={password} onChange={passwordHandle}
+                                placeholder='Password' value={password}
+                                onChange={passwordHandle}
                             />
                             <button type='button' className='passIcon' onClick={handlePasswordToggle}>
                                 <FontAwesomeIcon icon={psIcon} />
                             </button>
                         </div>
                     </div>
-                    <div className="logInMessage center">
-                        <p>{err}</p>
-                    </div>
+
                     <div >
-                        <button className="login-btn" type="button" onClick={submitHandle}>Log in</button>
+                        <button className="form-btn" disabled={!email || !password ? true : false}
+                            onClick={submitHandle}
+                        >
+                            Sign In
+                        </button>
                     </div>
 
                 </form>
+                <div className="formMessage center">
+                    <p>{err}</p>
+                </div>
 
                 <div className="forgotpass">
-                    <a href="/$">Forgot your password?</a>
+                    <Link className='link' to='/$'>Forgot your password?</Link>
                 </div>
                 <div className="other-login center">
                     <p>Login with</p>
                     <div className="icon">
-                        <a href="/$"><FontAwesomeIcon icon={faSquareGooglePlus} /></a>
-                        <a href="/$"><FontAwesomeIcon icon={faSquareFacebook} /></a>
-
+                        <Link to='/$'><FontAwesomeIcon icon={faSquareFacebook} /></Link>
+                        <Link to='/$'><FontAwesomeIcon icon={faSquareGooglePlus} /></Link>
                     </div>
                 </div>
-                <div className="sign-up center">
+                <div className="register center">
                     <p>Don't have account?</p>
-                    <a href="/$">SIGN UP</a>
+                    <Link className='link' to='/register'> REGISTER </Link>
                 </div>
 
             </div>
 
-        </div>
+        </section>
     )
 }
 
