@@ -94,23 +94,13 @@ const updateUserInfo = (newInfo) => {
     })
 }
 
-const deleteUser = (delId) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            const user = await db.User.findOne({
-                where: { id: delId }
-            });
-            if (user) {
-                await db.User.destroy({
-                    where: { id: delId }
-                });
-            }
-            resolve();
-        }
-        catch (e) {
-            reject(e);
-        }
-    })
+const deleteUser = async (delId) => {
+    const user = await getUserById(delId);
+    if (user) {
+        await db.User.destroy({
+            where: { id: delId }
+        })
+    }
 }
 
 module.exports = {

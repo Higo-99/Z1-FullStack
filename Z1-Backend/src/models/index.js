@@ -23,7 +23,12 @@ const customizeConfig = {
     "raw": true
   },
   timezone: "+07:00",
-  timezone: "+07:00"
+  pool: {
+    max: 10,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
 }
 
 sequelize = new Sequelize(

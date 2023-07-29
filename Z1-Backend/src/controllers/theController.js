@@ -96,7 +96,6 @@ const deleteUserById = async (req, res) => {
     if (user) {
         await deleteUser(user);
         return res.redirect('/allUsers');
-
     }
     else {
         return res.send('User not found!!!');
