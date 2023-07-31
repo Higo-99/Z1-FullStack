@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 
 const viewEngine = require('./config/viewEngine');
 const routeweb = require('./route/routeweb');
-const DBconection = require('./config/DBconection')
 require('dotenv').config();
 const cors = require('cors');
 
@@ -18,8 +17,6 @@ app.use("/", routeweb);
 viewEngine(app);
 
 const port = process.env.PORT || 3131;
-
-DBconection();
 
 app.listen(port, () => {
     console.log("It's running on " + port)

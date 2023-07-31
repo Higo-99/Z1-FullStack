@@ -14,7 +14,6 @@ const homePagesite = async (req, res) => {
 const getCreateUser = async (req, res) => {
     try {
         return (res.render('createNewUser.ejs'));
-
     }
     catch (e) {
         console.log(e);
@@ -27,7 +26,6 @@ const postCreating = async (req, res) => {
         const newdata = await req.body;
         await createUserData(newdata);
         return res.redirect('/allUsers');
-
     }
     catch (e) {
         console.log(e);
@@ -41,7 +39,6 @@ const displayAllUsers = async (req, res) => {
         return res.render('displayUserList.ejs', {
             allData: dataUsers
         });
-
     }
     catch (e) {
         console.log(e);
@@ -53,9 +50,7 @@ const intoEditUser = async (req, res) => {
         const userId = req.params.userId;
         if (userId) {
             const userData = await getUserById(userId);
-            console.log(userData);
-            return res.render('editUser.ejs', { user: userData })
-
+            return res.render('editUser.ejs', { user: userData });
         }
         else {
             return res.send('User not found!')
@@ -72,7 +67,6 @@ const postEdit = async (req, res) => {
         const newData = req.body;
         await updateUserInfo(newData);
         return res.redirect('/allUsers');
-
     }
     catch (e) {
         console.log(e);

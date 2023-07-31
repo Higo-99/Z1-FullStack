@@ -11,16 +11,16 @@ services:
       - '3306:3306'
     expose:
       - 3306
-  backend:
-    build:
-      context: ../Z1-Backend
-      dockerfile: Dockerfile
-    container_name: z1_backend
-    restart: unless-stopped
-    environment:
-      - DB_PORT = 3306
-      - DB_HOST=mysql-database
-    ports:
-      - 8080:8080
-    links:
-      - mysql-database
+  # backend:
+  #   build:
+  #     context: ../Z1-Backend
+  #     dockerfile: Dockerfile
+  #   container_name: z1_backend
+  #   restart: unless-stopped
+  #   environment:
+  #     - DB_PORT = 3306
+  #     - DB_HOST=mysql-database
+  #   ports:
+  #     - 8080:8080
+  #   links:
+  #     - mysql-database

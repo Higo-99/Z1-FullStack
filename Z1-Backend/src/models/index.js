@@ -63,4 +63,14 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+try {
+  sequelize.authenticate();
+  console.log('Connection has been established successfully.');
+} catch (error) {
+  console.error('Unable to connect to the database:', error);
+}
+
+// Turn  on when ready! It will copy all models to db
+// sequelize.sync({ alter: true });
+
 module.exports = db;
