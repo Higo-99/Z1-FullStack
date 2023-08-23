@@ -1,8 +1,17 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background-color: #000;
+    color: whitesmoke;
+    display: grid;
+    place-content: center;
+    padding: 1rem;
 }
 
 .homeImg {
@@ -11,10 +20,6 @@
 
 .DN {
     display: none;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .topnav {

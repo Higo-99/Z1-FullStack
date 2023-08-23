@@ -1,10 +1,23 @@
 const bcrypt = require('bcryptjs');
 const db = require('../models/index');
 
-const salt = bcrypt.genSaltSync(10);
+const getAllUsers = async () => {
+    const userInfo = db.User.findAll({ raw: true });
+    return (userInfo);
+}
+
+const getUserById = async (userId) => {
+    const user = await db.User.findOne({ where: { id: userId }, raw: true })
+    if (user) {
+        return (user);
+    }
+    else {
+        return ('Not found!');
+    }
+}
 
 const hashUserPassword = (password) => {
-    const hashingPassword = bcrypt.hashSync(password, salt);
+    const hashingPassword = bcrypt.hashSync(password, 10);
     return hashingPassword;
 }
 
@@ -21,21 +34,6 @@ const createUserData = async (data) => {
         phoneNumber: data.phoneNumber,
     });
     return ('Success!!!');
-}
-
-const getAllUsers = async () => {
-    const userInfo = db.User.findAll({ raw: true });
-    return (userInfo);
-}
-
-const getUserById = async (userId) => {
-    const user = await db.User.findOne({ where: { id: userId }, raw: true })
-    if (user) {
-        return (user);
-    }
-    else {
-        return ('Not found!');
-    }
 }
 
 const updateUserInfo = async (newInfo) => {

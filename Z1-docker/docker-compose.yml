@@ -2,29 +2,32 @@ version: '3.8'
 services:
   mysql-database:
     image: mysql:8.0
-    container_name: z1_db1
+    container_name: z1_db
     restart: always
     environment:
       - MYSQL_DATABASE=backend
       - MYSQL_ROOT_PASSWORD=123456
-    secrets:
-      - secretKey
-
-  backend:
-    build:
-      context: ../Z1-Backend
-      dockerfile: Dockerfile
-    container_name: z1_backend1
-    depends_on:
-      - mysql-database
-    restart: unless-stopped
-    environment:
-      - DB_HOST=mysql-database
     ports:
-      - 8080:8080
-    secrets:
-      - secretKey
+      - 3306:3306
 
-secrets:
-  secretKey:
-    file: secretKey.txt
+#     secrets:
+#       - secretKey
+
+#   backend:
+#     build:
+#       context: ../Z1-Backend
+#       dockerfile: Dockerfile
+#     container_name: z1_backend1
+#     depends_on:
+#       - mysql-database
+#     restart: unless-stopped
+#     environment:
+#       - DB_HOST=mysql-database
+#     ports:
+#       - 8080:8080
+#     secrets:
+#       - secretKey
+
+# secrets:
+#   secretKey:
+#     file: secretKey.txt
