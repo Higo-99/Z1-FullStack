@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import './form.scss'
 import './Register.scss'
 
-const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const EMAIL_REGEX = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Register = () => {
@@ -25,7 +25,7 @@ const Register = () => {
     const [matchFocus, setMatchFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
-    const [success, setSuccess] = useState(false);
+    // const [success, setSuccess] = useState(false);
 
     const [passType, setPassType] = useState('password');
     const [confirmPassType, setConfirmPassType] = useState('password');
@@ -68,7 +68,7 @@ const Register = () => {
         setErrMsg('')
     }, [pwd, matchPwd]);
 
-    return (
+    const content = (
         <section className="background center">
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}
                 aria-live='assertive' > {errMsg} </p>
@@ -172,7 +172,9 @@ const Register = () => {
             </div>
 
         </section>
-    )
+    );
+
+    return content;
 }
 
 export default Register

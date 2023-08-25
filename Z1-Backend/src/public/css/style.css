@@ -5,7 +5,6 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
     min-height: 100vh;
     background-color: #000;
     color: whitesmoke;
@@ -14,7 +13,7 @@ body {
     padding: 1rem;
 }
 
-.homeImg {
+/* .homeImg {
     width: 80%;
 }
 
@@ -45,4 +44,4 @@ body {
     background-color: #04AA6D;
     color: white;
 
-}
+} */

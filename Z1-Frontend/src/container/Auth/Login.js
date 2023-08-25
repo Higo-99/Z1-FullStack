@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareFacebook, faSquareGooglePlus } from '@fortawesome/free-brands-svg-icons';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { handleLogin } from '../Service/userService';
 import { Link } from 'react-router-dom'
 import './form.scss';
 import './Login.scss';
@@ -33,7 +32,7 @@ const Login = () => {
     const submitHandle = async () => {
         setErr('');
         try {
-            const data = await handleLogin(email, password);
+            // const data = await handleLogin(email, password);
             console.log(data);
             if (data && data.errCode === 0) {
                 console.log('logging success');
@@ -52,7 +51,7 @@ const Login = () => {
         }
     };
 
-    return (
+    const content = (
         <section className="background center">
 
             <div className="container center">
@@ -111,6 +110,8 @@ const Login = () => {
 
         </section>
     )
+
+    return content;
 }
 
 export default Login
