@@ -56,19 +56,30 @@ const UsersEditForm = () => {
                                     </div>
                                 </div>
                                 <div className="users-phonenumber">
-                                    <label for="users-phonenumber">Birthday</label>
-                                    <input id="users-phonenumber" placeholder="MM/DD/YYYY" type="text"></input>
+                                    <label for="users-phonenumber">Phonenumber</label>
+                                    <input id="users-phonenumber" placeholder="0123456789" type="text"></input>
                                 </div>
                             </div>
                             <div className="users-address fullline ">
                                 <label for="users-address">Address</label>
-                                <input id="users-address" placeholder="Address" type="text"></input>
+                                <input id="users-address" placeholder="User's address" type="text"></input>
+                            </div>
+                            <div class="users-role">
+                                <label for="users-role">User's Role</label>
+                                <div class="radio-container">
+                                    <input id="users-role-Admin" name="users-role" type="radio" value="Admin"></input>
+                                    <label for="users-role-Admin">Admin</label>
+                                    <input id="users-role-Doctor" name="users-role" type="radio" value="Doctor"></input>
+                                    <label for="users-role-Doctor">Doctor</label>
+                                    <input id="users-role-Patient" name="users-role" type="radio" value="Patient"></input>
+                                    <label for="users-role-Patient">Patient</label>
+                                </div>
                             </div>
                         </header>
                         <footer>
                             <div className="set">
-                                <button id="back">Back</button>
-                                <button id="next">Next</button>
+                                <button id="delete">Delete</button>
+                                <button id="save">Save</button>
                             </div>
                         </footer>
                     </form>

@@ -96,6 +96,10 @@ $form-border-color: rgba(0, 0, 0, .1);
         margin: 10px 0;
     }
 
+    & .fullline {
+        margin: 10px 0;
+    }
+
     & .fullline>* {
         display: block;
         width: 100%;
@@ -144,7 +148,7 @@ $form-border-color: rgba(0, 0, 0, .1);
         }
     }
 
-    .users-address .radio-container {
+    .users-role .radio-container {
         display: flex;
         justify-content: space-between;
         width: 100%;
@@ -163,25 +167,26 @@ $form-border-color: rgba(0, 0, 0, .1);
             width: 100px;
             border-radius: 19px;
             font-family: $font-family;
+            font-weight: bold;
         }
 
-        & #back {
+        & #delete {
             background: #fff;
             transition: .2s all ease-in-out;
 
             &:hover {
-                background: #171A2B;
+                background: #990e0e;
                 color: white;
             }
         }
 
-        & #next {
+        & #save {
             background: $secondary-bg-color;
             border: 1px solid transparent;
             color: #fff;
 
             &:hover {
-                background: #171A2B;
+                background: #0aa834;
             }
         }
     }
@@ -192,7 +197,8 @@ $form-border-color: rgba(0, 0, 0, .1);
 .users-birthday,
 .users-gender,
 .users-phonenumber,
-.users-address {
+.users-address,
+.users-role {
     & label {
         display: block;
         margin-bottom: 5px;
