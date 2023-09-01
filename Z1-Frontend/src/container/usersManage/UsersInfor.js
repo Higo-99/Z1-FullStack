@@ -15,7 +15,7 @@ const UsersInf = ({ userId }) => {
     const navigate = useNavigate();
 
     if (user) {
-        const handleEdit = () => navigate(`/users/${userId}`);
+        const handleEdit = () => navigate(`/usersManage/${userId}`);
         return (
             <tr>
                 <td className='table__cell'>{user.id}</td>

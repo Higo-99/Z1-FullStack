@@ -1,11 +1,11 @@
-import useTitle from '../hooks/useTitle';
+import useTitle from '../../hooks/useTitle';
 import './Users.scss';
 import { useGetUsersQuery } from './userApiSlice';
 import PulseLoader from 'react-spinners/PulseLoader';
 import UsersInfor from './UsersInfor';
 
 const UserList = () => {
-    useTitle('Users List Z1_Hospital');
+    useTitle('Users List Z1_App');
 
     const {
         data: users,

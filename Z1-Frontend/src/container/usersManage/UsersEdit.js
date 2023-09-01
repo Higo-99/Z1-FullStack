@@ -1,11 +1,12 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import useTitle from '../hooks/useTitle';
+import useTitle from '../../hooks/useTitle';
 import { useGetUsersQuery } from './userApiSlice';
 import PulseLoader from 'react-spinners/PulseLoader';
+import UsersEditForm from './UsersEditForm';
 
 const UsersEdit = () => {
-    useTitle('Edit user Z1_Hospital')
+    useTitle('Edit user Z1_App')
 
     const { id } = useParams();
 
@@ -17,7 +18,7 @@ const UsersEdit = () => {
 
     if (!user) { content = <PulseLoader color='#0099ff' /> };
 
-    let content = `Edit user ${user.email}`;
+    let content = <UsersEditForm user={user} />;
 
     return content;
 };

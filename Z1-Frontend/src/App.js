@@ -1,15 +1,15 @@
 import './App.scss';
 import { Routes, Route } from 'react-router-dom';
-import Login from './auth/Login';
-import Register from './auth/Register';
-import UsersList from './usersManage/UsersList';
-import UsersEdit from './usersManage/UsersEdit';
+import Login from './container/auth/Login';
+import Register from './container/auth/Register';
+import UsersList from './container/usersManage/UsersList';
+import UsersEdit from './container/usersManage/UsersEdit';
 import useTitle from './hooks/useTitle';
-
-import UsersEditForm from './usersManage/UsersEditForm';
+import UsersEditForm from './container/usersManage/UsersEditForm';
+import NotFound from './components/NotFound';
 
 function App() {
-  useTitle('Z1_Hospital Main page')
+  useTitle('Z1_App Main page')
   return (
     <div className="App">
       <Routes>
@@ -20,7 +20,7 @@ function App() {
           <Route path=':id' element={<UsersEdit />} />
           <Route path='edit' element={<UsersEditForm />} />
         </Route>
-
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </div>
   );

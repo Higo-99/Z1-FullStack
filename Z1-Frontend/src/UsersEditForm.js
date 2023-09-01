@@ -2,19 +2,19 @@ import './UsersEditForm.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCameraRetro, faUserDoctor } from "@fortawesome/free-solid-svg-icons";
 import doctorImg from '../img/doctorImg.jpg';
-import { useEditUsersMutation } from './userApiSlice';
+// import { useEditUsersMutation } from './userApiSlice';
 import { useState } from 'react';
 
 const UsersEditForm = ({ user }) => {
 
-    const [
-        editUser, {
-            isLoading,
-            isSuccess,
-            isError,
-            error
-        }
-    ] = useEditUsersMutation();
+    // const [
+    //     editUser, {
+    //         isLoading,
+    //         isSuccess,
+    //         isError,
+    //         error
+    //     }
+    // ] = useEditUsersMutation();
 
     // const [firstName, setFirstName] = useState(user.firstName);
     // const [lasttName, setLastName] = useState(user.lastName);

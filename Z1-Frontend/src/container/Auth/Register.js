@@ -142,9 +142,7 @@ const Register = () => {
                 </form>
 
                 <div >
-                    <p id='uidnote' className={emailFocus && email &&
-                        !validEmail ? 'formMessage' : 'offscreen'}
-                    >
+                    <p id='uidnote' className={emailFocus && email && !validEmail ? 'formMessage' : 'offscreen'}>
                         <FontAwesomeIcon icon={faInfoCircle} />
                         Valid Email Addresses: <br />
                         - email@example.com <br />
