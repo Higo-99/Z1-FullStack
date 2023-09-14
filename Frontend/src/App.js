@@ -5,20 +5,21 @@ import Register from './container/auth/Register';
 import UsersList from './container/usersManage/UsersList';
 import UsersEdit from './container/usersManage/UsersEdit';
 import useTitle from './hooks/useTitle';
-import UsersEditForm from './container/usersManage/UsersEditForm';
 import NotFound from './components/NotFound';
+import Layout from './components/Layout';
 
 function App() {
   useTitle('Z1_App Main page')
   return (
     <div className="App">
       <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/usersManage'>
-          <Route index element={<UsersList />} />
-          <Route path=':id' element={<UsersEdit />} />
-          <Route path='edit' element={<UsersEditForm />} />
+        <Route path='/' element={<Layout />} >
+          <Route index element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/usersManage'>
+            <Route index element={<UsersList />} />
+            <Route path=':id' element={<UsersEdit />} />
+          </Route>
         </Route>
         <Route path='*' element={<NotFound />} />
       </Routes>

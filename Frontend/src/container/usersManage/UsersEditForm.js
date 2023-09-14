@@ -16,10 +16,10 @@ const UsersEditForm = ({ user }) => {
         }
     ] = useEditUsersMutation();
 
-    // const [firstName, setFirstName] = useState(user.firstName);
-    // const [lasttName, setLastName] = useState(user.lastName);
-    // const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
-    // const [address, setAddress] = useState(user.address);
+    const [firstName, setFirstName] = useState(user.firstName);
+    const [lasttName, setLastName] = useState(user.lastName);
+    const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+    const [address, setAddress] = useState(user.address);
 
     const [delPopup, setDelPopup] = useState(false);
     const handleDelPopup = () => setDelPopup(!delPopup);
@@ -62,7 +62,7 @@ const UsersEditForm = ({ user }) => {
                                 <div className="users-firstname">
                                     <label for="users-firstname">First Name</label>
                                     <input id="users-firstname" placeholder="User's first name" type="text"
-                                    // value={firstName}
+                                        value={firstName}
                                     />
                                 </div>
                                 <div className="users-photo">
@@ -76,7 +76,7 @@ const UsersEditForm = ({ user }) => {
                                 <div className="users-lastname">
                                     <label for="users-lastname">Last Name</label>
                                     <input id="users-lastname" placeholder="User's last name" type="text"
-                                    // value={lasttName}
+                                        value={lasttName}
                                     />
                                 </div>
                                 <div className="users-birthday">

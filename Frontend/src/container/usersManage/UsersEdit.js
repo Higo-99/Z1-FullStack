@@ -6,7 +6,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 import UsersEditForm from './UsersEditForm';
 
 const UsersEdit = () => {
-    useTitle('Edit user Z1_App')
+    useTitle('Edit user Z1_App');
 
     const { id } = useParams();
 
@@ -16,7 +16,7 @@ const UsersEdit = () => {
         })
     });
 
-    if (!user) { content = <PulseLoader color='#0099ff' /> };
+    if (!user) { return <PulseLoader color='#0099ff' /> };
 
     let content = <UsersEditForm user={user} />;
 
