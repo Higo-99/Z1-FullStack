@@ -17,6 +17,7 @@
 .hCom {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .leftCom {
@@ -34,7 +35,7 @@
     justify-items: center;
 }
 
-// Left component
+// Left components
 
 .burger {
     width: 26px;
@@ -86,7 +87,7 @@
     transform: rotateZ(-45deg) translateY(0);
 }
 
-// Mid component
+// Mid components
 .input-box {
     position: relative;
     height: 30px;
@@ -101,15 +102,20 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    font-size: 16px;
+    height: 22px;
+    width: 22px;
+    background-color: transparent;
+    cursor: pointer;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    color: #505050;
 }
 
 .searchBtn {
-    left: 10px;
-    font-size: 16px;
-    color: #505050;
+    left: 7px;
     border: none;
-    background-color: #ffffff00;
-    cursor: pointer;
 }
 
 .input-box input {
@@ -124,28 +130,22 @@
 }
 
 .clearBtn {
-    right: 10px;
-    font-size: 16px;
-    height: 22px;
-    width: 22px;
+    right: 7px;
     border-radius: 50%;
-    color: #505050;
     border: 2px solid #505050;
-    background-color: #ffffff00;
-    cursor: pointer;
-    display: grid;
-    justify-content: center;
-    align-items: center;
 }
 
 .offsceen {
     display: none;
 }
 
+// Color of buttons in search bar 
+$CoBiSB: rgb(76, 180, 255);
+
 .searchBtn:hover,
 .clearBtn:hover {
-    color: rgb(149, 0, 255);
-    border-color: rgb(149, 0, 255);
+    color: $CoBiSB;
+    border-color: $CoBiSB;
 }
 
 .searchBtn:active,
@@ -153,9 +153,9 @@
     transform: translateY(-50%) scale(0.9);
 }
 
-// Right component
+// Right components
 
-.switch {
+.firstCom {
     position: relative;
     width: 50px;
     height: 20px;
@@ -231,6 +231,9 @@
     border-radius: 0px 5px 5px 0px;
 }
 
+.searchCom {
+    display: none;
+}
 
 /* Responsive */
 @media screen and (max-width: 910px) {
@@ -238,7 +241,11 @@
         display: none;
     }
 
-    .language {
+    .switchCom {
         display: none;
+    }
+
+    .searchCom {
+        display: contents;
     }
 }

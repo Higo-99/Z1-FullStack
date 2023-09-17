@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes, faInfoCircle, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './form.scss'
 import './Register.scss'
+import { useAddNewUserMutation } from '../usersManage/userApiSlice';
 
 const EMAIL_REGEX = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -21,7 +22,7 @@ const Register = () => {
     const [pwdFocus, setPwdFocus] = useState(false);
 
     const [matchPwd, setMatchPwd] = useState('');
-    const [validMatch, setValidMatch] = useState(false);
+    const [validPwdMatch, setvalidPwdMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
     const [errMsg, setErrMsg] = useState('');
@@ -61,12 +62,39 @@ const Register = () => {
 
     useEffect(() => {
         setValidPwd(PWD_REGEX.test(pwd));
-        setValidMatch(pwd === matchPwd);
+        setvalidPwdMatch(pwd === matchPwd);
     }, [pwd, matchPwd]);
 
     useEffect(() => {
         setErrMsg('')
     }, [pwd, matchPwd]);
+
+    const [addNewUser, {
+        isLoading,
+        isSuccess,
+        isError,
+        error
+    }] = useAddNewUserMutation();
+
+    const canSave = [validEmail, validPwd, validPwdMatch].every(Boolean) && !isLoading;
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (canSave) {
+            await addNewUser({ email, password: pwd })
+        }
+    };
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isSuccess) {
+            setEmail('')
+            setPwd('')
+            setMatchPwd('')
+            navigate('/')
+        }
+    }, [isSuccess, navigate]);
 
     const content = (
         <section className="background center">
@@ -75,7 +103,7 @@ const Register = () => {
 
             <div className="container center">
                 <h1 className='headform' >Register</h1>
-                <form className='baseform center ' >
+                <form className='baseform center ' onSubmit={handleSubmit} >
                     <div className="email input">
                         <label htmlFor="">
                             Email:
@@ -89,8 +117,8 @@ const Register = () => {
                             onFocus={() => setEmailFocus(true)}
                             onBlur={() => { setEmailFocus(false) }}
                         />
-
                     </div>
+
                     <div className="pass input">
                         <label htmlFor="">
                             Password
@@ -101,7 +129,7 @@ const Register = () => {
                             <input type={passType} name="password" id="password" className='password'
                                 onChange={(e) => { setPwd(e.target.value) }} value={pwd}
                                 aria-invalid={validPwd ? 'false' : 'true'}
-                                aria-describedby='pwdnote'
+                                aria-describedby='pwdnote' required
                                 onFocus={() => setPwdFocus(true)}
                                 onBlur={() => setPwdFocus(false)}
                             />
@@ -111,18 +139,17 @@ const Register = () => {
                         </div>
                     </div>
 
-
                     <div className="pass input">
                         <label htmlFor="">
                             Confirm Password:
-                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
+                            <FontAwesomeIcon icon={faCheck} className={validPwdMatch && matchPwd ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPwdMatch || !matchPwd ? "hide" : "invalid"} />
                         </label>
                         <div className="passwordBox">
                             <input type={confirmPassType} id="confirm_pwd" name='confirm_pwd' className='confirm password'
-                                onChange={(e) => setMatchPwd(e.target.value)} value={matchPwd} required
-                                aria-invalid={validMatch ? "false" : "true"}
-                                aria-describedby="confirmnote"
+                                onChange={(e) => setMatchPwd(e.target.value)} value={matchPwd}
+                                aria-invalid={validPwdMatch ? "false" : "true"}
+                                aria-describedby="confirmnote" required
                                 onFocus={() => setMatchFocus(true)}
                                 onBlur={() => setMatchFocus(false)}
                             />
@@ -131,9 +158,10 @@ const Register = () => {
                             </button>
                         </div>
                     </div>
+
                     <div>
                         <button className="form-btn"
-                            disabled={!validEmail || !validPwd || !validMatch ? true : false}
+                            disabled={!canSave}
                         >
                             Sign Up
                         </button>
@@ -142,6 +170,8 @@ const Register = () => {
                 </form>
 
                 <div >
+                    <p className={isError ? "formMessage" : "offscreen"}>{error?.data?.message}</p>
+
                     <p id='uidnote' className={emailFocus && email && !validEmail ? 'formMessage' : 'offscreen'}>
                         <FontAwesomeIcon icon={faInfoCircle} />
                         Valid Email Addresses: <br />
@@ -157,7 +187,7 @@ const Register = () => {
                         Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                     </p>
 
-                    <p id="confirmnote" className={matchFocus && !validMatch ? "formMessage" : "offscreen"}>
+                    <p id="confirmnote" className={matchFocus && !validPwdMatch ? "formMessage" : "offscreen"}>
                         <FontAwesomeIcon icon={faInfoCircle} />
                         Must match the password input field.
                     </p>

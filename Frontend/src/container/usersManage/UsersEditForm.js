@@ -108,10 +108,8 @@ const UsersEditForm = ({ user }) => {
                                 <div class="radio-container">
                                     <input id="users-role-Admin" name="users-role" type="radio" value="Admin" />
                                     <label for="users-role-Admin">Admin</label>
-                                    <input id="users-role-Doctor" name="users-role" type="radio" value="Doctor" />
-                                    <label for="users-role-Doctor">Doctor</label>
-                                    <input id="users-role-Patient" name="users-role" type="radio" value="Patient" />
-                                    <label for="users-role-Patient">Patient</label>
+                                    <input id="users-role-Customer" name="users-role" type="radio" value="Customer" />
+                                    <label for="users-role-Customer">Customer</label>
                                 </div>
                             </div>
                         </div>

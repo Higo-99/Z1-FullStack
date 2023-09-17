@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     gender: DataTypes.BOOLEAN,
     roleId: {
       type: DataTypes.STRING,
-      defaultValue: 'Patient'
+      defaultValue: 'Customer'
     },
 
     positionId: DataTypes.STRING,

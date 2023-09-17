@@ -1,0 +1,25 @@
+ul {
+    list-style-type: none;
+    padding: 10px;
+}
+
+.dropdown-content {
+    background-color: rgb(141, 141, 255);
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    transform-origin: top;
+    transform: rotateX(-90deg);
+    transition: transform 0.15s linear;
+}
+
+.dropdown-content.active {
+    transform: rotateX(0deg);
+}
+
+.expand-menu {
+    background-color: rgb(147, 255, 141);
+    position: absolute;
+    top: 0px;
+    left: 60px;
+}
