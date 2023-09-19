@@ -1,6 +1,8 @@
 ul {
     list-style-type: none;
-    padding: 10px;
+    padding: 5px 0px 10px 0px;
+    display: grid;
+    place-content: center;
 }
 
 .dropdown-content {
@@ -9,7 +11,7 @@ ul {
     top: 40px;
     left: 0px;
     transform-origin: top;
-    transform: rotateX(-90deg);
+    transform: rotateX(90deg);
     transition: transform 0.15s linear;
 }
 
@@ -17,9 +19,56 @@ ul {
     transform: rotateX(0deg);
 }
 
+.maindrop {
+    width: 63px;
+}
+
+.dropCom {
+    display: block;
+    color: black;
+    width: fit-content;
+    height: fit-content;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.dropCom.active {
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.201);
+}
+
+.dropCom:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.201);
+}
+
+.checkbox {
+    display: none;
+}
+
+input[type=checkbox]:checked+.expand-menu {
+    transform: rotateY(0deg);
+}
+
+input[type=checkbox]:checked+.expand-menu {
+    transform: rotateY(0deg);
+}
+
+input[type=checkbox]:checked+.dropCom {
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.201);
+}
+
 .expand-menu {
     background-color: rgb(147, 255, 141);
     position: absolute;
     top: 0px;
-    left: 60px;
+    left: 63px;
+    transform-origin: left;
+    transform: rotateY(90deg);
+    transition: transform 0.15s linear;
+    width: 150px;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
 }

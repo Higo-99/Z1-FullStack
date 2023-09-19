@@ -1,7 +1,7 @@
 import './Header.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faXmark, faUser, faCartShopping } from "@fortawesome/free-solid-svg-icons";
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BurgerMenuDD } from './DropDownMenu';
 
 const Header = () => {
@@ -10,6 +10,20 @@ const Header = () => {
         setBurgerState(!burgerState)
     };
     let burgerStateCheck = burgerState ? 'active' : 'inactive';
+
+    let burgerRef = useRef();
+
+    // useEffect(() => {
+    //     let handler = (e) => {
+    //         if (!burgerRef.current.contains(e.target)) {
+    //             setBurgerState(false)
+    //         }
+    //     }
+    //     document.addEventListener('mousedown', handler);
+    //     return () => {
+    //         document.removeEventListener('mousedown', handler);
+    //     }
+    // })
 
     const [input, setInput] = useState('');
     const inputHandle = (e) => {
@@ -40,21 +54,21 @@ const Header = () => {
                 </div>
             </div>
             <div className="hCom rightCom">
-                <div className="firstCom">
+                <div className="hRightInner firstCom">
                     <div className="switchCom">
                         <input type="checkbox" name="" id="switcher" className='switcher' />
-                        <label className='switchLabel' ></label>
+                        <label className='switchLabel'></label>
                     </div>
                     <div className="searchCom">
-                        <button className='searchBtn'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+                        <button className='btnIcon'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                     </div>
                 </div>
-                <div className="cartBtn">
+                <div className="hRightInner cartBtn">
                     <button className='btnIcon'>
                         <FontAwesomeIcon icon={faCartShopping} className='headerIcon' />
                     </button>
                 </div>
-                <div className="userBtn">
+                <div className="hRightInner userBtn">
                     <button className='btnIcon'>
                         <FontAwesomeIcon icon={faUser} className='headerIcon' />
                     </button>

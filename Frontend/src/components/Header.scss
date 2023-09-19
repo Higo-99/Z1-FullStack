@@ -1,3 +1,6 @@
+// Color hover of buttons in search bar 
+$CoBiSB: rgb(76, 180, 255);
+
 * {
     padding: 0;
     margin: 0;
@@ -31,8 +34,8 @@
 .rightCom {
     background-color: cyan;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
 }
 
 // Left components
@@ -139,9 +142,6 @@
     display: none;
 }
 
-// Color of buttons in search bar 
-$CoBiSB: rgb(76, 180, 255);
-
 .searchBtn:hover,
 .clearBtn:hover {
     color: $CoBiSB;
@@ -154,11 +154,17 @@ $CoBiSB: rgb(76, 180, 255);
 }
 
 // Right components
+.hRightInner {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-content: center;
+}
 
-.firstCom {
+.hRightInner>* {
     position: relative;
-    width: 50px;
-    height: 20px;
+    display: grid;
+    place-content: center;
 }
 
 .switcher {
@@ -179,7 +185,7 @@ $CoBiSB: rgb(76, 180, 255);
 .switcher::before {
     z-index: 2;
     position: absolute;
-    top: 54%;
+    top: 50%;
     transform: translateY(-50%);
     font-weight: bolder;
 }
@@ -197,8 +203,6 @@ $CoBiSB: rgb(76, 180, 255);
 .switchLabel {
     z-index: 1;
     position: absolute;
-    top: 0px;
-    bottom: 0px;
 }
 
 .switcher {
