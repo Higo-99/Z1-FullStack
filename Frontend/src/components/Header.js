@@ -1,30 +1,10 @@
 import './Header.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faXmark, faUser, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faXmark, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from 'react';
-import { BurgerMenuDD } from './DropDownMenu';
+import { BurgerMenuDD, SearchDD, UserDD } from './DropDownMenu';
 
 const Header = () => {
-    const [burgerState, setBurgerState] = useState(false);
-    const burgerBtnHandle = () => {
-        setBurgerState(!burgerState)
-    };
-    let burgerStateCheck = burgerState ? 'active' : 'inactive';
-
-    let burgerRef = useRef();
-
-    // useEffect(() => {
-    //     let handler = (e) => {
-    //         if (!burgerRef.current.contains(e.target)) {
-    //             setBurgerState(false)
-    //         }
-    //     }
-    //     document.addEventListener('mousedown', handler);
-    //     return () => {
-    //         document.removeEventListener('mousedown', handler);
-    //     }
-    // })
-
     const [input, setInput] = useState('');
     const inputHandle = (e) => {
         setInput(e.target.value)
@@ -32,14 +12,26 @@ const Header = () => {
     const clearBtnHandle = () => {
         setInput('')
     };
+    const [searchDrop, SetSearchDrop] = useState(false);
+    const dropSearchRef = useRef();
+    useEffect(() => {
+        let outSearchHandle = (e) => {
+            e.preventDefault();
+            if (!dropSearchRef.current.contains(e.target)) {
+                SetSearchDrop(false);
+            }
+        }
+        document.addEventListener('mousedown', outSearchHandle);
+
+        return () => {
+            document.removeEventListener('mousedown', outSearchHandle);
+        }
+    });
 
     const content = (
         <div className="header-contents">
             <div className="hCom leftCom">
-                <button class={`burger ${burgerStateCheck}`} onClick={burgerBtnHandle}>
-                    <span></span>
-                </button>
-                <BurgerMenuDD active={burgerStateCheck} />
+                <BurgerMenuDD className={'BurgerDiv'} />
             </div>
             <div className="hCom midCom">
                 <div class="input-box">
@@ -60,19 +52,22 @@ const Header = () => {
                         <label className='switchLabel'></label>
                     </div>
                     <div className="searchCom">
-                        <button className='btnIcon'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
+                        <button className='headerBtnIcon' onClick={() => SetSearchDrop(!searchDrop)}>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </button>
                     </div>
                 </div>
                 <div className="hRightInner cartBtn">
-                    <button className='btnIcon'>
+                    <button className='headerBtnIcon'>
                         <FontAwesomeIcon icon={faCartShopping} className='headerIcon' />
                     </button>
                 </div>
                 <div className="hRightInner userBtn">
-                    <button className='btnIcon'>
-                        <FontAwesomeIcon icon={faUser} className='headerIcon' />
-                    </button>
+                    <UserDD />
                 </div>
+            </div>
+            <div className="searchdropdownblock" ref={dropSearchRef}>
+                <SearchDD active={searchDrop ? 'active' : 'inactive'} />
             </div>
         </div>
     )
