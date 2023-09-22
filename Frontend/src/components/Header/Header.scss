@@ -1,0 +1,220 @@
+// Color hover of buttons in search bar 
+$CoBiSB: rgb(76, 180, 255);
+$fontSize: 18px;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.header-contents {
+    display: grid;
+    grid-template-rows: 40px;
+    grid-template-columns: minmax(80px, 225px) minmax(0px, 500px) minmax(80px, 225px);
+    place-content: center;
+}
+
+.hCom {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.leftCom {
+    background-color: darkseagreen;
+    margin-right: 10px;
+}
+
+.midCom {
+    background-color: chocolate;
+}
+
+.rightCom {
+    background-color: cyan;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    margin-left: 10px;
+}
+
+.searchdropdownblock {
+    display: none;
+}
+
+// Left components =============
+
+
+// Mid components =============
+.input-box {
+    position: relative;
+    height: 40px;
+    width: 100%;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.searchBtn,
+.clearBtn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 24px;
+    width: 24px;
+    background-color: transparent;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    color: #505050;
+    font-size: $fontSize;
+}
+
+.searchBtn {
+    left: 7px;
+    border: none;
+}
+
+.input-box input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    font-weight: 400;
+    border: none;
+    padding: 0 35px 0 35px;
+    background-color: transparent;
+    font-size: $fontSize;
+}
+
+.clearBtn {
+    right: 7px;
+    border-radius: 50%;
+    border: 2px solid #505050;
+}
+
+.offsceen {
+    display: none;
+}
+
+.searchBtn:hover,
+.clearBtn:hover {
+    color: $CoBiSB;
+    border-color: $CoBiSB;
+}
+
+.searchBtn:active,
+.clearBtn:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+// Right components =============
+.hRightInner {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-content: center;
+}
+
+.switchCom {
+    position: relative;
+    display: grid;
+    place-content: center;
+}
+
+.switcher {
+    appearance: none;
+    width: 70px;
+    height: 25px;
+    border: none;
+    outline: none;
+    background-color: #ffffff8e;
+}
+
+.switcher:hover {
+    border: none;
+    outline: none;
+}
+
+.switcher::after,
+.switcher::before {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bolder;
+}
+
+.switcher::before {
+    content: 'EN';
+    left: 5px;
+}
+
+.switcher::after {
+    content: 'VI';
+    right: 8px;
+}
+
+.switchLabel {
+    z-index: 1;
+    position: absolute;
+}
+
+.switcher {
+    transition: 0.25s;
+}
+
+.switcher:checked::before {
+    color: #fff;
+    transition: color 0.25s;
+}
+
+.switcher:checked+.switchLabel {
+    left: 0px;
+    right: 35px;
+    height: 25px;
+    background-color: #505050;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.switcher:not(:checked)::after {
+    color: #fff;
+    transition: color 0.25s;
+}
+
+.switcher:not(:checked)+.switchLabel {
+    left: 35px;
+    right: 0px;
+    height: 25px;
+    background-color: #505050;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.dropSearchBtn {
+    display: none;
+}
+
+.headerBtnIcon {
+    font-size: medium;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .input-box {
+        display: none;
+    }
+
+    .switchCom {
+        display: none;
+    }
+
+    .dropSearchBtn {
+        display: contents;
+    }
+
+    .searchdropdownblock {
+        display: contents;
+    }
+}

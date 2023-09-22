@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPDATE USER</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/createUser.css">
+</head>
+
+<body>
+    <header class="topnav">
+        <a href="/">Home</a>
+        <a href="/createUser">Create User</a>
+        <a href="/allUsers">User List</a>
+        <a href="#about">About</a>
+    </header>
+
+    <h1>EIDT PAGE</h1>
+    <form action="/editting" method="POST">
+        <div class="DN">
+            <input type="text" id="id" name="id" value="<%= user.id %>"><br><br>
+        </div>
+        <fieldset>
+            <legend>Personalia:</legend>
+            <label for="firstName">First name:</label>
+            <input type="text" id="firstName" name="firstName" value="<%= user.firstName %>"><br><br>
+            <label for="lastName">Last name:</label>
+            <input type="text" id="lastName" name="lastName" value="<%= user.lastName %>"><br><br>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" value="<%= user.address %>"><br><br>
+            <label for="phoneNumber">PhoneNumber:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" value="<%= user.phoneNumber %>"><br><br>
+
+            <input type="submit" value="Update">
+        </fieldset>
+    </form>
+</body>
+
+</html>
