@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Test = () => {
     const [C1, setC1] = useState(false);
@@ -26,11 +28,20 @@ const Test = () => {
         }
 
     })
+    const [userDrop, setUserDrop] = useState(false);
+    const UserBtnHandle = () => {
+        setUserDrop(!userDrop)
+        console.log(userDrop)
+    };
+    let userDropActive = userDrop ? 'active' : 'inactive';
 
     return (
         <div>
             <input type="checkbox" name="" id="" checked={C1} ref={c1Ref} onClick={() => setC1(!C1)} />
             <input type="checkbox" name="" id="" checked={C2} ref={c2Ref} onClick={() => setC2(!C2)} />
+            <button className='headerBtnIcon' onClick={UserBtnHandle}>
+                <FontAwesomeIcon icon={faUser} className='headerIcon' />
+            </button>
         </div>
     )
 }

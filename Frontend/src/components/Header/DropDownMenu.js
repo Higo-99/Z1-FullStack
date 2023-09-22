@@ -147,13 +147,22 @@ export const SearchDD = ({ active }) => {
 // User menu dropdown
 export const UserDD = () => {
     const [userDrop, setUserDrop] = useState(false);
+    const UserBtnHandle = () => {
+        setUserDrop(!userDrop)
+        console.log(userDrop)
+    };
     let userDropActive = userDrop ? 'active' : 'inactive';
+
     const userDropRef = useRef();
+    const [checkBox, setcheckBox] = useState(false);
+    const checkBoxRef = useRef();
     useEffect(() => {
         let outuserDropHandle = (e) => {
-            e.preventDefault();
             if (!userDropRef.current.contains(e.target)) {
                 setUserDrop(false);
+            }
+            if (!checkBoxRef.current.contains(e.target)) {
+                setcheckBox(false);
             }
         }
         document.addEventListener('mousedown', outuserDropHandle);
@@ -161,22 +170,39 @@ export const UserDD = () => {
         return () => {
             document.removeEventListener('mousedown', outuserDropHandle)
         };
-    })
+    });
 
     return (
-        <div className="userDropdown-menu">
-            <button className='headerBtnIcon' onClick={() => setUserDrop(!userDrop)}>
+        <div className="userDropdown-menu" ref={userDropRef}>
+            <button className='headerBtnIcon' onClick={UserBtnHandle}>
                 <FontAwesomeIcon icon={faUser} className='headerIcon' />
             </button>
-            <ul className={`userDropdown-content ${userDropActive}`} ref={userDropRef}>
+            <ul className={`userDropdown-content ${userDropActive}`} >
                 <li className='maindrop'>
                     <Link className='dropCom'>Profile</Link>
                 </li>
                 <li className='maindrop'>
                     <Link className='dropCom'>Favotites</Link>
                 </li>
-                <li className='maindrop'>
+                {/* <li className='maindrop'>
                     <Link className='dropCom'>Language</Link>
+                </li> */}
+                <li className='maindrop'>
+                    <label ref={checkBoxRef} htmlFor="checkbox-lang" className='dropCom'>
+                        Language
+                    </label>
+                    <input
+                        type="checkbox" name="checkbox-lang" id="checkbox-lang" className='checkbox'
+                        checked={checkBox} onClick={() => setcheckBox(!checkBox)}
+                    />
+                    <ul className='langExpand-menu'>
+                        <li>
+                            <Link className='dropCom'>VietNamese</Link>
+                        </li>
+                        <li>
+                            <Link className='dropCom'>English</Link>
+                        </li>
+                    </ul>
                 </li>
                 <li className='maindrop'>
                     <Link className='dropCom'>Logout</Link>

@@ -14,10 +14,11 @@ const Header = () => {
     };
     const [searchDrop, SetSearchDrop] = useState(false);
     const dropSearchRef = useRef();
+    const btnDropSearchRef = useRef();
+
     useEffect(() => {
         let outSearchHandle = (e) => {
-            e.preventDefault();
-            if (!dropSearchRef.current.contains(e.target)) {
+            if (!dropSearchRef.current.contains(e.target) && !btnDropSearchRef.current.contains(e.target)) {
                 SetSearchDrop(false);
             }
         }
@@ -51,8 +52,8 @@ const Header = () => {
                         <input type="checkbox" name="" id="switcher" className='switcher' />
                         <label className='switchLabel'></label>
                     </div>
-                    <div className="searchCom">
-                        <button className='headerBtnIcon' onClick={() => SetSearchDrop(!searchDrop)}>
+                    <div className="hRightInner dropSearchBtn" ref={btnDropSearchRef}>
+                        <button className='headerBtnIcon' onClick={() => { SetSearchDrop(!searchDrop) }}>
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>

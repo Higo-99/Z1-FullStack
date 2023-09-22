@@ -174,4 +174,23 @@ input[type=checkbox]:checked+.dropCom {
     transform: rotateX(0deg);
 }
 
-.userDropCom {}
+.langExpand-menu {
+    background-color: rgb(147, 255, 141);
+    position: absolute;
+    top: 0px;
+    right: 90px;
+    transform-origin: right;
+    transform: rotateY(90deg);
+    transition: transform 0.15s linear;
+    width: fit-content;
+    display: grid;
+    height: fit-content;
+}
+
+input[type=checkbox]:checked+.langExpand-menu {
+    transform: rotateY(0deg);
+}
+
+input[type=checkbox]:checked+.langExpand-menu {
+    transform: rotateY(0deg);
+}

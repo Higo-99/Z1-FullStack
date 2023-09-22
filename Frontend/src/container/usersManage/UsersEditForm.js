@@ -1,7 +1,7 @@
 import './UsersEditForm.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCameraRetro, faUserDoctor } from "@fortawesome/free-solid-svg-icons";
-import doctorImg from '../img/doctorImg.jpg';
+// import doctorImg from '../img/doctorImg.jpg';
 import { useEditUsersMutation } from './userApiSlice';
 import { useState } from 'react';
 
@@ -51,7 +51,7 @@ const UsersEditForm = ({ user }) => {
                     </div>
 
                     <div className="doctor">
-                        <img src={doctorImg} alt='female doctor smile' />
+                        <img alt='female doctor smile' />
                     </div>
                 </div>
                 <div className="right-container">
