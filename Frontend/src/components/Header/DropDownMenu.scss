@@ -5,6 +5,8 @@ ul {
     place-content: center;
 }
 
+$headerHeigh: 45px;
+
 // START == Burger btn and burger's dropdown menu ==
 
 // START Burger btn
@@ -22,7 +24,7 @@ ul {
 .burger span {
     width: 100%;
     height: 4px;
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     border-radius: 12px;
     display: block;
     transition: background-color 0.3s ease-in-out;
@@ -32,7 +34,7 @@ ul {
 .burger span::after {
     content: "";
     width: 100%;
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     display: block;
     transition: all 0.3s ease-in-out;
     border-radius: 12px;
@@ -66,7 +68,7 @@ ul {
 .dropdown-content {
     background-color: rgb(141, 141, 255);
     position: absolute;
-    top: 40px;
+    top: $headerHeigh;
     left: 0px;
     transform-origin: top;
     transform: rotateX(90deg);
@@ -134,26 +136,26 @@ input[type=checkbox]:checked+.dropCom {
 // START Search Box
 
 .DropdownSeacher {
-    // display: none;
     position: absolute;
     width: 100%;
-    top: 40px;
+    top: $headerHeigh;
     transform-origin: top;
     transform: rotateX(90deg);
     transition: transform 0.15s linear;
+    height: fit-content;
 }
 
 .DropdownSeacher input {
     width: 100%;
+    height: 35px;
     outline: none;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     border: none;
     padding: 0 35px 0 35px;
 }
 
 .DropdownSeacher.active {
-    // display: block;
     transform: rotateX(0deg);
 }
 
@@ -163,7 +165,7 @@ input[type=checkbox]:checked+.dropCom {
 .userDropdown-content {
     background-color: rgb(141, 141, 255);
     position: absolute;
-    top: 40px;
+    top: $headerHeigh;
     right: 0px;
     transform-origin: top;
     transform: rotateX(90deg);

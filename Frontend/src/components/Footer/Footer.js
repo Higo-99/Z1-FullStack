@@ -15,6 +15,7 @@ const Footer = () => {
                             <p>Charm VietNam CO.,LTD</p>
                             <p>Address: 73/4 Nguyễn Ảnh Thủ, Trung Chánh, Hóc Môn, HCM City</p>
                             <p>Email: vantrung.ltv@gmail.com</p>
+                            <p>Phone: 0909 624 113</p>
                             <h2>CERTIFIED</h2>
                             <Link to='http://online.gov.vn/Home/WebDetails/98507' target="_blank">
                                 <img src={certifiedIMG} alt="certified" srcset="" />

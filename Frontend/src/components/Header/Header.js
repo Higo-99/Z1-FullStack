@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faXmark, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from 'react';
 import { BurgerMenuDD, SearchDD, UserDD } from './DropDownMenu';
+import logoImg from '../../img/logo name 3.png'
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [input, setInput] = useState('');
@@ -15,6 +17,11 @@ const Header = () => {
     const [searchDrop, SetSearchDrop] = useState(false);
     const dropSearchRef = useRef();
     const btnDropSearchRef = useRef();
+
+    const navigate = useNavigate();
+    const goHome = () => {
+        navigate('/')
+    };
 
     useEffect(() => {
         let outSearchHandle = (e) => {
@@ -32,7 +39,12 @@ const Header = () => {
     const content = (
         <div className="header-contents">
             <div className="hCom leftCom">
-                <BurgerMenuDD className={'BurgerDiv'} />
+                <div className="innerLeftCom menubtn">
+                    <BurgerMenuDD className={'BurgerDiv'} />
+                </div>
+                <div className="innerLeftCom logo" onClick={goHome}>
+                    <img src={logoImg} alt="logo Img" />
+                </div>
             </div>
             <div className="hCom midCom">
                 <div class="input-box">
