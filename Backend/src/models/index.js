@@ -64,6 +64,6 @@ try {
 }
 
 // Turn  on when ready! It will copy all models to db
-// sequelize.sync({ alter: true });
+sequelize.sync({ alter: true });
 
 module.exports = db;

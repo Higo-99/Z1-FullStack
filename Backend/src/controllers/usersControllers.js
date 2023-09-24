@@ -12,7 +12,7 @@ const getting = async (req, res) => {
 
 //====CREATE NEW USER ====//
 const creating = async (req, res) => {
-    const { email, password, roleId } = req.body;
+    const { email, password } = req.body;
     if (!email, !password) {
         return res.status(400).json({ message: 'Email, Password field are required' });
     };
@@ -21,15 +21,10 @@ const creating = async (req, res) => {
         return res.status(409).json({ message: 'Email has been used' });
     };
     const hashPassword = bcrypt.hashSync(password, 10);
-    const userObject = (!Array.isArray(roleId) || !roleId.length)
-        ? {
-            email,
-            password: hashPassword
-        } : {
-            email,
-            password: hashPassword,
-            roleId
-        };
+    const userObject = {
+        email,
+        password: hashPassword
+    };
 
     const newUser = await db.User.create(userObject);
     if (newUser) {
@@ -58,21 +53,22 @@ const editting = async (req, res) => {
             roleId: roleId
         });
     }
-    res.json({ message: `${user.email}'s profiles have been updated!` });
+    res.json({ message: `${user.email}'s profile has been updated!` });
 };
 
 //==== DELETE USER ====//
 const deleting = async (req, res) => {
     const { id } = req.body;
     if (!id) {
-        return res.status(400).json({ message: 'User ID required!' });
+        return res.status(400).json({ message: `User's ID required!` });
     };
     const user = await db.User.findOne({ where: { id: id } });
     if (!user) {
         return res.status(400).json({ message: 'User not found' });
-    };
-    const result = await db.User.destroy({ where: { id: id } });
-    const reply = `User ${result.email} has been deleted`;
+    } else {
+        await db.User.destroy({ where: { id: id } });
+    }
+    const reply = `User ${user.email} has been deleted`;
     res.json(reply);
 };
 

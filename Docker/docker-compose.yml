@@ -1,33 +1,33 @@
 version: '3.8'
 services:
-  mysql-database:
-    image: mysql:8.0
+  postgres-database:
+    image: postgres:16.0
     container_name: z1_db
     restart: always
     environment:
-      - MYSQL_DATABASE=backend
-      - MYSQL_ROOT_PASSWORD=123456
+      - POSTGRES_DB=backend
+      - POSTGRES_USER=super
+      - POSTGRES_PASSWORD=123456
     ports:
-      - 3306:3306
+      - 5432:5432
+    #     secrets:
+    #       - secretKey
 
-#     secrets:
-#       - secretKey
+    #   backend:
+    #     build:
+    #       context: ../Z1-Backend
+    #       dockerfile: Dockerfile
+    #     container_name: z1_backend1
+    #     depends_on:
+    #       - postgres-database
+    #     restart: unless-stopped
+    #     environment:
+    #       - DB_HOST=postgres-database
+    #     ports:
+    #       - 8080:8080
+    #     secrets:
+    #       - secretKey
 
-#   backend:
-#     build:
-#       context: ../Z1-Backend
-#       dockerfile: Dockerfile
-#     container_name: z1_backend1
-#     depends_on:
-#       - mysql-database
-#     restart: unless-stopped
-#     environment:
-#       - DB_HOST=mysql-database
-#     ports:
-#       - 8080:8080
-#     secrets:
-#       - secretKey
-
-# secrets:
-#   secretKey:
-#     file: secretKey.txt
+    # secrets:
+    #   secretKey:
+    #     file: secretKey.txt

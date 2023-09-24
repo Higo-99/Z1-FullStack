@@ -11,31 +11,30 @@ const Footer = () => {
                 <footer className="topFooter">
                     <div className="footerContents">
                         <div className="links-column">
-                            <h2>ABOUT CHARM</h2>
-                            <p>Charm VietNam CO.,LTD</p>
-                            <p>Address: 73/4 Nguyễn Ảnh Thủ, Trung Chánh, Hóc Môn, HCM City</p>
+                            <h2>CHARME'S PERFUME</h2>
+                            <p>Công ty THHH Charme Việt Nam</p>
+                            <p>Địa chỉ: 73/4 Nguyễn Ảnh Thủ, Trung Chánh, Hóc Môn, HCM</p>
                             <p>Email: vantrung.ltv@gmail.com</p>
-                            <p>Phone: 0909 624 113</p>
-                            <h2>CERTIFIED</h2>
+                            <p>Hotline: 0909 624 113</p>
+                            <h2>CHỨNG NHẬN</h2>
                             <Link to='http://online.gov.vn/Home/WebDetails/98507' target="_blank">
                                 <img src={certifiedIMG} alt="certified" srcset="" />
                             </Link>
                         </div>
                         <div className="links-column">
-                            <h2>CUSTOMER SERVICE</h2>
-                            <Link className='footerLink'>About Charm's Perfume</Link>
-                            <Link className='footerLink'>Perfume Samples</Link>
-                            <Link className='footerLink'>Agent Registration</Link>
+                            <h2>CHĂM SÓC KHÁCH HÀNG</h2>
+                            <Link className='footerLink'>VỀ NƯỚC HOA CHARM</Link>
+                            <Link className='footerLink'>BẢNG MÙI NƯỚC HOA CHARM</Link>
+                            <Link className='footerLink'>ĐĂNG KÝ ĐẠI LÝ</Link>
                             <Link className='footerLink'>Lazada Mall</Link>
                             <Link className='footerLink'>Shopee Mall</Link>
-                            <Link className='footerLink'>Contact</Link>
-                            <Link className='footerLink'>Policies</Link>
+                            <Link className='footerLink'>LIÊN HỆ</Link>
+                            <Link className='footerLink'>CHÍNH SÁCH</Link>
                         </div>
                         <div className="links-column socials-column">
-                            <h2>Social Media</h2>
+                            <h2>MẠNG XÃ HỘI</h2>
                             <p>
-                                Follow us on social media to find out the latest updates on our
-                                progress.
+                                Hãy theo dõi chúng tôi để có thể biết được những thông tin mới nhất về nước hoa Charm.
                             </p>
                             <div className="socialsIcon">
                                 <Link

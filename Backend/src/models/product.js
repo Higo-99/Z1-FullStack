@@ -5,23 +5,15 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class Product extends Model { };
     Product.init({
-        product: DataTypes.STRING,
-        price: DataTypes.STRING,
+        label: DataTypes.STRING,
+        code: DataTypes.STRING,
+        price: DataTypes.INTEGER,
+        discount: DataTypes.INTEGER,
         type: DataTypes.STRING,
+        fragrance: DataTypes.ARRAY(DataTypes.STRING),
+        style: DataTypes.ARRAY(DataTypes.STRING),
+
         product_image: DataTypes.STRING,
-        fragrance: DataTypes.STRING,
-        style: DataTypes.STRING,
-
-        phoneNumber: DataTypes.STRING,
-        gender: DataTypes.BOOLEAN,
-        roleId: {
-            type: DataTypes.STRING,
-            defaultValue: 'Customer'
-        },
-
-        positionId: DataTypes.STRING,
-
-
     }, {
         sequelize,
         modelName: 'Product',

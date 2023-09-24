@@ -3,9 +3,14 @@ ul {
     padding: 5px 0px 10px 0px;
     display: grid;
     place-content: center;
+    border-radius: 0px 0px 10px 10px;
 }
 
 $headerHeigh: 45px;
+$burgerMenuWidth: 160px;
+$burgerMenuHeight: 175px;
+$headerColor: #172940;
+$headerContentColor: white;
 
 // START == Burger btn and burger's dropdown menu ==
 
@@ -15,7 +20,7 @@ $headerHeigh: 45px;
     height: 26px;
     cursor: pointer;
     z-index: 20;
-    background-color: #ff000000;
+    background-color: $headerColor;
     border: none;
     display: grid;
     align-items: center;
@@ -24,7 +29,7 @@ $headerHeigh: 45px;
 .burger span {
     width: 100%;
     height: 4px;
-    background-color: rgb(255, 255, 255);
+    background-color: $headerContentColor;
     border-radius: 12px;
     display: block;
     transition: background-color 0.3s ease-in-out;
@@ -34,7 +39,7 @@ $headerHeigh: 45px;
 .burger span::after {
     content: "";
     width: 100%;
-    background-color: rgb(255, 255, 255);
+    background-color: $headerContentColor;
     display: block;
     transition: all 0.3s ease-in-out;
     border-radius: 12px;
@@ -66,13 +71,15 @@ $headerHeigh: 45px;
 
 // START Burger's dropdown menu
 .dropdown-content {
-    background-color: rgb(141, 141, 255);
+    background-color: $headerColor;
     position: absolute;
     top: $headerHeigh;
     left: 0px;
     transform-origin: top;
     transform: rotateX(90deg);
     transition: transform 0.15s linear;
+    width: $burgerMenuWidth;
+    height: $burgerMenuHeight;
 }
 
 .dropdown-content.active {
@@ -81,7 +88,7 @@ $headerHeigh: 45px;
 
 .dropCom {
     display: block;
-    color: black;
+    color: $headerContentColor;
     width: fit-content;
     height: fit-content;
     padding: 5px 10px;
@@ -90,13 +97,13 @@ $headerHeigh: 45px;
 }
 
 .dropCom.active {
-    color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 0, 0.201);
+    color: rgb(185, 210, 255);
+    background-color: rgb(0, 0, 0);
 }
 
 .dropCom:hover {
-    color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 0, 0.201);
+    color: rgb(185, 210, 255);
+    background-color: rgb(0, 0, 0);
 }
 
 .checkbox {
@@ -107,26 +114,22 @@ input[type=checkbox]:checked+.expand-menu {
     transform: rotateY(0deg);
 }
 
-input[type=checkbox]:checked+.expand-menu {
-    transform: rotateY(0deg);
-}
-
-input[type=checkbox]:checked+.dropCom {
-    color: rgb(255, 255, 255);
-    background-color: rgba(0, 0, 0, 0.201);
-}
-
 .expand-menu {
-    background-color: rgb(147, 255, 141);
+    background-color: $headerColor;
+    color: $headerContentColor;
     position: absolute;
     top: 0px;
-    left: 63px;
+    left: $burgerMenuWidth - 1px;
     transform-origin: left;
     transform: rotateY(90deg);
     transition: transform 0.15s linear;
-    width: 150px;
+    width: $burgerMenuWidth + 20px;
     display: grid;
     height: fit-content;
+}
+
+.expand-menu.types {
+    height: $burgerMenuHeight;
 }
 
 // END Burger's dropdown menu
@@ -143,6 +146,8 @@ input[type=checkbox]:checked+.dropCom {
     transform: rotateX(90deg);
     transition: transform 0.15s linear;
     height: fit-content;
+    padding: 4px 0px;
+    background-color: $headerColor;
 }
 
 .DropdownSeacher input {
@@ -163,7 +168,8 @@ input[type=checkbox]:checked+.dropCom {
 
 // START User's button && dropdown menu
 .userDropdown-content {
-    background-color: rgb(141, 141, 255);
+    background-color: $headerColor;
+    color: $headerContentColor;
     position: absolute;
     top: $headerHeigh;
     right: 0px;
@@ -176,18 +182,18 @@ input[type=checkbox]:checked+.dropCom {
     transform: rotateX(0deg);
 }
 
-.langExpand-menu {
-    background-color: rgb(147, 255, 141);
-    position: absolute;
-    top: 0px;
-    right: 90px;
-    transform-origin: right;
-    transform: rotateY(90deg);
-    transition: transform 0.15s linear;
-    width: fit-content;
-    display: grid;
-    height: fit-content;
-}
+// .langExpand-menu {
+//     background-color: rgb(147, 255, 141);
+//     position: absolute;
+//     top: 0px;
+//     right: 90px;
+//     transform-origin: right;
+//     transform: rotateY(90deg);
+//     transition: transform 0.15s linear;
+//     width: fit-content;
+//     display: grid;
+//     height: fit-content;
+// }
 
 input[type=checkbox]:checked+.langExpand-menu {
     transform: rotateY(0deg);
@@ -195,4 +201,26 @@ input[type=checkbox]:checked+.langExpand-menu {
 
 input[type=checkbox]:checked+.langExpand-menu {
     transform: rotateY(0deg);
+}
+
+$MiniBurgerMenuWidth: 120px;
+
+@media screen and (max-width: 350px) {
+    .dropdown-content {
+        width: $MiniBurgerMenuWidth;
+        font-size: 14px;
+    }
+
+    .expand-menu {
+        left: $MiniBurgerMenuWidth - 1px;
+        width: $MiniBurgerMenuWidth + 20px;
+    }
+
+    .expand-menu.types {
+        height: fit-content;
+    }
+
+    .userDropdown-content {
+        font-size: 14px;
+    }
 }

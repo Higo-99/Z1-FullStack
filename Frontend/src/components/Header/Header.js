@@ -25,7 +25,9 @@ const Header = () => {
 
     useEffect(() => {
         let outSearchHandle = (e) => {
-            if (!dropSearchRef.current.contains(e.target) && !btnDropSearchRef.current.contains(e.target)) {
+            if (!dropSearchRef.current.contains(e.target)
+                && !btnDropSearchRef.current.contains(e.target)
+            ) {
                 SetSearchDrop(false);
             }
         }
@@ -59,25 +61,28 @@ const Header = () => {
                 </div>
             </div>
             <div className="hCom rightCom">
+
                 <div className="hRightInner firstCom">
-                    <div className="switchCom">
+                    {/* <div className="switchCom">
                         <input type="checkbox" name="" id="switcher" className='switcher' />
                         <label className='switchLabel'></label>
-                    </div>
+                    </div> */}
                     <div className="hRightInner dropSearchBtn" ref={btnDropSearchRef}>
                         <button className='headerBtnIcon' onClick={() => { SetSearchDrop(!searchDrop) }}>
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>
+                    <div className="hRightInner cartBtn">
+                        <button className='headerBtnIcon'>
+                            <FontAwesomeIcon icon={faCartShopping} className='headerIcon' />
+                        </button>
+                    </div>
                 </div>
-                <div className="hRightInner cartBtn">
-                    <button className='headerBtnIcon'>
-                        <FontAwesomeIcon icon={faCartShopping} className='headerIcon' />
-                    </button>
-                </div>
-                <div className="hRightInner userBtn">
+
+                <div className="hRightInner secondCom userBtn">
                     <UserDD />
                 </div>
+
             </div>
             <div className="searchdropdownblock" ref={dropSearchRef}>
                 <SearchDD active={searchDrop ? 'active' : 'inactive'} />

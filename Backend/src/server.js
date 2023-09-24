@@ -20,7 +20,8 @@ app.set('views', path.join('./src', 'views'));
 app.set('view engine', 'html');
 
 app.use('/', require('./route/root'));
-app.use('/users', require('./route/usersRoute'));
+app.use('/users', require('./route/userRoutes'));
+app.use('/products', require('./route/productRoutes'));
 app.all('*', (req, res) => {
     res.status(404);
     if (req.accepts('html')) {
