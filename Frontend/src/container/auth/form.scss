@@ -11,15 +11,13 @@ $linearColorLighter: linear-gradient(135deg, rgb(40, 219, 222) 0%,
 }
 
 .background {
-    background: #bfe4ff;
-    height: 100vh;
+    padding: 4rem 0px;
+    margin: auto;
 }
 
 .container {
     width: fit-content;
     height: fit-content;
-    margin: auto;
-    margin-top: 2rem;
     background-color: #FFFFFF;
     border-radius: 25px;
     padding: 25px 20px;

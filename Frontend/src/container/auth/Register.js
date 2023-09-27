@@ -4,7 +4,7 @@ import { faCheck, faTimes, faInfoCircle, faEye, faEyeSlash } from "@fortawesome/
 import { Link, useNavigate } from 'react-router-dom'
 import './form.scss'
 import './Register.scss'
-import { useAddNewUserMutation } from '../usersManage/userApiSlice';
+import { useAddNewUserMutation } from '../UsersManage/userApiSlice';
 
 const EMAIL_REGEX = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -195,7 +195,7 @@ const Register = () => {
 
                 <div className="log-in center">
                     <p>Already have an account?</p>
-                    <Link className='link' to='/'> LOG IN </Link>
+                    <Link className='link' to='/login'> LOG IN </Link>
                 </div>
             </div>
 

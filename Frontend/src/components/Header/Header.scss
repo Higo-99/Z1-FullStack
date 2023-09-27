@@ -18,10 +18,6 @@ $headerColor: #172940;
     grid-template-columns: minmax(100px, 225px) minmax(0px, 500px) minmax(100px, 225px);
     place-content: center;
     background: $headerColor;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 10;
 }
 
 .hCom {

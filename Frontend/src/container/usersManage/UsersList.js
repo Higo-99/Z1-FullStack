@@ -1,5 +1,5 @@
 import useTitle from '../../hooks/useTitle';
-import './Users.scss';
+import './Users-List&Info.scss';
 import { useGetUsersQuery } from './userApiSlice';
 import PulseLoader from 'react-spinners/PulseLoader';
 import UsersInfor from './UsersInfor';

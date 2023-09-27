@@ -1,9 +1,9 @@
-import { memo } from 'react';
+import './Users-List&Info.scss';
 import { useGetUsersQuery } from './userApiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
-import './Users.scss';
+import { memo } from 'react';
 
 const UsersInf = ({ userId }) => {
     const { user } = useGetUsersQuery('usersList', {

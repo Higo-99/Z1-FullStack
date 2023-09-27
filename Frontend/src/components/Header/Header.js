@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faXmark, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from 'react';
 import { BurgerMenuDD, SearchDD, UserDD } from './DropDownMenu';
-import logoImg from '../../img/logo name 3.png'
+import logoImg from '../../img/logo-name-3.png'
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {

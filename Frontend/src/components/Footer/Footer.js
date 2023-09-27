@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './Footer.scss';
-import certifiedIMG from '../../img/logoSaleNoti.png';
+import certifiedIMG from '../../img/logoSaleNotified.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareFacebook, faYoutube } from '@fortawesome/free-brands-svg-icons';
 

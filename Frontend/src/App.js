@@ -1,13 +1,14 @@
 import './App.scss';
 import { Routes, Route } from 'react-router-dom';
-import Login from './container/auth/Login';
-import Register from './container/auth/Register';
-import UsersList from './container/usersManage/UsersList';
-import UsersEdit from './container/usersManage/UsersEdit';
+import Login from './container/Auth/Login';
+import Register from './container/Auth/Register';
+import UsersList from './container/UsersManage/UsersList';
+import UsersEdit from './container/UsersManage/UsersEdit';
 import useTitle from './hooks/useTitle';
-import NotFound from './components/NotFound';
-import Layout from './components/Layout';
+import NotFound from './components/NotFound/NotFound';
+import Layout from './components/Layout/Layout';
 import Test from './Test';
+import HomePage from './container/Pages/HomePage';
 
 function App() {
   useTitle('Z1_App Main page')
@@ -15,8 +16,9 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<Layout />} >
-          <Route index element={<Login />} />
+          <Route index element={<HomePage />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/usersManage'>
             <Route index element={<UsersList />} />
             <Route path=':id' element={<UsersEdit />} />
