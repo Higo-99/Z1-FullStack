@@ -1,0 +1,23 @@
+.HomePage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.top_promption {
+    display: flex;
+    place-content: center;
+    margin: 5px 0px;
+}
+
+.top_promption_img {
+    display: flex;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.carouselBanner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
