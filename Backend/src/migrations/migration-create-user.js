@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      image: {
+        type: Sequelize.STRING
+      },
       email: {
         type: Sequelize.STRING,
         unique: true
@@ -22,23 +25,22 @@ module.exports = {
       lastName: {
         type: Sequelize.STRING
       },
+      birthday: {
+        type: Sequelize.STRING
+      },
       address: {
         type: Sequelize.STRING
       },
       phoneNumber: {
         type: Sequelize.STRING
       },
-
       gender: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.STRING
       },
       roleId: {
         type: Sequelize.STRING
       },
       positionId: {
-        type: Sequelize.STRING
-      },
-      image: {
         type: Sequelize.STRING
       },
 

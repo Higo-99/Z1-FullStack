@@ -90,6 +90,6 @@ const Header = () => {
         </div>
     )
     return content
-}
+};
 
-export default Header
+export default Header;

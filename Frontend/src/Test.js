@@ -1,49 +1,83 @@
-import { useEffect, useRef, useState } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Test = () => {
-    const [C1, setC1] = useState(false);
-    const [C2, setC2] = useState(false);
 
-    let c1Ref = useRef();
-    let c2Ref = useRef();
-
-    useEffect(() => {
-        let handler = (e) => {
-            if (c1Ref.current.contains(e.target)) {
-                setC2(false)
-            }
-            if (c2Ref.current.contains(e.target)) {
-                setC1(false)
-            }
-            else {
-                setC1(false)
-                setC2(false)
-            }
-        }
-        document.addEventListener('mousedown', handler);
-        return () => {
-            document.removeEventListener('mousedown', handler);
-        }
-
-    })
-    const [userDrop, setUserDrop] = useState(false);
-    const UserBtnHandle = () => {
-        setUserDrop(!userDrop)
-        console.log(userDrop)
-    };
-    let userDropActive = userDrop ? 'active' : 'inactive';
-
-    return (
-        <div>
-            <input type="checkbox" name="" id="" checked={C1} ref={c1Ref} onClick={() => setC1(!C1)} />
-            <input type="checkbox" name="" id="" checked={C2} ref={c2Ref} onClick={() => setC2(!C2)} />
-            <button className='headerBtnIcon' onClick={UserBtnHandle}>
-                <FontAwesomeIcon icon={faUser} className='headerIcon' />
-            </button>
-        </div>
-    )
+    // return (
+    //     <div>
+    //         <div className="right-container">
+    //             <form action="" onSubmit={e => e.preventDefault()}>
+    //                 <div className="header">
+    //                     <h1>CHARME PERFUME GREETING {user.email} </h1>
+    //                     <div className="set">
+    //                         <div className="users-firstname">
+    //                             <label for="users-firstname">First Name</label>
+    //                             <input id="users-firstname" placeholder="User's first name" type="text"
+    //                                 value={firstName}
+    //                             />
+    //                         </div>
+    //                         <div className="users-photo">
+    //                             <button id="users-upload">
+    //                                 <FontAwesomeIcon icon={faCameraRetro} />
+    //                             </button>
+    //                             <label for="users-upload">Upload a photo</label>
+    //                         </div>
+    //                     </div>
+    //                     <div className="set">
+    //                         <div className="users-lastname">
+    //                             <label for="users-lastname">Last Name</label>
+    //                             <input id="users-lastname" placeholder="User's last name" type="text"
+    //                                 value={lasttName}
+    //                             />
+    //                         </div>
+    //                         <div className="users-birthday">
+    //                             <label for="users-birthday">Birthday</label>
+    //                             <input id="users-birthday" placeholder="MM/DD/YYYY" type="text" />
+    //                         </div>
+    //                     </div>
+    //                     <div className="set">
+    //                         <div className="users-gender">
+    //                             <label for="users-gender-female">Gender</label>
+    //                             <div className="radio-container">
+    //                                 <input id="users-gender-female" name="users-gender" type="radio" value="0" />
+    //                                 <label for="users-gender-female">Female</label>
+    //                                 <input id="users-gender-male" name="users-gender" type="radio" value="1" />
+    //                                 <label for="users-gender-male">Male</label>
+    //                             </div>
+    //                         </div>
+    //                         <div className="users-phonenumber">
+    //                             <label for="users-phonenumber">Phonenumber</label>
+    //                             <input id="users-phonenumber" placeholder="0123456789" type="text" />
+    //                         </div>
+    //                     </div>
+    //                     <div className="users-address fullline ">
+    //                         <label for="users-address">Address</label>
+    //                         <input id="users-address" placeholder="User's address" type="text" />
+    //                     </div>
+    //                     {/* <div class="users-role">
+    //                             <label for="users-role">User's Role</label>
+    //                             <div class="radio-container">
+    //                                 <input id="users-role-Admin" name="users-role" type="radio" value="Admin" />
+    //                                 <label for="users-role-Admin">Admin</label>
+    //                                 <input id="users-role-Customer" name="users-role" type="radio" value="Customer" />
+    //                                 <label for="users-role-Customer">Customer</label>
+    //                             </div>
+    //                         </div> */}
+    //                 </div>
+    //                 <div className="footer">
+    //                     <div className="footerBtn">
+    //                         <button onClick={handleDelPopup} id="delete">
+    //                             Delete
+    //                         </button>
+    //                     </div>
+    //                     <div className="footerBtn">
+    //                         <button id="save">
+    //                             Save
+    //                         </button>
+    //                     </div>
+    //                 </div>
+    //             </form>
+    //         </div>
+    //     </div>
+    // )
 }
 
 export default Test

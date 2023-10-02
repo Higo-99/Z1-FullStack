@@ -1,0 +1,77 @@
+.ProductsListPage {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    display: block;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: fit-content;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+th {
+    text-transform: uppercase;
+    background-color: #0468aa;
+    color: white;
+    margin: 0 2px;
+    max-width: 200px;
+}
+
+td,
+th {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+tr:hover {
+    background-color: rgb(187, 238, 255);
+}
+
+.table__th,
+.table__cell {
+    text-align: left;
+    border: 1px solid var(--TABLE-COLOR);
+    padding: 0.5em;
+}
+
+.table__cell:last-child {
+    display: grid;
+    place-content: center;
+}
+
+.table__button {
+    padding: 0.25em;
+    font-size: 1.5rem;
+    color: var(--TABLE-COLOR);
+}
+
+.icon-button {
+    width: 12px;
+    height: 15px;
+    font-size: 1.2rem;
+    background-color: transparent;
+    border: none;
+    color: var(--COLOR);
+    display: grid;
+    place-content: center;
+
+}
+
+.icon-button:hover,
+.icon-button:focus-visible {
+    transform: scale(1.2);
+}
+
+.icon-button[disabled] {
+    visibility: hidden;
+}

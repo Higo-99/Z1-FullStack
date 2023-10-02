@@ -4,6 +4,8 @@ $secondary-bg-color: #848de9;
 $font-color: rgba(0, 0, 0, .8);
 $font-family: 'Montserrat', sans-serif;
 $form-border-color: rgba(0, 0, 0, .1);
+$baseFS: 18px;
+$InputH: 40px;
 
 * {
     box-sizing: border-box;
@@ -13,205 +15,165 @@ $form-border-color: rgba(0, 0, 0, .1);
 
 .Edit-background {
     align-items: center;
-    background: #9eccec;
     color: $font-color;
     display: grid;
     font-family: $font-family;
-    font-size: 14px;
+    font-size: $baseFS;
     font-weight: 400;
-    height: 100vh;
-    justify-items: center;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+    place-content: center;
 }
 
-.signup-container {
+.edit-container {
     display: grid;
-    grid-template-areas: "left right";
-    max-width: 900px;
+    grid-template-columns: 1fr 2fr;
+    max-width: 850px;
+    height: fit-content;
+    background: $secondary-bg-color;
+    margin: 10px 0px;
+    border-radius: 10px;
 }
+
+// LEFT CONTAINER ========================
 
 .left-container {
     background: $secondary-bg-color;
     overflow: hidden;
-    // padding: 40px 0 0 0;
     position: relative;
-    text-align: center;
-    width: 300px;
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    place-content: center;
+    border-radius: 10px 0 0 10px;
+}
+
+.innerLC {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: inherit;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
-    & .Logo {
-        flex-grow: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+.Logo {
+    display: flex;
+    font-size: 24px;
+    color: $font-color;
+    font-weight: bold;
 
-        & h1 {
-            color: $font-color;
-            display: inline-block;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            & .icon {
-                background: $primary-bg-color;
-                border-radius: 50%;
-                color: $secondary-bg-color;
-                font-size: 24px;
-                margin-right: 5px;
-                padding: 10px;
-            }
-        }
-    }
-
-    & .doctor {
-        height: fit-content;
-
-        & img {
-            position: relative;
-            bottom: -3px;
-            filter: brightness(110%);
-            width: 100%;
-        }
+    & .editIcon {
+        background: $primary-bg-color;
+        border-radius: 50%;
+        color: $secondary-bg-color;
+        font-size: 24px;
+        margin-right: 5px;
+        padding: 10px;
+        height: 30px;
+        width: 30px;
     }
 }
 
-.right-container {
-    background: lighten($primary-bg-color, 5%);
-    display: grid;
-    grid-template-areas: "." ".";
-    width: 500px;
+.banner {
 
-    & h1:nth-of-type(1) {
-        color: $font-color;
-        font-size: 28px;
-        font-weight: 600;
-    }
-
-    & .set {
-        display: flex;
-        justify-content: space-between;
-        margin: 10px 0;
-    }
-
-    & .fullline {
-        margin: 10px 0;
-    }
-
-    & .fullline>* {
-        display: block;
+    & img {
+        height: fit-content;
         width: 100%;
     }
+}
 
-    & input {
-        border: 1px solid $form-border-color;
-        border-radius: 4px;
-        height: 38px;
-        line-height: 38px;
-        padding-left: 5px;
-    }
+// RIGHT CONTAINER ========================
+
+.right-container {
+    background: #acdcff;
+    display: grid;
+    grid-template-areas: "." ".";
+    border-radius: 0px 10px 10px 0px;
+}
+
+.greeting {
+    color: $font-color;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 20px 0px;
+}
+
+.formHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 1fr;
 
     & input,
     label {
-        color: $font-color;
-    }
-
-    & .header {
-        padding: 40px;
-    }
-
-    & label,
-    input,
-    .users-photo {
-        width: 176px;
-    }
-
-    & .users-photo {
-        align-items: center;
-        display: grid;
-        grid-template-areas: ". .";
-
-        & button {
-            border: none;
-            border-radius: 50%;
-            height: 38px;
-            margin-right: 10px;
-            outline: none;
-            width: 38px;
-        }
-
-        & button i {
-            color: $font-color;
-            font-size: 16px;
-        }
-    }
-
-    .users-role .radio-container {
-        display: flex;
-        justify-content: space-between;
         width: 100%;
+        color: $font-color;
+        text-align: start;
+        font-size: $baseFS;
     }
 
-    .footer {
-        align-items: center;
-        background: #fff;
-        display: grid;
-        padding: 5px 40px;
+    & label {
+        display: flex;
+        cursor: pointer;
+    }
 
-        & button {
-            border: 1px solid rgba(0, 0, 0, .2);
-            height: 38px;
-            line-height: 38px;
-            width: 100px;
-            border-radius: 19px;
-            font-family: $font-family;
-            font-weight: bold;
-            transition: .2s all ease-in-out;
-        }
+    & input {
+        border-radius: 4px;
+        height: $InputH;
+        line-height: 38px;
+        padding: 0px 10px;
+        border: 2px solid transparent;
+        outline: none;
+    }
 
-        & #delete {
-            background: #fff;
-
-            &:hover {
-                background: #990e0e;
-                color: white;
-            }
-        }
-
-        & #save {
-            background: $secondary-bg-color;
-            border: 1px solid transparent;
-            color: #fff;
-
-            &:hover {
-                background: #00c835;
-            }
-        }
+    & input:hover {
+        border: 2px solid #86cdff;
     }
 }
 
-.users-firstname,
-.users-lastname,
-.users-birthday,
-.users-gender,
-.users-phonenumber,
-.users-address,
-.users-role {
-    & label {
-        display: block;
-        margin-bottom: 5px;
-    }
+.set {
+    display: grid;
+    grid-row: repeat(3, 1fr);
+    margin: 0px 10px;
+}
+
+.users {
+    height: 80px;
+    margin: 2px 0px;
+    display: grid;
+    align-items: center;
+}
+
+.users.photo {
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}
+
+.users-upload-input {
+    display: none;
+}
+
+.avatar {
+    display: grid;
+    place-content: center;
+    background-color: rgb(222, 222, 222);
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.fullline {
+    grid-column: 1/3;
+    margin: 0px 10px;
 }
 
 .radio-container {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    justify-content: space-around;
+    width: 100%;
+    height: $InputH;
     background: #fff;
-    border: 1px solid $form-border-color;
     border-radius: 4px;
-    display: inline-block;
-    padding: 5px;
 }
 
 .radio-container label {
@@ -222,10 +184,8 @@ $form-border-color: rgba(0, 0, 0, .1);
     height: 26px;
     line-height: 26px;
     margin: 0;
-    padding: 0;
     text-align: center;
     transition: .2s all ease-in-out;
-    width: 80px;
 }
 
 .radio-container input[type="radio"] {
@@ -237,37 +197,84 @@ $form-border-color: rgba(0, 0, 0, .1);
     border: 1px solid $form-border-color;
 }
 
+.formFooter {
+    align-items: center;
+    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    padding: 15px 0px;
+    margin-top: 15px;
+    border-radius: 0 0 10px 0;
+
+    & button {
+        border: 1px solid rgba(0, 0, 0, .2);
+        height: 38px;
+        line-height: 38px;
+        width: 100px;
+        border-radius: 19px;
+        font-family: $font-family;
+        font-weight: bold;
+        transition: .2s all ease-in-out;
+        font-size: $baseFS;
+        font-weight: 600;
+    }
+
+    & #delete {
+        background: #fff;
+
+        &:hover {
+            background: #990e0e;
+            color: white;
+        }
+    }
+
+    & #save {
+        background: $secondary-bg-color;
+        border: transparent;
+        color: #fff;
+
+        &:hover {
+            background: #00c835;
+        }
+    }
+}
+
 body.active-modal {
     overflow-y: hidden;
 }
 
 .modal,
 .overlay {
-    width: 100vw;
-    height: 100vh;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    position: fixed;
+    position: absolute;
+    z-index: 10;
 }
 
 .overlay {
     background: rgba(49, 49, 49, 0.8);
+    z-index: 10;
 }
 
 .modal-content {
     position: relative;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     line-height: 1.4;
     background: #f1f1f1;
-    padding: 30px 30px 40px 30px;
-    border-radius: 3px;
+    padding: 60px 50px 75px 50px;
+    border-radius: 10px;
     max-width: 500px;
-    min-width: 300px;
+    height: fit-content;
     display: flex;
+    justify-content: center;
+}
+
+.content {
 
     & button {
         position: absolute;
@@ -278,8 +285,11 @@ body.active-modal {
         font-family: $font-family;
         font-weight: bold;
         transition: .2s all ease-in-out;
-        padding: 5px 7px;
+        padding: 8px 20px;
         cursor: pointer;
+        font-size: $baseFS;
+        font-weight: 600;
+        width: fit-content;
     }
 
     & .close-modal {
@@ -294,12 +304,59 @@ body.active-modal {
 
     & .approve-modal {
         bottom: 10px;
-        right: 42%;
-        left: 42%;
+        right: 50%;
+        transform: translateX(50%);
 
         &:hover {
             background: #990e0e;
             color: white;
         }
     }
+}
+
+@media screen and (max-width: 768px) {
+    .edit-container {
+        grid-template-columns: 1fr;
+    }
+
+    .left-container {
+        padding: 20px 0px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .right-container {
+        border-radius: 0 0 10px 10px;
+    }
+
+    .greeting {
+        font-size: 20px;
+        font-weight: 600;
+        padding: 20px;
+    }
+
+    .formFooter {
+        border-radius: 0 0 10px 10px;
+    }
+
+    .formHeader {
+
+        & input,
+        label {
+            font-size: 14px;
+        }
+    }
+}
+
+@media screen and (max-width: 350px) {
+
+    .formHeader {
+        display: flex;
+        flex-direction: column;
+
+        & input,
+        label {
+            font-size: 12px;
+        }
+    }
+
 }

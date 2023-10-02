@@ -136,7 +136,7 @@ export const BurgerMenuDD = () => {
                     />
                     <ul className='expand-menu mall'>
                         <li>
-                            <Link className='dropCom'>VỀ NƯỚC HOA CHARM</Link>
+                            <Link className='dropCom'>VỀ NƯỚC HOA CHARME</Link>
                         </li>
                         <li>
                             <Link className='dropCom'>BÀI VIẾT</Link>
@@ -235,8 +235,15 @@ export const UserDD = () => {
                     </ul>
                 </li> */}
                 <li className='maindrop'>
+                    <Link className='dropCom' to={'/usersManage'}>KHÁCH HÀNG</Link>
+                </li>
+                <li className='maindrop'>
+                    <Link className='dropCom' to={'/productsManage'}>SẢN PHẨM</Link>
+                </li>
+                <li className='maindrop'>
                     <Link className='dropCom'>ĐĂNG XUẤT</Link>
                 </li>
+
             </ul>
         </div>
 

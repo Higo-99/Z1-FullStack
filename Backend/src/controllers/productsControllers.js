@@ -3,7 +3,7 @@ const { Op } = require("sequelize");
 
 //==== GET ALL USERS ====//
 const getting = async (req, res) => {
-    const products = await db.Product.findAll();
+    const products = await db.Products.findAll();
     if (!products) {
         return res.status(400).json({ message: 'No users found' });
     };
@@ -15,7 +15,7 @@ const creating = async (req, res) => {
     if (!label, !code, !price) {
         return res.status(400).json({ message: 'Label, Code, Price field are required' });
     };
-    const duplicate = await db.Product.findOne({
+    const duplicate = await db.Products.findOne({
         where: {
             [Op.or]: [
                 { label: label },
@@ -31,7 +31,7 @@ const creating = async (req, res) => {
         label, code, price, discount, type, fragrance, style
     };
 
-    const newProduct = await db.Product.create(productObject);
+    const newProduct = await db.Products.create(productObject);
     if (newProduct) {
         res.status(201).json({ message: `Add ${label} successfully` });
     }
@@ -42,7 +42,7 @@ const creating = async (req, res) => {
 
 const editting = async (req, res) => {
     const { label, code, price, discount, type, fragrance, style } = req.body;
-    const theProduct = await db.Product.findOne({
+    const theProduct = await db.Products.findOne({
         where: {
             [Op.and]: [
                 { label: label },
@@ -54,7 +54,7 @@ const editting = async (req, res) => {
         return res.status(400).json({ message: 'Product not found' });
     }
 
-    const duplicate = await db.Product.findOne({
+    const duplicate = await db.Products.findOne({
         where: {
             [Op.and]: [
                 { label: label },
@@ -66,7 +66,7 @@ const editting = async (req, res) => {
         return res.status(409).json({ message: 'This product already has in store' });
     }
     else {
-        await db.Product.upsert({
+        await db.Products.upsert({
             label: label,
             code: code,
             price: price,
@@ -84,12 +84,12 @@ const deleting = async (req, res) => {
     if (!id) {
         return res.status(400).json({ message: `Product's ID required!` });
     };
-    const theProduct = await db.Product.findOne({ where: { id: id } });
+    const theProduct = await db.Products.findOne({ where: { id: id } });
     if (!theProduct) {
         return res.status(400).json({ message: 'Product not found' });
     }
     else {
-        await db.Product.destroy({ where: { id: id } });
+        await db.Products.destroy({ where: { id: id } });
     }
     const reply = `Product ${theProduct.code} has been deleted`;
     res.json(reply);

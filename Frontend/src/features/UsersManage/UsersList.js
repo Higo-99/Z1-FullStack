@@ -1,5 +1,5 @@
 import useTitle from '../../hooks/useTitle';
-import './Users-List&Info.scss';
+import './Users-List&Infor.scss';
 import { useGetUsersQuery } from './userApiSlice';
 import PulseLoader from 'react-spinners/PulseLoader';
 import UsersInfor from './UsersInfor';
@@ -34,11 +34,12 @@ const UserList = () => {
                     <thead>
                         <tr>
                             <th scope="col" className='table__th'>Id</th>
+                            <th scope="col" className='table__th'>Email</th>
                             <th scope="col" className='table__th'>First Name</th>
                             <th scope="col" className='table__th'>Last Name</th>
-                            <th scope="col" className='table__th'>Gender</th>
+                            <th scope="col" className='table__th'>Birth day</th>
                             <th scope="col" className='table__th'>Address</th>
-                            <th scope="col" className='table__th'>Email</th>
+                            <th scope="col" className='table__th'>Gender</th>
                             <th scope="col" className='table__th'>Phonenumber</th>
                             <th scope="col" className='table__th'>Edit</th>
                         </tr>
@@ -48,7 +49,6 @@ const UserList = () => {
                     </tbody>
                 </table>
             </div>
-
         );
     }
 

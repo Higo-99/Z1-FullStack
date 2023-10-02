@@ -9,6 +9,8 @@ import NotFound from './components/NotFound/NotFound';
 import Layout from './components/Layout/Layout';
 import Test from './Test';
 import HomePage from './components/Homepages/HomePage';
+import ProductsList from './features/Products/ProductsList';
+import UsersEditForm from './features/UsersManage/UsersEditForm';
 
 function App() {
   useTitle('Z1_App Main page')
@@ -22,6 +24,9 @@ function App() {
           <Route path='/usersManage'>
             <Route index element={<UsersList />} />
             <Route path=':id' element={<UsersEdit />} />
+          </Route>
+          <Route path='/productsManage'>
+            <Route index element={<ProductsList />} />
           </Route>
 
           <Route path='Test' element={<Test />} />

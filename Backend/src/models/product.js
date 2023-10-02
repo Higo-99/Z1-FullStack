@@ -3,21 +3,20 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Product extends Model { };
-    Product.init({
+    class Products extends Model { };
+    Products.init({
+        image: DataTypes.ARRAY(DataTypes.STRING),
         label: DataTypes.STRING,
         code: DataTypes.STRING,
+        stock: DataTypes.INTEGER,
         price: DataTypes.INTEGER,
-        discount: DataTypes.INTEGER,
+        prevPrice: DataTypes.INTEGER,
         type: DataTypes.STRING,
         fragrance: DataTypes.ARRAY(DataTypes.STRING),
-        style: DataTypes.ARRAY(DataTypes.STRING),
-
-        product_image: DataTypes.STRING,
     }, {
         sequelize,
-        modelName: 'Product',
+        modelName: 'Products',
     });
-    return Product;
+    return Products;
 };
 

@@ -38,7 +38,7 @@ const creating = async (req, res) => {
 //==== UPDATE USER ====//
 const editting = async (req, res) => {
     const {
-        id, firstName, lastName, address, phoneNumber, roleId
+        id, image, firstName, lastName, birthday, address, phoneNumber, gender, roleId
     } = req.body;
     const user = await db.User.findOne({ where: { id: id } });
     if (!user) {
@@ -46,10 +46,13 @@ const editting = async (req, res) => {
     } else {
         await db.User.upsert({
             id: id,
+            image: image,
             firstName: firstName,
             lastName: lastName,
+            birthday: birthday,
             address: address,
             phoneNumber: phoneNumber,
+            gender: gender,
             roleId: roleId
         });
     }
