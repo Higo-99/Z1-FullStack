@@ -49,7 +49,7 @@ const Header = () => {
                 </div>
             </div>
             <div className="hCom midCom">
-                <div class="input-box">
+                <div className="input-box">
                     <button className='searchBtn'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
                     <input type='text' placeholder='Search here...' value={input} onChange={inputHandle} />
                     <button

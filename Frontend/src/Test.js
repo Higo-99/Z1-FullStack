@@ -1,83 +1,130 @@
+import { useEffect, useRef, useState } from "react";
+import './Test.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Test = () => {
+    const [images, setImages] = useState([]);
+    const [preImages, setPreImages] = useState([]);
+    const [isDragging, setIsDragging] = useState(false);
+    const fileInputRef = useRef();
 
-    // return (
-    //     <div>
-    //         <div className="right-container">
-    //             <form action="" onSubmit={e => e.preventDefault()}>
-    //                 <div className="header">
-    //                     <h1>CHARME PERFUME GREETING {user.email} </h1>
-    //                     <div className="set">
-    //                         <div className="users-firstname">
-    //                             <label for="users-firstname">First Name</label>
-    //                             <input id="users-firstname" placeholder="User's first name" type="text"
-    //                                 value={firstName}
-    //                             />
-    //                         </div>
-    //                         <div className="users-photo">
-    //                             <button id="users-upload">
-    //                                 <FontAwesomeIcon icon={faCameraRetro} />
-    //                             </button>
-    //                             <label for="users-upload">Upload a photo</label>
-    //                         </div>
-    //                     </div>
-    //                     <div className="set">
-    //                         <div className="users-lastname">
-    //                             <label for="users-lastname">Last Name</label>
-    //                             <input id="users-lastname" placeholder="User's last name" type="text"
-    //                                 value={lasttName}
-    //                             />
-    //                         </div>
-    //                         <div className="users-birthday">
-    //                             <label for="users-birthday">Birthday</label>
-    //                             <input id="users-birthday" placeholder="MM/DD/YYYY" type="text" />
-    //                         </div>
-    //                     </div>
-    //                     <div className="set">
-    //                         <div className="users-gender">
-    //                             <label for="users-gender-female">Gender</label>
-    //                             <div className="radio-container">
-    //                                 <input id="users-gender-female" name="users-gender" type="radio" value="0" />
-    //                                 <label for="users-gender-female">Female</label>
-    //                                 <input id="users-gender-male" name="users-gender" type="radio" value="1" />
-    //                                 <label for="users-gender-male">Male</label>
-    //                             </div>
-    //                         </div>
-    //                         <div className="users-phonenumber">
-    //                             <label for="users-phonenumber">Phonenumber</label>
-    //                             <input id="users-phonenumber" placeholder="0123456789" type="text" />
-    //                         </div>
-    //                     </div>
-    //                     <div className="users-address fullline ">
-    //                         <label for="users-address">Address</label>
-    //                         <input id="users-address" placeholder="User's address" type="text" />
-    //                     </div>
-    //                     {/* <div class="users-role">
-    //                             <label for="users-role">User's Role</label>
-    //                             <div class="radio-container">
-    //                                 <input id="users-role-Admin" name="users-role" type="radio" value="Admin" />
-    //                                 <label for="users-role-Admin">Admin</label>
-    //                                 <input id="users-role-Customer" name="users-role" type="radio" value="Customer" />
-    //                                 <label for="users-role-Customer">Customer</label>
-    //                             </div>
-    //                         </div> */}
-    //                 </div>
-    //                 <div className="footer">
-    //                     <div className="footerBtn">
-    //                         <button onClick={handleDelPopup} id="delete">
-    //                             Delete
-    //                         </button>
-    //                     </div>
-    //                     <div className="footerBtn">
-    //                         <button id="save">
-    //                             Save
-    //                         </button>
-    //                     </div>
-    //                 </div>
-    //             </form>
-    //         </div>
-    //     </div>
-    // )
+    const selectFiles = () => {
+        fileInputRef.current.click();
+    };
+
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            };
+            fileReader.onerror = (error) => {
+                reject(error)
+            };
+        })
+    };
+
+    const onFileSelect = async (e) => {
+        const files = e.target.files;
+        if (files.length === 0) return;
+        for (let i = 0; i < files.length; i++) {
+            if (!preImages.some(e => e.name === files[i].name)) {
+                setPreImages(theImg => [
+                    ...theImg, {
+                        name: files[i].name,
+                        url: URL.createObjectURL(files[i])
+                    }]
+                );
+                const convertImg = await convertToBase64(files[i]);
+                setImages(theBI => [
+                    ...theBI, {
+                        name: files[i].name,
+                        data: convertImg
+                    }]
+                );
+            }
+        };
+    };
+
+    const deletePreImage = (theImg) => {
+        if (theImg.url) {
+            setPreImages(preImages.filter(e => e.url !== theImg.url));
+            URL.revokeObjectURL(theImg.url);
+        };
+        setImages(images.filter(e => e.name !== theImg.name));
+    };
+
+    const onDragOver = (e) => {
+        e.preventDefault();
+        setIsDragging(true);
+        e.dataTransfer.dropEffect = 'copy';
+    };
+
+    const onDragLeave = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+    };
+
+    const onDrop = async (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const files = e.dataTransfer.files;
+        for (let i = 0; i < files.length; i++) {
+            if (!preImages.some(e => e.name === files[i].name)) {
+                setPreImages(theImg => [
+                    ...theImg, {
+                        name: files[i].name,
+                        url: URL.createObjectURL(files[i])
+                    }]
+                );
+                const convertImg = await convertToBase64(files[i]);
+                setImages(theBI => [...theBI, convertImg])
+            }
+        };
+    };
+
+    const content = (
+        <div className="imgsInputCard">
+            <div className="top">
+                <p>TEST Drag & Drop img uploading</p>
+            </div>
+            <div className="drag-area"
+                onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}
+            >
+                {isDragging ? (<span className="select">
+                    Drop img here
+                </span>) : (<div className="">
+                    Drag & Drop here or {''}
+                    <span className="select" onClick={selectFiles}>
+                        Browse
+                    </span>
+                </div>)}
+
+                <input type="file" name="file" id="file" className="file"
+                    multiple ref={fileInputRef} onChange={onFileSelect} />
+            </div>
+
+            <div className="imgsContainer">
+                {preImages && preImages.map((theImg, index) => (
+                    <div className="image" key={theImg.name}>
+                        <span className="delete" onClick={() => deletePreImage(theImg)}>
+                            <div className="imgsDelIcon">
+                                <FontAwesomeIcon icon={faXmark} />
+                            </div>
+                        </span>
+                        <img src={theImg.url} alt="" />
+                    </div>
+                ))}
+            </div>
+            <button type="button">
+                Upload
+            </button>
+        </div>
+    );
+
+    return content;
 }
 
 export default Test

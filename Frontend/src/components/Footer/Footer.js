@@ -18,7 +18,7 @@ const Footer = () => {
                             <p>Hotline: 0909 624 113</p>
                             <h2>CHỨNG NHẬN</h2>
                             <Link to='http://online.gov.vn/Home/WebDetails/98507' target="_blank">
-                                <img src={certifiedIMG} alt="certified" srcset="" />
+                                <img src={certifiedIMG} alt="certified" />
                             </Link>
                         </div>
                         <div className="links-column">

@@ -9,8 +9,8 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            image: {
-                type: Sequelize.ARRAY(Sequelize.STRING)
+            images: {
+                type: Sequelize.ARRAY(Sequelize.TEXT)
             },
             label: {
                 type: Sequelize.STRING

@@ -57,7 +57,7 @@ export const BurgerMenuDD = () => {
     return (
         <div className='burgerDropdown-menu' ref={burgerRef}>
             {/* Burger Button */}
-            <button class={`burger ${burgerStateCheck}`} onClick={burgerBtnHandle}>
+            <button className={`burger ${burgerStateCheck}`} onClick={burgerBtnHandle}>
                 <span></span>
             </button>
             {/* End Burger Button */}
@@ -79,7 +79,7 @@ export const BurgerMenuDD = () => {
                     </label>
                     <input
                         type="checkbox" name="checkbox-Types" id="checkbox-Types" className='checkbox'
-                        checked={checkBox1} onClick={() => setcheckBox1(!checkBox1)}
+                        checked={checkBox1} onClick={() => setcheckBox1(!checkBox1)} readOnly
                     />
                     <ul className='expand-menu types'>
                         <li>
@@ -110,7 +110,7 @@ export const BurgerMenuDD = () => {
                     </label>
                     <input
                         type="checkbox" name="checkbox-Types" id="checkbox-Types2" className='checkbox'
-                        checked={checkBox2} onClick={() => setcheckBox2(!checkBox2)}
+                        checked={checkBox2} onClick={() => setcheckBox2(!checkBox2)} readOnly
                     />
                     <ul className='expand-menu mall'>
                         <li>
@@ -132,7 +132,7 @@ export const BurgerMenuDD = () => {
                     </label>
                     <input
                         type="checkbox" name="checkbox-Types" id="checkbox-Types3" className='checkbox'
-                        checked={checkBox3} onClick={() => setcheckBox3(!checkBox3)}
+                        checked={checkBox3} onClick={() => setcheckBox3(!checkBox3)} readOnly
                     />
                     <ul className='expand-menu mall'>
                         <li>
@@ -164,7 +164,7 @@ export const SearchDD = ({ active }) => {
     };
 
     return (
-        <div class={`DropdownSeacher ${active}`}>
+        <div className={`DropdownSeacher ${active}`}>
             <button className='searchBtn'><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
             <input type='text' placeholder='Search here...' value={input} onChange={inputHandle} />
             <button
@@ -207,10 +207,18 @@ export const UserDD = () => {
 
     return (
         <div className="userDropdown-menu" ref={userDropRef}>
-            <button className='headerBtnIcon' onClick={UserBtnHandle}>
-                <FontAwesomeIcon icon={faUser} className='headerIcon' />
-            </button>
+            <div className="userBtnContents">
+                <button className='headerBtnIcon' onClick={UserBtnHandle} id='headerBtnIcon'>
+                    <FontAwesomeIcon icon={faUser} className='headerIcon' />
+                </button>
+                <div className="userBtnLabel">
+                    <label htmlFor='headerBtnIcon'>{`<User's name>`}</label>
+                    {/* <label htmlFor='headerBtnIcon'>ĐĂNG NHẬP/ ĐĂNG KÝ</label> */}
+                </div>
+            </div>
+
             <ul className={`userDropdown-content ${userDropActive}`} >
+                {/* <ul className={`userDropdown-content`} > */}
                 <li className='maindrop'>
                     <Link className='dropCom'>THÔNG TIN TÀI KHOẢN</Link>
                 </li>
@@ -223,7 +231,7 @@ export const UserDD = () => {
                     </label>
                     <input
                         type="checkbox" name="checkbox-lang" id="checkbox-lang" className='checkbox'
-                        checked={checkBox} onClick={() => setcheckBox(!checkBox)}
+                        checked={checkBox} onClick={() => setcheckBox(!checkBox)} readOnly
                     />
                     <ul className='langExpand-menu'>
                         <li>
@@ -235,7 +243,7 @@ export const UserDD = () => {
                     </ul>
                 </li> */}
                 <li className='maindrop'>
-                    <Link className='dropCom' to={'/usersManage'}>KHÁCH HÀNG</Link>
+                    <Link className='dropCom' to={'/usersManage'}>NGƯỜI DÙNG</Link>
                 </li>
                 <li className='maindrop'>
                     <Link className='dropCom' to={'/productsManage'}>SẢN PHẨM</Link>
@@ -243,9 +251,17 @@ export const UserDD = () => {
                 <li className='maindrop'>
                     <Link className='dropCom'>ĐĂNG XUẤT</Link>
                 </li>
+            </ul>
 
+            {/* <ul className={`userDropdown-content ${userDropActive}`} > */}
+            <ul className={`userDropdown-content`} >
+                <li className='maindrop'>
+                    <Link className='dropCom' to={'/login'}>ĐĂNG NHẬP</Link>
+                </li>
+                <li className='maindrop'>
+                    <Link className='dropCom' to={'/register'}>ĐĂNG KÝ</Link>
+                </li>
             </ul>
         </div>
-
     )
-}
+};

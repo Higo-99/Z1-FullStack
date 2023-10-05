@@ -167,15 +167,23 @@ input[type=checkbox]:checked+.expand-menu {
 // END Search Box
 
 // START User's button && dropdown menu
+.userBtnContents {
+    display: flex;
+    color: $headerContentColor;
+    width: fit-content;
+    position: relative;
+}
+
 .userDropdown-content {
     background-color: $headerColor;
     color: $headerContentColor;
     position: absolute;
     top: $headerHeigh;
-    right: 0px;
+    right: 0;
     transform-origin: top;
     transform: rotateX(90deg);
     transition: transform 0.15s linear;
+    width: 100%;
 }
 
 .userDropdown-content.active {
@@ -204,6 +212,11 @@ input[type=checkbox]:checked+.langExpand-menu {
 }
 
 $MiniBurgerMenuWidth: 120px;
+@media screen and (max-width: 768px) {
+    .userBtnLabel {
+        display: none;
+    }
+}
 
 @media screen and (max-width: 350px) {
     .dropdown-content {

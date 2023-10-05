@@ -24,8 +24,8 @@ const UsersEditForm = ({ user }) => {
         }
     ] = useDeleteUserMutation();
 
-    const [image, setImage] = useState();
-    const userImage = user.image;
+    const [avatar, setAvatar] = useState('');
+    const [image, setImage] = useState(user.image);
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
     const [birthday, setBirthday] = useState(user.birthday);
@@ -40,29 +40,43 @@ const UsersEditForm = ({ user }) => {
         imgInputRef.current.click();
     };
 
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            };
+            fileReader.onerror = (error) => {
+                reject(error)
+            };
+        })
+    };
+
     useEffect(() => {
         return () => {
-            image && URL.revokeObjectURL(image.preview);
+            avatar && URL.revokeObjectURL(avatar.preview);
         }
-    }, [image]);
-    const handlePreviewAvatar = (e) => {
+    }, [avatar]);
+
+    const handlePreviewAvatar = async (e) => {
         const file = e.target.files[0];
-        file.preview = URL.createObjectURL(file)
-        setImage(file);
+        file.preview = URL.createObjectURL(file);
+        setAvatar(file);
+        const base64 = await convertToBase64(file);
+        setImage(base64);
     };
 
     let avatarContent;
-    if (image) {
-        avatarContent = <img src={image.preview} alt="" className='avatar' />
+    if (avatar) {
+        avatarContent = <img src={avatar.preview} alt="" className='avatar' />
     }
-    else if (userImage) {
-        avatarContent = <img src={userImage} alt="" className='avatar' />
+    else if (image) {
+        avatarContent = <img src={image} alt="" className='avatar' />
     }
     else {
         avatarContent = <FontAwesomeIcon className='cameraIcon' icon={faCameraRetro} />
     };
-
-    const navigate = useNavigate();
 
     const onSaveEdit = async () => {
         if (!isEditLoading) {
@@ -76,15 +90,17 @@ const UsersEditForm = ({ user }) => {
         await deleteUser({ id: user.id })
     }
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         if (isEditSuccess || isDelSuccess) {
-            setImage('')
-            setFirstName('')
-            setLastName('')
-            setBirthday('')
-            setPhoneNumber('')
-            setAddress('')
-            setRoleId('')
+            // setAvatar('')
+            // setFirstName('')
+            // setLastName('')
+            // setBirthday('')
+            // setPhoneNumber('')
+            // setAddress('')
+            // setRoleId('')
             navigate('/usersManage')
         }
     }, [isEditSuccess, isDelSuccess, navigate]);
@@ -142,9 +158,9 @@ const UsersEditForm = ({ user }) => {
                                     <div className="avatar" onClick={handleImgInput} id='users-upload'>
                                         {avatarContent}
                                     </div>
-                                    <label for="users-upload">Upload avatar</label>
+                                    <label onClick={handleImgInput}>Upload avatar</label>
                                     <input type="file" className="users-upload-input" id="img" name="img" accept="image/*"
-                                        ref={imgInputRef} onChange={handlePreviewAvatar} />
+                                        ref={imgInputRef} onChange={handlePreviewAvatar} max-size={50000} />
                                 </div>
                                 <div className="users firstname">
                                     <label for="users-firstname">First Name</label>
@@ -193,9 +209,9 @@ const UsersEditForm = ({ user }) => {
                                 />
                             </div>
 
-                            <div class="users role fullline offscreen">
+                            <div className="users role fullline offscreen">
                                 <label for="users-role">User's Role</label>
-                                <div class="radio-container">
+                                <div className="radio-container">
                                     <input id="users-role-Admin" name="users-role" type="radio" value="Admin" />
                                     <label for="users-role-Admin">Admin</label>
                                     <input id="users-role-Customer" name="users-role" type="radio" value="Customer" />
