@@ -19,8 +19,8 @@ module.exports = {
                 type: Sequelize.STRING,
                 unique: true
             },
-            stock: {
-                type: Sequelize.INTEGER
+            volume: {
+                type: Sequelize.STRING
             },
             price: {
                 type: Sequelize.INTEGER
@@ -28,11 +28,17 @@ module.exports = {
             prevPrice: {
                 type: Sequelize.INTEGER
             },
+            stock: {
+                type: Sequelize.INTEGER
+            },
             type: {
                 type: Sequelize.STRING
             },
             fragrance: {
                 type: Sequelize.ARRAY(Sequelize.STRING)
+            },
+            description: {
+                type: Sequelize.TEXT
             },
 
             createdAt: {

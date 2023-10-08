@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
+$primary-bg-color: #acdcff;
+$secondary-bg-color: #848de9;
+$font-color: rgba(0, 0, 0, .8);
+$font-family: 'Montserrat', sans-serif;
+$form-border-color: rgba(0, 0, 0, .1);
+$baseFS: 18px;
+$InputH: 40px;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.productFormBackground {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+}
+
+.productFormContent {
+    align-items: center;
+    color: $font-color;
+    display: flex;
+    font-family: $font-family;
+    font-size: $baseFS;
+    font-weight: 400;
+    height: 100%;
+    width: 100%;
+    place-content: center;
+    margin: 10px 0;
+}
+
+.productForm {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 2fr 70px;
+    max-width: 870px;
+    background-color: $secondary-bg-color;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.productFormHeader {
+    font-size: x-large;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .PFHicon {
+        margin-right: 10px;
+    }
+}
+
+.mainProductForm {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    background-color: $primary-bg-color;
+    border-radius: 10px 10px 0 0;
+}
+
+.top {
+    margin: 5px 0;
+}
+
+.imgsInputCard {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.imgsInputCard p {
+    font-weight: bold;
+}
+
+.drag-area {
+    height: 150px;
+    user-select: none;
+    -webkit-user-select: none;
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px;
+}
+
+.innerD-D-area {
+    color: #0086fe;
+    width: 100%;
+    height: 100%;
+    background: #f4f3f9;
+    border: 3px dashed #0086fe;
+    outline: 15px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.drag-area .visible {
+    font-size: 18px;
+}
+
+.select {
+    color: #1e25b7;
+    cursor: pointer;
+    transition: 0.1s;
+    font-weight: 600;
+}
+
+.select:hover {
+    color: #0086fe;
+}
+
+.imgsContainer {
+    width: 100%;
+    height: auto;
+    // border-top: 2px solid #0086fe;
+    // border-bottom: 2px solid #0086fe;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-height: 240px;
+    overflow-y: auto;
+    background-color: #FFFFFF;
+}
+
+.image {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    position: relative;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.imgsInputCard input,
+.drag-area .on-drop,
+.drag-area.dragover .visible {
+    display: none;
+}
+
+.delete {
+    z-index: 10;
+    font-size: 15px;
+    cursor: pointer;
+    color: #0086fe;
+    background-color: #f4f3f9de;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}
+
+.delete:hover {
+    color: #fe0000;
+}
+
+.productFormBtn {
+    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    padding: 15px 0px;
+    border-radius: 0 0 10px 10px;
+
+    & button {
+        border: 1px solid rgba(0, 0, 0, .2);
+        height: 38px;
+        line-height: 38px;
+        width: 100px;
+        border-radius: 19px;
+        font-family: $font-family;
+        font-weight: bold;
+        transition: .2s all ease-in-out;
+        font-size: $baseFS;
+        font-weight: 600;
+    }
+
+    & .AddNewBtn {
+        background: $secondary-bg-color;
+        border: transparent;
+        color: #fff;
+
+        &:hover {
+            background: #00c835;
+        }
+    }
+}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import './Test.scss';
+// import './Test.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 

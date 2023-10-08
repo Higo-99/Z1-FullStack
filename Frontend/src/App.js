@@ -10,6 +10,7 @@ import Layout from './components/Layout/Layout';
 import Test from './Test';
 import HomePage from './components/Homepages/HomePage';
 import ProductsList from './features/Products/ProductsList';
+import ProductNewForm from './features/Products/ProductNewForm';
 
 function App() {
   useTitle('Z1_App Main page')
@@ -26,6 +27,7 @@ function App() {
           </Route>
           <Route path='/productsManage'>
             <Route index element={<ProductsList />} />
+            <Route path='addNew' element={<ProductNewForm />} />
           </Route>
 
           <Route path='Test' element={<Test />} />

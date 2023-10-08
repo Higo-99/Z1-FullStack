@@ -11,10 +11,13 @@ const getting = async (req, res) => {
 };
 
 const creating = async (req, res) => {
-    const { label, code, price, discount, type, fragrance, style } = req.body;
+    const {
+        images, label, code, volume, price, prevPrice, type, fragrance, description
+    } = req.body;
     if (!label, !code, !price) {
         return res.status(400).json({ message: 'Label, Code, Price field are required' });
     };
+
     const duplicate = await db.Products.findOne({
         where: {
             [Op.or]: [
@@ -28,9 +31,8 @@ const creating = async (req, res) => {
     };
 
     const productObject = {
-        label, code, price, discount, type, fragrance, style
+        images, label, code, volume, price, prevPrice, type, fragrance, description
     };
-
     const newProduct = await db.Products.create(productObject);
     if (newProduct) {
         res.status(201).json({ message: `Add ${label} successfully` });
@@ -41,18 +43,9 @@ const creating = async (req, res) => {
 };
 
 const editting = async (req, res) => {
-    const { label, code, price, discount, type, fragrance, style } = req.body;
-    const theProduct = await db.Products.findOne({
-        where: {
-            [Op.and]: [
-                { label: label },
-                { code: code }
-            ]
-        }
-    });
-    if (!theProduct) {
-        return res.status(400).json({ message: 'Product not found' });
-    }
+    const {
+        id, images, label, code, volume, price, prevPrice, type, fragrance, description
+    } = req.body;
 
     const duplicate = await db.Products.findOne({
         where: {
@@ -64,16 +57,23 @@ const editting = async (req, res) => {
     });
     if (duplicate) {
         return res.status(409).json({ message: 'This product already has in store' });
-    }
-    else {
+    };
+
+    const theProduct = await db.Products.findOne({ where: { id: id } });
+    if (!theProduct) {
+        return res.status(400).json({ message: 'Product not found' });
+    } else {
         await db.Products.upsert({
+            id: id,
+            images: images,
             label: label,
             code: code,
+            volume: volume,
             price: price,
-            discount: discount,
+            prevPrice: prevPrice,
             type: type,
             fragrance: fragrance,
-            style: style
+            description: description,
         });
     }
     res.json({ message: `Product ${theProduct.code}'s data has been updated!` });
