@@ -1,5 +1,7 @@
-# FullStack project can run on Docker!
-# Developing!
-# Database MySQL 
-# Backend NodeJs, Expess, JWT, Sequelize
-# Frontend React, Redux, JS, SCSS 
+# FullStack WEB project. 
+# On Developing!
+# Backend NodeJs, Express, JWT, Sequelize
+# Frontend React, Redux, SCSS 
+# Database PostgreSQL
+# Can run on Docker!
+
