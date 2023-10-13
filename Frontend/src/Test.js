@@ -1,26 +1,25 @@
 // import './Test.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { fragranceList } from './features/Products/ProductSelectOptions';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const Test = () => {
-    const [fragrance, setFragrance] = useState([]);
+    const [introduce, setIntroduce] = useState('');
+    const [style, setStyle] = useState('');
+    const [description, setDescription] = useState('');
 
-    const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
-
-    const selectFragrance = (fragranceOption) => {
-        if (fragrance.includes(fragranceOption)) {
-            setFragrance(fragrance.filter(op => op !== fragranceOption))
-        }
-        else {
-            setFragrance([...fragrance, fragranceOption])
-        }
+    const handleSubmit = () => {
+        console.log(description)
     };
 
-    const isSelected = (fragranceOption) => {
-        return fragrance.includes(fragranceOption);
-    };
+    const introduceRef = useRef();
+    useEffect(() => {
+        introduceRef.current.style.height = introduceRef.current.scrollHeight + 'px';
+        setDescription({
+            introduce: introduce,
+            style: style
+        });
+    }, [introduce, style]);
 
     const content = (
         <div className="productFormBackground">
@@ -38,59 +37,17 @@ const Test = () => {
                                 <input type="text" id="labelProduct" />
                             </div>
 
-
-                            <div className="fragrance Product">
-                                <label htmlFor="fragranceProduct">Fragrance</label>
-
-                                <div
-                                    tabIndex={0} className="fragranceSelect" id="fragranceProduct"
-                                    onClick={() => setIsFragSelectOpen(!isFragSelectOpen)} onBlur={() => setIsFragSelectOpen(false)}
-                                >
-                                    <span className='fragranceValue'>
-                                        {fragrance.map(frag => (
-                                            <button key={frag.value} className="option-badge"
-                                                onClick={e => {
-                                                    e.stopPropagation()
-                                                    selectFragrance(frag)
-                                                }}
-                                            >
-                                                {frag.label}
-                                                <span className='remove-btn'><FontAwesomeIcon icon={faXmark} /></span>
-                                            </button>
-                                        ))}
-                                    </span>
-                                    <div className="fragranceClearBTN"
-                                        onClick={(e) => {
-                                            e.stopPropagation()
-                                            setFragrance([])
-                                        }}
-                                    >
-                                        <FontAwesomeIcon icon={faXmark} />
-                                    </div>
-                                    <div className="fragranceDivider"></div>
-                                    <div className={`fragranceCaret ${isFragSelectOpen ? 'active' : ''}`}
-                                        onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
-                                    ></div>
-                                    <ul className={`fragranceList ${isFragSelectOpen ? 'active' : ''}`}>
-                                        {fragranceList.map(fragranceOption => (
-                                            <li key={fragranceOption.value}
-                                                className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
-                                                onClick={e => {
-                                                    e.stopPropagation()
-                                                    selectFragrance(fragranceOption)
-                                                }}
-                                            >
-                                                {fragranceOption.label}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-
-
                             <div className="description Product">
                                 <label htmlFor="descriptionProduct">Description</label>
-                                <input type="text" name="descriptionProduct" id="descriptionProduct" />
+                                <div className="descriptionProductContent">
+                                    <label htmlFor="introduce">Introduce</label>
+                                    <textarea name="introduce" id="introduce"
+                                        ref={introduceRef} className='ProductIntroduce'
+                                        value={introduce} onChange={(e) => setIntroduce(e.target.value)} />
+                                    <label htmlFor="style">Style</label>
+                                    <input type="text" name="style" id="style" className='ProductStyle'
+                                        value={style} onChange={(e) => setStyle(e.target.value)} />
+                                </div>
                             </div>
 
                         </div>
@@ -101,7 +58,7 @@ const Test = () => {
                     </div>
 
                     <div className="productFormBtn">
-                        <button className="AddNewBtn" >
+                        <button className="AddNewBtn" onClick={handleSubmit}>
                             Add New
                         </button>
                     </div>

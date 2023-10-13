@@ -15,13 +15,15 @@ const ProductNewForm = () => {
     const [formatPrice, setFormatPrice] = useState();
     const [prevPrice, setPrevPrice] = useState();
     const [formatPrevPrice, setFormatPrevPrice] = useState();
-    const [type, setType] = useState('');
+    const [type, setType] = useState('Nam');
     const [fragrance, setFragrance] = useState([]);
-    const [description, setdescription] = useState('');
+    const [description, setDescription] = useState('');
     const [images, setImages] = useState([]);
     const [preImages, setPreImages] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
-    const fileInputRef = useRef();
+
+    const [introduce, setIntroduce] = useState('');
+    const [style, setStyle] = useState('');
 
     const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, "");
@@ -33,22 +35,19 @@ const ProductNewForm = () => {
     const onChangePrice = (e) => {
         setFormatPrice(addCommas(removeNonNumeric(e.target.value)));
     };
-    useEffect(() => {
-        if (formatPrice) {
-            const number = formatPrice.replace(/,/g, '');
-            setPrice(parseInt(number));
-        }
-    }, [formatPrice]);
-
     const onChangePrevPrice = (e) => {
         setFormatPrevPrice(addCommas(removeNonNumeric(e.target.value)));
     };
     useEffect(() => {
+        if (formatPrice) {
+            const number = formatPrice.replace(/,/g, '');
+            setPrice(parseInt(number));
+        };
         if (formatPrevPrice) {
             const number = formatPrevPrice.replace(/,/g, '');
             setPrevPrice(parseInt(number));
-        }
-    }, [formatPrevPrice]);
+        };
+    }, [formatPrice, formatPrevPrice]);
 
     const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
 
@@ -65,6 +64,16 @@ const ProductNewForm = () => {
         return fragrance.includes(fragranceOption);
     };
 
+    const introduceRef = useRef();
+    useEffect(() => {
+        introduceRef.current.style.height = introduceRef.current.scrollHeight + 'px';
+        setDescription({
+            introduce: introduce,
+            style: style
+        });
+    }, [introduce, style]);
+
+    const fileInputRef = useRef();
     const selectFiles = () => {
         fileInputRef.current.click();
     };
@@ -152,7 +161,7 @@ const ProductNewForm = () => {
             // await addNewProduct({
             //     images, label, code, price, prevPrice
             // })
-            console.log(images, label, code, volume, price, prevPrice, fragrance)
+            console.log(images, label, code, stock, price, prevPrice, type, volume, fragrance, description)
         }
     };
 
@@ -284,7 +293,15 @@ const ProductNewForm = () => {
 
                             <div className="description Product">
                                 <label htmlFor="descriptionProduct">Description</label>
-                                <input type="text" name="descriptionProduct" id="descriptionProduct" />
+                                <div className="descriptionProductContent">
+                                    <label htmlFor="introduce">Introduce</label>
+                                    <textarea name="introduce" id="introduce"
+                                        ref={introduceRef} className='ProductIntroduce'
+                                        value={introduce} onChange={(e) => setIntroduce(e.target.value)} />
+                                    <label htmlFor="style">Style</label>
+                                    <input type="text" name="style" id="style" className='ProductStyle'
+                                        value={style} onChange={(e) => setStyle(e.target.value)} />
+                                </div>
                             </div>
 
                         </div>

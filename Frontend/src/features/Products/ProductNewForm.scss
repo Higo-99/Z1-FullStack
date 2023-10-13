@@ -69,6 +69,11 @@ $InputHeight: 40px;
     margin: 5px 0;
 }
 
+.smallTopProduct {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
 .Product {
     min-height: 80px;
     margin: 2px 0px;
@@ -76,35 +81,45 @@ $InputHeight: 40px;
     align-items: center;
     margin: 0px 10px;
 
+    & label,
     & input,
-    label {
-        height: 100%;
+    & select,
+    & .ProductIntroduce {
         width: 100%;
         color: $font-color;
         text-align: start;
+        font-family: $font-family;
         font-size: $baseFS;
     }
 
     & label {
+        height: 30px;
         display: grid;
         align-items: center;
         cursor: pointer;
+        font-weight: 600;
     }
 
     & input,
     & select,
-    & .fragranceSelect {
+    & .fragranceSelect,
+    & .ProductIntroduce {
         border-radius: 4px;
         min-height: $InputHeight;
-        height: fit-content;
+        max-height: 200px;
         line-height: 38px;
         padding: 0px 10px;
         border: 2px solid transparent;
         outline: none;
+        resize: none;
     }
 
     & input:hover,
-    & input:focus {
+    & input:focus,
+    & .fragranceSelect:hover,
+    & .fragranceSelect:focus,
+    & .ProductIntroduce:hover,
+    & .ProductIntroduce:focus {
         border: 2px solid #86cdff;
     }
 }
@@ -115,11 +130,6 @@ $InputHeight: 40px;
     display: flex;
     align-items: center;
     position: relative;
-}
-
-.fragranceSelect:hover,
-.fragranceSelect:focus {
-    border: 2px solid #86cdff;
 }
 
 .fragranceValue {
@@ -236,15 +246,10 @@ $InputHeight: 40px;
     color: #000000;
 }
 
-.description.Product {
-    & input {
-        height: max-content;
-    }
-}
-
-.smallTopProduct {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.descriptionProductContent {
+    border: 3px dotted $secondary-bg-color;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .imgsInputCard {
