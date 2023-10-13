@@ -9,14 +9,16 @@ const ProductNewForm = () => {
     const [label, setLabel] = useState('');
     const [code, setCode] = useState('');
     const [volume, setVolume] = useState('');
+    const [stock, setStock] = useState('');
     const [price, setPrice] = useState();
     const [formatPrice, setFormatPrice] = useState();
     const [prevPrice, setPrevPrice] = useState();
     const [formatPrevPrice, setFormatPrevPrice] = useState();
     const [type, setType] = useState('');
-    const [fragrance, setFragrance] = useState([]);
-    const [descripton, setDescripton] = useState('');
 
+    const [fragrance, setFragrance] = useState([]);
+
+    const [description, setdescription] = useState('');
     const [images, setImages] = useState([]);
     const [preImages, setPreImages] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
@@ -163,47 +165,68 @@ const ProductNewForm = () => {
 
                     <div className="mainProductForm">
                         <div className="top">
-                            <div className="label">
+                            <div className="label Product">
                                 <label htmlFor="labelProduct">Label</label>
                                 <input type="text" id="labelProduct"
                                     value={label} onChange={(e) => setLabel(e.target.value)} />
                             </div>
 
-                            <div className="">
-                                <div className="codeProduct">
+                            <div className="smallTopProduct">
+                                <div className="code Product">
                                     <label htmlFor="codeProduct">Code</label>
                                     <input type="text" id="codeProduct"
                                         value={code} onChange={(e) => setCode(e.target.value)} />
                                 </div>
-                                <div className="volumeProduct">
+                                <div className="stock Product">
+                                    <label htmlFor="stockProduct">Stock</label>
+                                    <input type="number" id="stockProduct"
+                                        value={stock} onChange={(e) => setStock(e.target.value)} />
+                                </div>
+                            </div>
+
+                            <div className="smallTopProduct">
+                                <div className="formatPrice Product">
+                                    <label htmlFor="formatPrice Product">Price</label>
+                                    <input type="text" id="formatPrice Product"
+                                        value={formatPrice} onChange={onChangePrice} />
+                                </div>
+                                <div className="formatPrevPrice Product">
+                                    <label htmlFor="formatPrevPrice Product">PrevPrice</label>
+                                    <input type="text" id="formatPrevPrice Product"
+                                        value={formatPrevPrice} onChange={onChangePrevPrice} />
+                                </div>
+                            </div>
+
+                            <div className="smallTopProduct">
+                                <div className="type Product">
+                                    <label htmlFor="typeProduct">Type</label>
+                                    <select id="typeProduct" name="typeProduct" className="selectTypeProduct"
+                                        value={type} onChange={(e) => setType(e.target.value)}
+                                    >
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nu">Nữ</option>
+                                        <option value="Unisex">Unisex</option>
+                                        <option value="Xe-Hoi">Xe Hơi</option>
+                                        <option value="Tre-Em">Trẻ Em</option>
+                                    </select>
+                                </div>
+                                <div className="volume Product">
                                     <label htmlFor="volumeProduct">Volume</label>
                                     <input type="text" id="volumeProduct"
                                         value={volume} onChange={onChangeVolume} />
                                 </div>
                             </div>
-
-                            <div className="formatPrice">
-                                <label htmlFor="formatPrice">Price</label>
-                                <input type="text" id="formatPrice"
-                                    value={formatPrice} onChange={onChangePrice} />
-                            </div>
-                            <div className="formatPrevPrice">
-                                <label htmlFor="formatPrevPrice">Price</label>
-                                <input type="text" id="formatPrevPrice"
-                                    value={formatPrevPrice} onChange={onChangePrevPrice} />
-                            </div>
-                            <div className="typeProduct">
-                                <label htmlFor="typeProduct">Type</label>
-                                <select id="typeProduct" name="typeProduct" className="typeProduct"
-                                    value={type} onChange={(e) => setType(e.target.value)}
-                                >
-                                    <option value="Nam">Nam</option>
-                                    <option value="Nu">Nữ</option>
-                                    <option value="Unisex">Unisex</option>
-                                    <option value="XeHoi">Xe Hơi</option>
-                                    <option value="TreEm">Trẻ Em</option>
+                            <div className="fragrance Product">
+                                <label htmlFor="fragranceProduct">Fragrance</label>
+                                <select name="fragranceProduct" id="fragranceProduct">
+                                    OPTIONS
                                 </select>
                             </div>
+                            <div className="description Product">
+                                <label htmlFor="descriptionProduct">Description</label>
+                                <input type="text" name="descriptionProduct" id="descriptionProduct" />
+                            </div>
+
                         </div>
                         <div className="imgsInputCard">
                             <p>Images uploading</p>
@@ -211,11 +234,11 @@ const ProductNewForm = () => {
                                 onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}
                             >
                                 <div className="innerD-D-area">
-                                    {isDragging ? (<span className="select">
+                                    {isDragging ? (<span className="imgsSelect">
                                         Drop img here
                                     </span>) : (<div className="">
                                         Drag & Drop here or {''}
-                                        <span className="select" onClick={selectFiles}>
+                                        <span className="imgsSelect" onClick={selectFiles}>
                                             Browse
                                         </span>
                                     </div>)}

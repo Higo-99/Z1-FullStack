@@ -1,127 +1,102 @@
-import { useEffect, useRef, useState } from "react";
 // import './Test.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { fragranceList } from './ProductSelectOptions';
+import { useState } from 'react';
 
 const Test = () => {
-    const [images, setImages] = useState([]);
-    const [preImages, setPreImages] = useState([]);
-    const [isDragging, setIsDragging] = useState(false);
-    const fileInputRef = useRef();
+    // const [selectedFrag, setSelectedFrag] = useState(fragranceList[0]);
+    const [fragrance, setFragrance] = useState();
 
-    const selectFiles = () => {
-        fileInputRef.current.click();
+    const [isOpen, setIsOpen] = useState(false);
+
+    const selectFragrance = (fragranceOption) => {
+        if (fragranceOption !== fragrance) {
+            setFragrance(fragranceOption)
+        }
     };
 
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-            fileReader.onload = () => {
-                resolve(fileReader.result)
-            };
-            fileReader.onerror = (error) => {
-                reject(error)
-            };
-        })
-    };
-
-    const onFileSelect = async (e) => {
-        const files = e.target.files;
-        if (files.length === 0) return;
-        for (let i = 0; i < files.length; i++) {
-            if (!preImages.some(e => e.name === files[i].name)) {
-                setPreImages(theImg => [
-                    ...theImg, {
-                        name: files[i].name,
-                        url: URL.createObjectURL(files[i])
-                    }]
-                );
-                const convertImg = await convertToBase64(files[i]);
-                setImages(theBI => [
-                    ...theBI, {
-                        name: files[i].name,
-                        data: convertImg
-                    }]
-                );
-            }
-        };
-    };
-
-    const deletePreImage = (theImg) => {
-        if (theImg.url) {
-            setPreImages(preImages.filter(e => e.url !== theImg.url));
-            URL.revokeObjectURL(theImg.url);
-        };
-        setImages(images.filter(e => e.name !== theImg.name));
-    };
-
-    const onDragOver = (e) => {
-        e.preventDefault();
-        setIsDragging(true);
-        e.dataTransfer.dropEffect = 'copy';
-    };
-
-    const onDragLeave = (e) => {
-        e.preventDefault();
-        setIsDragging(false);
-    };
-
-    const onDrop = async (e) => {
-        e.preventDefault();
-        setIsDragging(false);
-        const files = e.dataTransfer.files;
-        for (let i = 0; i < files.length; i++) {
-            if (!preImages.some(e => e.name === files[i].name)) {
-                setPreImages(theImg => [
-                    ...theImg, {
-                        name: files[i].name,
-                        url: URL.createObjectURL(files[i])
-                    }]
-                );
-                const convertImg = await convertToBase64(files[i]);
-                setImages(theBI => [...theBI, convertImg])
-            }
-        };
+    const isSelected = (fragranceOption) => {
+        return fragranceOption === fragrance;
     };
 
     const content = (
-        <div className="imgsInputCard">
-            <div className="top">
-                <p>TEST Drag & Drop img uploading</p>
-            </div>
-            <div className="drag-area"
-                onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}
-            >
-                {isDragging ? (<span className="select">
-                    Drop img here
-                </span>) : (<div className="">
-                    Drag & Drop here or {''}
-                    <span className="select" onClick={selectFiles}>
-                        Browse
-                    </span>
-                </div>)}
-
-                <input type="file" name="file" id="file" className="file"
-                    multiple ref={fileInputRef} onChange={onFileSelect} />
-            </div>
-
-            <div className="imgsContainer">
-                {preImages && preImages.map((theImg, index) => (
-                    <div className="image" key={theImg.name}>
-                        <span className="delete" onClick={() => deletePreImage(theImg)}>
-                            <div className="imgsDelIcon">
-                                <FontAwesomeIcon icon={faXmark} />
-                            </div>
-                        </span>
-                        <img src={theImg.url} alt="" />
+        <div className="productFormBackground">
+            <div className="productFormContent">
+                <form className="productForm" action="" onSubmit={(e) => e.preventDefault()}>
+                    <div className="productFormHeader">
+                        <FontAwesomeIcon className="PFHicon" icon={faCirclePlus} />
+                        <p className="PFHcontent">ADD NEW PRODUCT</p>
                     </div>
-                ))}
+
+                    <div className="mainProductForm">
+                        <div className="top">
+                            <div className="label Product">
+                                <label htmlFor="labelProduct">Label</label>
+                                <input type="text" id="labelProduct" />
+                            </div>
+
+
+                            <div className="fragrance Product">
+                                <label htmlFor="fragranceProduct">Fragrance</label>
+
+                                <div
+                                    tabIndex={0} className="fragranceSelect" id="fragranceProduct"
+                                    onClick={() => setIsOpen(!isOpen)} onBlur={() => setIsOpen(false)}
+                                >
+                                    <span className='fragranceValue'>{fragrance?.label}</span>
+                                    <div className="fragranceClearBTN"
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            setFragrance(undefined)
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faXmark} />
+                                    </div>
+                                    <div className="fragranceDivider"></div>
+                                    <div className={`fragranceCaret ${isOpen ? 'active' : ''}`}
+                                        onClick={() => setIsOpen(!isOpen)}
+                                    ></div>
+                                    <ul className={`fragranceList ${isOpen ? 'active' : ''}`}>
+                                        {fragranceList.map(fragranceOption => (
+                                            <li key={fragranceOption.value}
+                                                className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
+                                                onClick={e => {
+                                                    e.stopPropagation()
+                                                    selectFragrance(fragranceOption)
+                                                }}
+                                            >
+                                                {fragranceOption.label}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div className="description Product">
+                                <label htmlFor="descriptionProduct">Description</label>
+                                <input type="text" name="descriptionProduct" id="descriptionProduct" />
+                            </div>
+
+                        </div>
+                        <div className="imgsInputCard">
+                            <p>Images uploading</p>
+
+                        </div>
+                    </div>
+
+                    <div className="productFormBtn">
+                        <button className="AddNewBtn" >
+                            Add New
+                        </button>
+                    </div>
+                </form>
+
             </div>
-            <button type="button">
-                Upload
-            </button>
         </div>
+
+
     );
 
     return content;

@@ -1,109 +1,113 @@
-.imgsInputCard {
-    padding: 10px;
-    box-shadow: 0 0 5px #ffdfdf;
-    border-radius: 5px;
-    overflow: hidden;
+.container {
     position: relative;
-}
-
-.top {
-    text-align: center;
-}
-
-.imgsInputCard p {
-    font-weight: bold;
-    color: rgb(39, 129, 255);
-}
-
-.imgsInputCard button {
-    outline: 0;
-    border: 0;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 400;
-    padding: 8px 13px;
-    width: 100%;
-    background-color: cadetblue;
-}
-
-.drag-area {
-    height: 150px;
-    border-radius: 5px;
-    border: 2px dashed #0086fe;
-    color: #0086fe;
-    background: #f4f3f9;
+    width: 20em;
+    min-height: 1.5em;
+    border: .05em solid #777;
     display: flex;
-    justify-content: center;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.drag-area .visible {
-    font-size: 18px;
-}
-
-.select {
-    color: #1e25b7;
-    cursor: pointer;
-    transition: 0.1s;
-    font-weight: 600;
-}
-
-.select:hover {
-    color: #0086fe;
-}
-
-.imgsContainer {
-    width: 100%;
-    height: auto;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    max-height: 240px;
-    overflow-y: auto;
-    margin-top: 10x;
-    background-color: #FFFFFF;
-}
-
-.image {
-    width: 100px;
-    height: 100px;
-    margin: 10px;
-    position: relative;
-}
-
-.image img {
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
-    object-fit: cover;
-}
-
-.imgsInputCard input,
-.drag-area .on-drop,
-.drag-area.dragover .visible {
-    display: none;
-}
-
-.delete {
-    z-index: 10;
-    font-size: 15px;
-    cursor: pointer;
-    color: #0086fe;
-    background-color: #f4f3f9de;
-    border-radius: 50%;
-    height: 20px;
-    width: 20px;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    position: absolute;
-    right: 2px;
-    top: 2px;
+    gap: .5em;
+    padding: .5em;
+    border-radius: .25em;
+    outline: none;
 }
 
-.delete:hover {
-    color: #fe0000;
+.container:focus {
+    border-color: hsl(200, 100%, 50%);
+}
+
+.value {
+    flex-grow: 1;
+    display: flex;
+    gap: .5em;
+    flex-wrap: wrap;
+}
+
+.clear-btn {
+    background: none;
+    color: #777;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.25em;
+}
+
+.clear-btn:focus,
+.clear-btn:hover {
+    color: #333;
+}
+
+.divider {
+    background-color: #777;
+    align-self: stretch;
+    width: .05em;
+}
+
+.caret {
+    translate: 0 25%;
+    border: .25em solid transparent;
+    border-top-color: #777;
+}
+
+.options {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: none;
+    max-height: 15em;
+    overflow-y: auto;
+    border: .05em solid #777;
+    border-radius: .25em;
+    width: 100%;
+    left: 0;
+    top: calc(100% + .25em);
+    background-color: white;
+    z-index: 100;
+}
+
+.options.show {
+    display: block;
+}
+
+.option {
+    padding: .25em .5em;
+    cursor: pointer;
+}
+
+.option.selected {
+    background-color: hsl(200, 100%, 70%);
+}
+
+.option.highlighted {
+    background-color: hsl(200, 100%, 50%);
+    color: white
+}
+
+.option-badge {
+    display: flex;
+    align-items: center;
+    border: .05em solid #777;
+    border-radius: .25em;
+    padding: .15em .25em;
+    gap: .25em;
+    cursor: pointer;
+    background: none;
+    outline: none;
+}
+
+.option-badge:hover,
+.option-badge:focus {
+    background-color: hsl(0, 100%, 90%);
+    border-color: hsl(0, 100%, 50%);
+}
+
+.option-badge:hover>.remove-btn,
+.option-badge:focus>.remove-btn {
+    color: hsl(0, 100%, 50%);
+}
+
+.option-badge>.remove-btn {
+    font-size: 1.25em;
+    color: #777;
 }

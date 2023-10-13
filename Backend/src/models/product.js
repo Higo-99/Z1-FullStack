@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         images: DataTypes.ARRAY(DataTypes.TEXT),
         label: DataTypes.STRING,
         code: DataTypes.STRING,
-        volume: DataTypes.STRING,
+        stock: DataTypes.INTEGER,
         price: DataTypes.INTEGER,
         prevPrice: DataTypes.INTEGER,
-        stock: DataTypes.INTEGER,
         type: DataTypes.STRING,
+        volume: DataTypes.STRING,
         fragrance: DataTypes.ARRAY(DataTypes.STRING),
         description: DataTypes.TEXT,
     }, {

@@ -7,9 +7,7 @@ import { faMagnifyingGlass, faXmark, faUser } from "@fortawesome/free-solid-svg-
 // Burger's button && menu dropdown
 export const BurgerMenuDD = () => {
     const [burgerState, setBurgerState] = useState(false);
-    const burgerBtnHandle = () => {
-        setBurgerState(!burgerState)
-    };
+
     let burgerStateCheck = burgerState ? 'active' : 'inactive';
 
     let burgerRef = useRef();
@@ -22,20 +20,24 @@ export const BurgerMenuDD = () => {
     let checkBox2Ref = useRef();
     let checkBox3Ref = useRef();
 
+    const OnlCheckBox1 = () => {
+        setcheckBox1(!checkBox1)
+        setcheckBox2(false)
+        setcheckBox3(false)
+    };
+    const OnlCheckBox2 = () => {
+        setcheckBox2(!checkBox2)
+        setcheckBox1(false)
+        setcheckBox3(false)
+    };
+    const OnlCheckBox3 = () => {
+        setcheckBox3(!checkBox3)
+        setcheckBox2(false)
+        setcheckBox1(false)
+    };
+
     useEffect(() => {
         let handler = (e) => {
-            if (checkBox1Ref.current.contains(e.target)) {
-                setcheckBox2(false)
-                setcheckBox3(false)
-            }
-            if (checkBox2Ref.current.contains(e.target)) {
-                setcheckBox1(false)
-                setcheckBox3(false)
-            }
-            if (checkBox3Ref.current.contains(e.target)) {
-                setcheckBox1(false)
-                setcheckBox2(false)
-            }
             if (!checkBox1Ref.current.contains(e.target)
                 && !checkBox2Ref.current.contains(e.target)
                 && !checkBox3Ref.current.contains(e.target)) {
@@ -52,12 +54,12 @@ export const BurgerMenuDD = () => {
         return () => {
             document.removeEventListener('mousedown', handler);
         }
-    })
+    });
 
     return (
-        <div className='burgerDropdown-menu' ref={burgerRef}>
+        <div className='burgerDropdown-menu' ref={burgerRef} >
             {/* Burger Button */}
-            <button className={`burger ${burgerStateCheck}`} onClick={burgerBtnHandle}>
+            <button className={`burger ${burgerStateCheck}`} onClick={() => setBurgerState(!burgerState)} >
                 <span></span>
             </button>
             {/* End Burger Button */}
@@ -79,7 +81,7 @@ export const BurgerMenuDD = () => {
                     </label>
                     <input
                         type="checkbox" name="checkbox-Types" id="checkbox-Types" className='checkbox'
-                        checked={checkBox1} onClick={() => setcheckBox1(!checkBox1)} readOnly
+                        checked={checkBox1} onClick={OnlCheckBox1} readOnly
                     />
                     <ul className='expand-menu types'>
                         <li>
@@ -110,7 +112,7 @@ export const BurgerMenuDD = () => {
                     </label>
                     <input
                         type="checkbox" name="checkbox-Types" id="checkbox-Types2" className='checkbox'
-                        checked={checkBox2} onClick={() => setcheckBox2(!checkBox2)} readOnly
+                        checked={checkBox2} onClick={OnlCheckBox2} readOnly
                     />
                     <ul className='expand-menu mall'>
                         <li>
@@ -132,7 +134,7 @@ export const BurgerMenuDD = () => {
                     </label>
                     <input
                         type="checkbox" name="checkbox-Types" id="checkbox-Types3" className='checkbox'
-                        checked={checkBox3} onClick={() => setcheckBox3(!checkBox3)} readOnly
+                        checked={checkBox3} onClick={OnlCheckBox3} readOnly
                     />
                     <ul className='expand-menu mall'>
                         <li>
@@ -181,40 +183,33 @@ export const SearchDD = ({ active }) => {
 // User menu dropdown
 export const UserDD = () => {
     const [userDrop, setUserDrop] = useState(false);
-    const UserBtnHandle = () => {
-        setUserDrop(!userDrop)
-    };
+
     let userDropActive = userDrop ? 'active' : 'inactive';
 
-    const userDropRef = useRef();
     // const [checkBox, setcheckBox] = useState(false);
     // const checkBoxRef = useRef();
-    useEffect(() => {
-        let outuserDropHandle = (e) => {
-            if (!userDropRef.current.contains(e.target)) {
-                setUserDrop(false);
-            }
-            // if (!checkBoxRef.current.contains(e.target)) {
-            //     setcheckBox(false);
-            // }
-        }
-        document.addEventListener('mousedown', outuserDropHandle);
+    // useEffect(() => {
+    //     let outuserDropHandle = (e) => {
+    //         if (!checkBoxRef.current.contains(e.target)) {
+    //             setcheckBox(false);
+    //         }
+    //     }
+    //     document.addEventListener('mousedown', outuserDropHandle);
 
-        return () => {
-            document.removeEventListener('mousedown', outuserDropHandle)
-        };
-    });
+    //     return () => {
+    //         document.removeEventListener('mousedown', outuserDropHandle)
+    //     };
+    // });
 
     return (
-        <div className="userDropdown-menu" ref={userDropRef}>
+        <div className="userDropdown-menu" >
             <div className="userBtnContents">
-                <button className='headerBtnIcon' onClick={UserBtnHandle} id='headerBtnIcon'>
+                <button className='headerBtnIcon' id='headerBtnIcon'
+                    onClick={() => setUserDrop(!userDrop)} onBlur={() => setUserDrop(false)}
+                >
                     <FontAwesomeIcon icon={faUser} className='headerIcon' />
+                    <label>{`<User's name>`}</label>
                 </button>
-                <div className="userBtnLabel">
-                    <label htmlFor='headerBtnIcon'>{`<User's name>`}</label>
-                    {/* <label htmlFor='headerBtnIcon'>ĐĂNG NHẬP/ ĐĂNG KÝ</label> */}
-                </div>
             </div>
 
             <ul className={`userDropdown-content ${userDropActive}`} >
@@ -225,7 +220,8 @@ export const UserDD = () => {
                 <li className='maindrop'>
                     <Link className='dropCom'>YÊU THÍCH</Link>
                 </li>
-                {/* <li className='maindrop'>
+
+                {/*  <li className='maindrop'>
                     <label ref={checkBoxRef} htmlFor="checkbox-lang" className='dropCom'>
                         Language
                     </label>
@@ -241,7 +237,8 @@ export const UserDD = () => {
                             <Link className='dropCom'>English</Link>
                         </li>
                     </ul>
-                </li> */}
+                </li>  */}
+
                 <li className='maindrop'>
                     <Link className='dropCom' to={'/usersManage'}>NGƯỜI DÙNG</Link>
                 </li>

@@ -12,7 +12,7 @@ const getting = async (req, res) => {
 
 const creating = async (req, res) => {
     const {
-        images, label, code, volume, price, prevPrice, type, fragrance, description
+        images, label, code, stock, volume, price, prevPrice, type, fragrance, description
     } = req.body;
     if (!label, !code, !price) {
         return res.status(400).json({ message: 'Label, Code, Price field are required' });
@@ -31,7 +31,7 @@ const creating = async (req, res) => {
     };
 
     const productObject = {
-        images, label, code, volume, price, prevPrice, type, fragrance, description
+        images, label, code, stock, volume, price, prevPrice, type, fragrance, description
     };
     const newProduct = await db.Products.create(productObject);
     if (newProduct) {
@@ -44,7 +44,7 @@ const creating = async (req, res) => {
 
 const editting = async (req, res) => {
     const {
-        id, images, label, code, volume, price, prevPrice, type, fragrance, description
+        id, images, label, code, stock, volume, price, prevPrice, type, fragrance, description
     } = req.body;
 
     const duplicate = await db.Products.findOne({
@@ -68,6 +68,7 @@ const editting = async (req, res) => {
             images: images,
             label: label,
             code: code,
+            stock: stock,
             volume: volume,
             price: price,
             prevPrice: prevPrice,

@@ -5,7 +5,7 @@ $font-color: rgba(0, 0, 0, .8);
 $font-family: 'Montserrat', sans-serif;
 $form-border-color: rgba(0, 0, 0, .1);
 $baseFS: 18px;
-$InputH: 40px;
+$InputHeight: 40px;
 
 * {
     box-sizing: border-box;
@@ -116,7 +116,7 @@ $InputH: 40px;
 
     & input {
         border-radius: 4px;
-        height: $InputH;
+        height: $InputHeight;
         line-height: 38px;
         padding: 0px 10px;
         border: 2px solid transparent;
@@ -172,7 +172,7 @@ $InputH: 40px;
     padding: 0px 10px;
     justify-content: space-around;
     width: 100%;
-    height: $InputH;
+    height: $InputHeight;
     background: #fff;
     border-radius: 4px;
 }
@@ -252,12 +252,12 @@ body.active-modal {
     right: 0;
     bottom: 0;
     position: absolute;
-    z-index: 10;
+    z-index: 11;
 }
 
 .overlay {
     background: rgba(49, 49, 49, 0.8);
-    z-index: 10;
+    z-index: 11;
 }
 
 .modal-content {
@@ -347,6 +347,8 @@ body.active-modal {
         }
     }
 }
+
+@media screen and (max-width: 475px) {}
 
 @media screen and (max-width: 350px) {
 

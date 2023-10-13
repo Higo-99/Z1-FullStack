@@ -15,28 +15,11 @@ const Header = () => {
         setInput('')
     };
     const [searchDrop, SetSearchDrop] = useState(false);
-    const dropSearchRef = useRef();
-    const btnDropSearchRef = useRef();
 
     const navigate = useNavigate();
     const goHome = () => {
         navigate('/')
     };
-
-    useEffect(() => {
-        let outSearchHandle = (e) => {
-            if (!dropSearchRef.current.contains(e.target)
-                && !btnDropSearchRef.current.contains(e.target)
-            ) {
-                SetSearchDrop(false);
-            }
-        }
-        document.addEventListener('mousedown', outSearchHandle);
-
-        return () => {
-            document.removeEventListener('mousedown', outSearchHandle);
-        }
-    });
 
     const content = (
         <div className="header-contents">
@@ -67,8 +50,10 @@ const Header = () => {
                         <input type="checkbox" name="" id="switcher" className='switcher' />
                         <label className='switchLabel'></label>
                     </div> */}
-                    <div className="hRightInner dropSearchBtn" ref={btnDropSearchRef}>
-                        <button className='headerBtnIcon' onClick={() => { SetSearchDrop(!searchDrop) }}>
+                    <div className="hRightInner dropSearchBtn">
+                        <button className='headerBtnIcon'
+                            onClick={() => { SetSearchDrop(!searchDrop) }}
+                            onBlur={() => SetSearchDrop(false)} >
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>
@@ -84,7 +69,7 @@ const Header = () => {
                 </div>
 
             </div>
-            <div className="searchdropdownblock" ref={dropSearchRef}>
+            <div className="searchdropdownblock" >
                 <SearchDD active={searchDrop ? 'active' : 'inactive'} />
             </div>
         </div>
