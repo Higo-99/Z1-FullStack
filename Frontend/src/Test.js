@@ -1,23 +1,25 @@
 // import './Test.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { fragranceList } from './ProductSelectOptions';
+import { fragranceList } from './features/Products/ProductSelectOptions';
 import { useState } from 'react';
 
 const Test = () => {
-    // const [selectedFrag, setSelectedFrag] = useState(fragranceList[0]);
-    const [fragrance, setFragrance] = useState();
+    const [fragrance, setFragrance] = useState([]);
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
 
     const selectFragrance = (fragranceOption) => {
-        if (fragranceOption !== fragrance) {
-            setFragrance(fragranceOption)
+        if (fragrance.includes(fragranceOption)) {
+            setFragrance(fragrance.filter(op => op !== fragranceOption))
+        }
+        else {
+            setFragrance([...fragrance, fragranceOption])
         }
     };
 
     const isSelected = (fragranceOption) => {
-        return fragranceOption === fragrance;
+        return fragrance.includes(fragranceOption);
     };
 
     const content = (
@@ -42,22 +44,34 @@ const Test = () => {
 
                                 <div
                                     tabIndex={0} className="fragranceSelect" id="fragranceProduct"
-                                    onClick={() => setIsOpen(!isOpen)} onBlur={() => setIsOpen(false)}
+                                    onClick={() => setIsFragSelectOpen(!isFragSelectOpen)} onBlur={() => setIsFragSelectOpen(false)}
                                 >
-                                    <span className='fragranceValue'>{fragrance?.label}</span>
+                                    <span className='fragranceValue'>
+                                        {fragrance.map(frag => (
+                                            <button key={frag.value} className="option-badge"
+                                                onClick={e => {
+                                                    e.stopPropagation()
+                                                    selectFragrance(frag)
+                                                }}
+                                            >
+                                                {frag.label}
+                                                <span className='remove-btn'><FontAwesomeIcon icon={faXmark} /></span>
+                                            </button>
+                                        ))}
+                                    </span>
                                     <div className="fragranceClearBTN"
                                         onClick={(e) => {
                                             e.stopPropagation()
-                                            setFragrance(undefined)
+                                            setFragrance([])
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faXmark} />
                                     </div>
                                     <div className="fragranceDivider"></div>
-                                    <div className={`fragranceCaret ${isOpen ? 'active' : ''}`}
-                                        onClick={() => setIsOpen(!isOpen)}
+                                    <div className={`fragranceCaret ${isFragSelectOpen ? 'active' : ''}`}
+                                        onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
                                     ></div>
-                                    <ul className={`fragranceList ${isOpen ? 'active' : ''}`}>
+                                    <ul className={`fragranceList ${isFragSelectOpen ? 'active' : ''}`}>
                                         {fragranceList.map(fragranceOption => (
                                             <li key={fragranceOption.value}
                                                 className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
