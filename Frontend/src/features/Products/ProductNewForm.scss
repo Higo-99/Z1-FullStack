@@ -1,0 +1,407 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
+$primary-bg-color: #acdcff;
+$secondary-bg-color: #848de9;
+$font-color: rgba(0, 0, 0, .8);
+$font-family: 'Montserrat', sans-serif;
+$form-border-color: rgba(0, 0, 0, .1);
+$baseFS: 18px;
+$InputHeight: 40px;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.productFormBackground {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+}
+
+.productFormContent {
+    align-items: center;
+    color: $font-color;
+    display: flex;
+    font-family: $font-family;
+    font-size: $baseFS;
+    font-weight: 400;
+    height: 100%;
+    width: 100%;
+    place-content: center;
+    margin: 10px 0;
+}
+
+.productForm {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50px 2fr 70px;
+    max-width: 860px;
+    background-color: $secondary-bg-color;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.productFormHeader {
+    font-size: x-large;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & .PFHicon {
+        margin-right: 10px;
+    }
+}
+
+.mainProductForm {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    background-color: $primary-bg-color;
+    border-radius: 10px 10px 0 0;
+    padding: 10px;
+}
+
+.top {
+    margin: 5px 0;
+}
+
+.Product {
+    height: 80px;
+    margin: 2px 0px;
+    display: grid;
+    align-items: center;
+    margin: 0px 10px;
+
+    & input,
+    label {
+        width: 100%;
+        color: $font-color;
+        text-align: start;
+        font-size: $baseFS;
+    }
+
+    & label {
+        display: flex;
+        cursor: pointer;
+    }
+
+    & input,
+    & select,
+    & .fragranceSelect {
+        border-radius: 4px;
+        height: $InputHeight;
+        line-height: 38px;
+        padding: 0px 10px;
+        border: 2px solid transparent;
+        outline: none;
+    }
+
+    & input:hover,
+    & input:focus {
+        border: 2px solid #86cdff;
+    }
+}
+
+.fragranceSelect {
+    background-color: white;
+    color: black;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.fragranceSelect:hover,
+.fragranceSelect:focus {
+    border: 2px solid #86cdff;
+}
+
+.fragranceValue {
+    flex-grow: 1;
+    display: flex;
+    gap: .5em;
+    flex-wrap: wrap;
+}
+
+.fragranceClearBTN {
+    background: none;
+    color: #000000;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1.25em;
+}
+
+.fragranceClearBTN:hover {
+    color: #ff0000;
+}
+
+.fragranceDivider {
+    background-color: #777;
+    align-self: stretch;
+    width: 2px;
+    margin: 0 8px;
+}
+
+.fragranceCaret {
+    translate: 0 25%;
+    border: 8px solid transparent;
+    border-top-color: #000000;
+}
+
+.fragranceCaret.active,
+.fragranceCaret:hover {
+    border-top-color: #86cdff;
+}
+
+.fragranceList {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 5px);
+    max-height: 190px;
+    width: 100%;
+    overflow-y: auto;
+    border: 2px solid $secondary-bg-color;
+    outline: none;
+    border-radius: 5px;
+    background-color: white;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    transform-origin: top;
+    transition: transform 0.15s linear;
+    transform: rotateX(90deg);
+}
+
+.fragranceList.active {
+    transform: rotateX(0deg);
+}
+
+.fragranceOption {
+    border: 1px solid #77777777;
+    border-radius: 5px;
+    margin: 5px 10px;
+}
+
+.fragranceOption:focus,
+.fragranceOption:hover {
+    background-color: $primary-bg-color;
+}
+
+.fragranceOption.selected {
+    background-color: hsl(200, 100%, 70%);
+}
+
+.description.Product {
+    & input {
+        height: max-content;
+    }
+}
+
+.smallTopProduct {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.imgsInputCard {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.imgsInputCard p {
+    font-weight: bold;
+}
+
+.drag-area {
+    height: 150px;
+    user-select: none;
+    -webkit-user-select: none;
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px;
+}
+
+.innerD-D-area {
+    color: #0086fe;
+    width: 100%;
+    height: 100%;
+    background: #f4f3f9;
+    border: 3px dashed #0086fe;
+    outline: 15px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.drag-area .visible {
+    font-size: 18px;
+}
+
+.imgsSelect {
+    color: #1e25b7;
+    cursor: pointer;
+    transition: 0.1s;
+    font-weight: 600;
+}
+
+.imgsSelect:hover {
+    color: #0086fe;
+}
+
+.imgsContainer {
+    $maximgsContainerheight: 480px;
+    max-height: $maximgsContainerheight;
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    background-color: #FFFFFF;
+}
+
+.image {
+    $heightwidth: 140px;
+    width: $heightwidth;
+    height: $heightwidth;
+    margin: 10px;
+    position: relative;
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.imgsInputCard input,
+.drag-area .on-drop,
+.drag-area.dragover .visible {
+    display: none;
+}
+
+.delete {
+    z-index: 11;
+    font-size: 15px;
+    cursor: pointer;
+    color: #0086fe;
+    background-color: #f4f3f9de;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+}
+
+.delete:hover {
+    color: #fe0000;
+}
+
+.productFormBtn {
+    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    padding: 15px 0px;
+    border-radius: 0 0 10px 10px;
+
+    & button {
+        border: 1px solid rgba(0, 0, 0, .2);
+        height: 38px;
+        line-height: 38px;
+        width: 100px;
+        border-radius: 19px;
+        font-family: $font-family;
+        font-weight: bold;
+        transition: .2s all ease-in-out;
+        font-size: $baseFS;
+        font-weight: 600;
+    }
+
+    & .AddNewBtn {
+        background: $secondary-bg-color;
+        border: transparent;
+        color: #fff;
+
+        &:hover {
+            background: #00c835;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .Product {
+
+        & input,
+        label {
+            font-size: 14px;
+        }
+    }
+
+    .imgsContainer {
+        $maximgsContainerheight: 420px;
+        max-height: $maximgsContainerheight;
+    }
+
+    .image {
+        $heightwidth: 120px;
+        width: $heightwidth;
+        height: $heightwidth;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .Product {
+
+        & input,
+        label {
+            font-size: 13px;
+        }
+    }
+
+    .imgsContainer {
+        $maximgsContainerheight: 390px;
+        max-height: $maximgsContainerheight;
+    }
+
+    .image {
+        $heightwidth: 110px;
+        width: $heightwidth;
+        height: $heightwidth;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .Product {
+
+        & input,
+        label {
+            font-size: 12px;
+        }
+    }
+
+    .imgsContainer {
+        $maximgsContainerheight: 360px;
+        max-height: $maximgsContainerheight;
+    }
+
+    .image {
+        $heightwidth: 100px;
+        width: $heightwidth;
+        height: $heightwidth;
+    }
+}

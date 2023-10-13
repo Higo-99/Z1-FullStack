@@ -1,6 +1,7 @@
 // Color hover of buttons in search bar 
-$CoBiSB: rgb(76, 180, 255);
+$CoBiSB: aqua;
 $fontSize: 18px;
+$headerColor: #172940;
 
 * {
     padding: 0;
@@ -13,28 +14,30 @@ $fontSize: 18px;
 
 .header-contents {
     display: grid;
-    grid-template-rows: 40px;
-    grid-template-columns: minmax(80px, 225px) minmax(0px, 500px) minmax(80px, 225px);
+    grid-template-rows: 45px;
+    grid-template-columns: minmax(100px, 225px) minmax(0px, 500px) minmax(100px, 225px);
     place-content: center;
+    background: $headerColor;
 }
 
 .hCom {
-    display: flex;
+    display: grid;
     align-items: center;
     position: relative;
 }
 
 .leftCom {
-    background-color: darkseagreen;
     margin-right: 10px;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 4fr;
 }
 
 .midCom {
-    background-color: chocolate;
+    display: grid;
 }
 
 .rightCom {
-    background-color: cyan;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     place-items: center;
@@ -46,12 +49,37 @@ $fontSize: 18px;
 }
 
 // Left components =============
+.leftCom {
+    margin: 0px 10px;
+}
+
+.innerLeftCom {
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+
+.logo {
+    margin: 0px 10px;
+    border-radius: 200px 200px 200px 200px;
+    -moz-border-radius: 200px 200px 200px 200px;
+    -webkit-border-radius: 200px 200px 200px 200px;
+    border: 0px none #000000;
+    -webkit-box-shadow: inset 0px 0px 30px 7px rgba(255, 150, 255, 0.3);
+    -moz-box-shadow: inset 0px 0px 30px 7px rgba(255, 150, 255, 0.3);
+    box-shadow: inset 0px 0px 30px 7px rgba(255, 150, 255, 0.3);
+}
+
+.logo img {
+    height: 30px;
+    margin-bottom: 5px;
+}
 
 
 // Mid components =============
 .input-box {
     position: relative;
-    height: 40px;
+    height: 35px;
     width: 100%;
     background: #fff;
     border-radius: 5px;
@@ -118,6 +146,11 @@ $fontSize: 18px;
     place-content: center;
 }
 
+.hRightInner.secondCom {
+    grid-column: 2/4;
+}
+
+/*
 .switchCom {
     position: relative;
     display: grid;
@@ -191,13 +224,23 @@ $fontSize: 18px;
     background-color: #505050;
     border-radius: 0px 5px 5px 0px;
 }
+*/
 
 .dropSearchBtn {
     display: none;
 }
 
 .headerBtnIcon {
+    color: #fff;
     font-size: medium;
+    border: none;
+    border-radius: 50%;
+    padding: 4px;
+    background: transparent;
+}
+
+.headerBtnIcon:hover {
+    color: $CoBiSB;
 }
 
 /* Responsive */
@@ -206,8 +249,18 @@ $fontSize: 18px;
         display: none;
     }
 
-    .switchCom {
-        display: none;
+    // .switchCom {
+    //     display: none;
+    // }
+    .hRightInner.firstCom {
+        grid-column: 1/3;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+    }
+
+    .hRightInner.secondCom {
+        grid-column: 3/4;
     }
 
     .dropSearchBtn {
@@ -216,5 +269,20 @@ $fontSize: 18px;
 
     .searchdropdownblock {
         display: contents;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .logo {
+        margin: 0px 10px;
+        border-radius: 200px 200px 200px 200px;
+        -moz-border-radius: 200px 200px 200px 200px;
+        -webkit-border-radius: 200px 200px 200px 200px;
+        padding: 0px 5px;
+    }
+
+    .logo img {
+        height: 25px;
+        margin-bottom: 5px;
     }
 }

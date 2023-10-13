@@ -1,0 +1,26 @@
+.HomeCarousel {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.product-images-slider {
+    cursor: grab;
+
+    .swiper-pagination-bullet {
+        background: white;
+        opacity: 1;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: #ff82e8;
+    }
+}
+
+.SwiperSlide {
+    overflow: hidden;
+    position: relative;
+}
+
+.images {
+    width: 100%;
+}

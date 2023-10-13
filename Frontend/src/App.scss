@@ -4,15 +4,23 @@
   box-sizing: border-box;
 }
 
-a {
-  text-decoration: none;
-}
-
-
 .App {
   text-align: center;
 }
 
-// .App-link {
-//   color: #61dafb;
-// } 
+a {
+  text-decoration: none;
+}
+
+.errmsg {
+  display: inline-block;
+  background-color: #FFF;
+  color: firebrick;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  font-size: large;
+  height: fit-content;
+  width: 100%;
+  border: 1px solid firebrick;
+  border-radius: 10px;
+}

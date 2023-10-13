@@ -1,9 +1,7 @@
 .footerBackground {
-    position: absolute;
-    left: 0;
     width: 100%;
     background: #172940;
-    padding-top: 25px;
+    padding-top: 30px;
     display: grid;
     place-content: center;
 }
@@ -11,17 +9,15 @@
 .footerSection {
     position: relative;
     max-width: 1000px;
+    color: #a2b5cd;
 }
 
-footer {
+.topFooter,
+.bottomFooter {
     display: flex;
     align-items: flex-start;
     gap: 40px;
     margin: 0 30px;
-}
-
-footer {
-    color: #a2b5cd;
 }
 
 .topFooter {
@@ -54,13 +50,13 @@ footer {
 footer h2 {
     margin: 0;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     color: #f7f7f7;
 }
 
 .footerLink {
     color: aqua;
-    font-size: medium;
+    font-size: 14px;
 }
 
 .footerLink:hover {

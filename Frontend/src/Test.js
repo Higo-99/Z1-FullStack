@@ -1,49 +1,105 @@
-import { useEffect, useRef, useState } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+// import './Test.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { fragranceList } from './ProductSelectOptions';
+import { useState } from 'react';
 
 const Test = () => {
-    const [C1, setC1] = useState(false);
-    const [C2, setC2] = useState(false);
+    // const [selectedFrag, setSelectedFrag] = useState(fragranceList[0]);
+    const [fragrance, setFragrance] = useState();
 
-    let c1Ref = useRef();
-    let c2Ref = useRef();
+    const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {
-        let handler = (e) => {
-            if (c1Ref.current.contains(e.target)) {
-                setC2(false)
-            }
-            if (c2Ref.current.contains(e.target)) {
-                setC1(false)
-            }
-            else {
-                setC1(false)
-                setC2(false)
-            }
+    const selectFragrance = (fragranceOption) => {
+        if (fragranceOption !== fragrance) {
+            setFragrance(fragranceOption)
         }
-        document.addEventListener('mousedown', handler);
-        return () => {
-            document.removeEventListener('mousedown', handler);
-        }
-
-    })
-    const [userDrop, setUserDrop] = useState(false);
-    const UserBtnHandle = () => {
-        setUserDrop(!userDrop)
-        console.log(userDrop)
     };
-    let userDropActive = userDrop ? 'active' : 'inactive';
 
-    return (
-        <div>
-            <input type="checkbox" name="" id="" checked={C1} ref={c1Ref} onClick={() => setC1(!C1)} />
-            <input type="checkbox" name="" id="" checked={C2} ref={c2Ref} onClick={() => setC2(!C2)} />
-            <button className='headerBtnIcon' onClick={UserBtnHandle}>
-                <FontAwesomeIcon icon={faUser} className='headerIcon' />
-            </button>
+    const isSelected = (fragranceOption) => {
+        return fragranceOption === fragrance;
+    };
+
+    const content = (
+        <div className="productFormBackground">
+            <div className="productFormContent">
+                <form className="productForm" action="" onSubmit={(e) => e.preventDefault()}>
+                    <div className="productFormHeader">
+                        <FontAwesomeIcon className="PFHicon" icon={faCirclePlus} />
+                        <p className="PFHcontent">ADD NEW PRODUCT</p>
+                    </div>
+
+                    <div className="mainProductForm">
+                        <div className="top">
+                            <div className="label Product">
+                                <label htmlFor="labelProduct">Label</label>
+                                <input type="text" id="labelProduct" />
+                            </div>
+
+
+                            <div className="fragrance Product">
+                                <label htmlFor="fragranceProduct">Fragrance</label>
+
+                                <div
+                                    tabIndex={0} className="fragranceSelect" id="fragranceProduct"
+                                    onClick={() => setIsOpen(!isOpen)} onBlur={() => setIsOpen(false)}
+                                >
+                                    <span className='fragranceValue'>{fragrance?.label}</span>
+                                    <div className="fragranceClearBTN"
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            setFragrance(undefined)
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faXmark} />
+                                    </div>
+                                    <div className="fragranceDivider"></div>
+                                    <div className={`fragranceCaret ${isOpen ? 'active' : ''}`}
+                                        onClick={() => setIsOpen(!isOpen)}
+                                    ></div>
+                                    <ul className={`fragranceList ${isOpen ? 'active' : ''}`}>
+                                        {fragranceList.map(fragranceOption => (
+                                            <li key={fragranceOption.value}
+                                                className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
+                                                onClick={e => {
+                                                    e.stopPropagation()
+                                                    selectFragrance(fragranceOption)
+                                                }}
+                                            >
+                                                {fragranceOption.label}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div className="description Product">
+                                <label htmlFor="descriptionProduct">Description</label>
+                                <input type="text" name="descriptionProduct" id="descriptionProduct" />
+                            </div>
+
+                        </div>
+                        <div className="imgsInputCard">
+                            <p>Images uploading</p>
+
+                        </div>
+                    </div>
+
+                    <div className="productFormBtn">
+                        <button className="AddNewBtn" >
+                            Add New
+                        </button>
+                    </div>
+                </form>
+
+            </div>
         </div>
-    )
+
+
+    );
+
+    return content;
 }
 
 export default Test
