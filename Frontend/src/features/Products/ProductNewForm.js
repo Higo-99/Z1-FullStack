@@ -19,8 +19,9 @@ const ProductNewForm = () => {
     const [fragrance, setFragrance] = useState('');
     const [fragranceSelect, setFragranceSelect] = useState([]);
     const [description, setDescription] = useState('');
-    const [images, setImages] = useState([]);
-    const [preImages, setPreImages] = useState([]);
+    const [images, setImages] = useState('');
+    const [imagesSelect, setImagesSelect] = useState([]);
+    const [preImagesSelect, setPreImagesSelect] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
 
     const [introduce, setIntroduce] = useState('');
@@ -65,7 +66,6 @@ const ProductNewForm = () => {
         return fragranceSelect.includes(fragranceOption);
     };
 
-
     useEffect(() => {
         setFragrance(JSON.stringify(fragranceSelect));
     }, [fragranceSelect])
@@ -73,10 +73,10 @@ const ProductNewForm = () => {
     const introduceRef = useRef();
     useEffect(() => {
         introduceRef.current.style.height = introduceRef.current.scrollHeight + 'px';
-        setDescription({
+        setDescription(JSON.stringify({
             introduce: introduce,
             style: style
-        });
+        }));
     }, [introduce, style]);
 
     const fileInputRef = useRef();
@@ -100,15 +100,15 @@ const ProductNewForm = () => {
         const files = e.target.files;
         if (files.length === 0) return;
         for (let i = 0; i < files.length; i++) {
-            if (!preImages.some(e => e.name === files[i].name)) {
-                setPreImages(theImg => [
+            if (!preImagesSelect.some(e => e.name === files[i].name)) {
+                setPreImagesSelect(theImg => [
                     ...theImg, {
                         name: files[i].name,
                         url: URL.createObjectURL(files[i])
                     }]
                 );
                 const convertImg = await convertToBase64(files[i]);
-                setImages(theBI => [
+                setImagesSelect(theBI => [
                     ...theBI, {
                         name: files[i].name,
                         data: convertImg
@@ -134,15 +134,15 @@ const ProductNewForm = () => {
         setIsDragging(false);
         const files = e.dataTransfer.files;
         for (let i = 0; i < files.length; i++) {
-            if (!preImages.some(e => e.name === files[i].name)) {
-                setPreImages(theImg => [
+            if (!preImagesSelect.some(e => e.name === files[i].name)) {
+                setPreImagesSelect(theImg => [
                     ...theImg, {
                         name: files[i].name,
                         url: URL.createObjectURL(files[i])
                     }]
                 );
                 const convertImg = await convertToBase64(files[i]);
-                setImages(theBinaryImg => [
+                setImagesSelect(theBinaryImg => [
                     ...theBinaryImg, {
                         name: files[i].name,
                         data: convertImg
@@ -154,11 +154,16 @@ const ProductNewForm = () => {
 
     const deleteImage = (theImg) => {
         if (theImg.url) {
-            setPreImages(preImages.filter(e => e.url !== theImg.url));
+            setPreImagesSelect(preImagesSelect.filter(e => e.url !== theImg.url));
             URL.revokeObjectURL(theImg.url);
         };
-        setImages(images.filter(e => e.name !== theImg.name));
+        setImagesSelect(imagesSelect.filter(e => e.name !== theImg.name));
     };
+
+
+    useEffect(() => {
+        setImages(JSON.stringify(imagesSelect))
+    }, [imagesSelect]);
 
     const [addNewProduct, {
         isLoading,
@@ -170,11 +175,12 @@ const ProductNewForm = () => {
     const onSaveProduct = async (e) => {
         e.preventDefault();
         if (!isLoading) {
+            // images, label, code, stock, price, prevPrice, type, volume, fragrance, description
             // await addNewProduct({
             //     images, label, code, stock, price, prevPrice, type, volume, fragrance, description
             // })
-            await addNewProduct({ label, code, price, fragrance })
-            // console.log({ fragrance })
+            console.log(images);
+
         }
     };
 
@@ -319,7 +325,7 @@ const ProductNewForm = () => {
 
                         </div>
                         <div className="imgsInputCard">
-                            <p>Images uploading</p>
+                            <p>ImagesSelect uploading</p>
                             <div className="drag-area"
                                 onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}
                             >
@@ -338,7 +344,7 @@ const ProductNewForm = () => {
                             </div>
 
                             <div className="imgsContainer">
-                                {preImages && preImages.map((theImg, index) => (
+                                {preImagesSelect && preImagesSelect.map((theImg, index) => (
                                     <div className="image" key={theImg.name}>
                                         <span className="delete" onClick={() => deleteImage(theImg)}>
                                             <div className="imgsDelIcon">

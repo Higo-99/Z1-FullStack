@@ -186,6 +186,21 @@ export const UserDD = () => {
 
     let userDropActive = userDrop ? 'active' : 'inactive';
 
+    const userDropdownRef = useRef();
+
+    useEffect(() => {
+        let handler = (e) => {
+            if (!userDropdownRef.current.contains(e.target)) {
+                setUserDrop(false)
+            }
+        };
+        document.addEventListener('mousedown', handler);
+
+        return () => {
+            document.removeEventListener('mousedown', handler);
+        }
+    });
+
     // const [checkBox, setcheckBox] = useState(false);
     // const checkBoxRef = useRef();
     // useEffect(() => {
@@ -205,14 +220,14 @@ export const UserDD = () => {
         <div className="userDropdown-menu" >
             <div className="userBtnContents">
                 <button className='headerBtnIcon' id='headerBtnIcon'
-                    onClick={() => setUserDrop(!userDrop)} onBlur={() => setUserDrop(false)}
+                    onClick={() => setUserDrop(!userDrop)}
                 >
                     <FontAwesomeIcon icon={faUser} className='headerIcon' />
                     <label>{`<User's name>`}</label>
                 </button>
             </div>
 
-            <ul className={`userDropdown-content ${userDropActive}`} >
+            <ul className={`userDropdown-content ${userDropActive}`} ref={userDropdownRef} >
                 {/* <ul className={`userDropdown-content`} > */}
                 <li className='maindrop'>
                     <Link className='dropCom'>THÔNG TIN TÀI KHOẢN</Link>

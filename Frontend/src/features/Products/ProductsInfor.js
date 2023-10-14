@@ -12,9 +12,8 @@ const ProductsInfor = ({ productId }) => {
     });
     if (product) {
         const fragrances = JSON.parse(product.fragrance);
-        console.log(fragrances);
         const fragranceContent = (
-            fragrances.map(frag => (
+            fragrances?.map(frag => (
                 frag.label + ' '
             ))
         );
@@ -22,7 +21,7 @@ const ProductsInfor = ({ productId }) => {
             <tr>
                 <td className='table__cell'>{product.id}</td>
                 <td className='table__cell'>{
-                    <img src={product.images} alt="" srcset="" />
+                    <img src={product.images} alt="" />
                 }</td>
                 <td className='table__cell'>{product.label}</td>
                 <td className='table__cell'>{product.code}</td>
