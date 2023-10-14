@@ -105,7 +105,7 @@ const Register = () => {
                 <h1 className='headform' >Register</h1>
                 <form className='baseform center ' onSubmit={handleSubmit} >
                     <div className="email input">
-                        <label htmlFor="">
+                        <label htmlFor="email">
                             Email:
                             <FontAwesomeIcon icon={faCheck} className={validEmail ? 'valid' : 'hide'} />
                             <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? 'hide' : 'invalid'} />
@@ -120,7 +120,7 @@ const Register = () => {
                     </div>
 
                     <div className="pass input">
-                        <label htmlFor="">
+                        <label htmlFor="password">
                             Password
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? 'valid' : 'hide'} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? 'hide' : 'invalid'} />
@@ -140,7 +140,7 @@ const Register = () => {
                     </div>
 
                     <div className="pass input">
-                        <label htmlFor="">
+                        <label htmlFor="confirm_pwd">
                             Confirm Password:
                             <FontAwesomeIcon icon={faCheck} className={validPwdMatch && matchPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwdMatch || !matchPwd ? "hide" : "invalid"} />

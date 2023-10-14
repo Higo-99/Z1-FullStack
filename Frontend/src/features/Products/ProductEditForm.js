@@ -16,8 +16,7 @@ const ProductNewForm = () => {
     const [prevPrice, setPrevPrice] = useState();
     const [formatPrevPrice, setFormatPrevPrice] = useState();
     const [type, setType] = useState('Nam');
-    const [fragrance, setFragrance] = useState('');
-    const [fragranceSelect, setFragranceSelect] = useState([]);
+    const [fragrance, setFragrance] = useState([]);
     const [description, setDescription] = useState('');
     const [images, setImages] = useState([]);
     const [preImages, setPreImages] = useState([]);
@@ -53,22 +52,17 @@ const ProductNewForm = () => {
     const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
 
     const selectFragrance = (fragranceOption) => {
-        if (fragranceSelect.includes(fragranceOption)) {
-            setFragranceSelect(fragranceSelect.filter(op => op !== fragranceOption))
+        if (fragrance.includes(fragranceOption)) {
+            setFragrance(fragrance.filter(op => op !== fragranceOption))
         }
         else {
-            setFragranceSelect([...fragranceSelect, fragranceOption])
+            setFragrance([...fragrance, fragranceOption])
         }
     };
 
     const isSelected = (fragranceOption) => {
-        return fragranceSelect.includes(fragranceOption);
+        return fragrance.includes(fragranceOption);
     };
-
-
-    useEffect(() => {
-        setFragrance(JSON.stringify(fragranceSelect));
-    }, [fragranceSelect])
 
     const introduceRef = useRef();
     useEffect(() => {
@@ -152,6 +146,29 @@ const ProductNewForm = () => {
         };
     };
 
+    const imaggesContent = (
+        (images?.map((theImg) => (
+            <div className="image" key={theImg.name}>
+                <span className="delete" onClick={() => deleteImage(theImg)}>
+                    <div className="imgsDelIcon">
+                        <FontAwesomeIcon icon={faXmark} />
+                    </div>
+                </span>
+                <img src={theImg.data} alt="" />
+            </div>
+        )))
+            (preImages?.map((theImg) => (
+                <div className="image" key={theImg.name}>
+                    <span className="delete" onClick={() => deleteImage(theImg)}>
+                        <div className="imgsDelIcon">
+                            <FontAwesomeIcon icon={faXmark} />
+                        </div>
+                    </span>
+                    <img src={theImg.url} alt="" />
+                </div>
+            )))
+    );
+
     const deleteImage = (theImg) => {
         if (theImg.url) {
             setPreImages(preImages.filter(e => e.url !== theImg.url));
@@ -167,14 +184,11 @@ const ProductNewForm = () => {
         error
     }] = useAddNewProductMutation();
 
-    const onSaveProduct = async (e) => {
-        e.preventDefault();
+    const onSaveProduct = async () => {
         if (!isLoading) {
-            // await addNewProduct({
-            //     images, label, code, stock, price, prevPrice, type, volume, fragrance, description
-            // })
-            await addNewProduct({ label, code, price, fragrance })
-            // console.log({ fragrance })
+            await addNewProduct({
+                images, label, code, stock, price, prevPrice, type, volume, fragrance, description
+            })
         }
     };
 
@@ -184,7 +198,7 @@ const ProductNewForm = () => {
         if (isSuccess) {
             navigate('/productsManage')
         }
-    }, [isSuccess, navigate]);
+    }, [isSuccess]);
 
     const errClass = (isError) ? "errmsg" : "offscreen";
     const errContent = (error?.data?.message) ?? '';
@@ -216,7 +230,7 @@ const ProductNewForm = () => {
                                 <div className="stock Product">
                                     <label htmlFor="stockProduct">Stock</label>
                                     <input type="number" id="stockProduct"
-                                        value={stock} onChange={(e) => setStock(parseInt(e.target.value))} />
+                                        value={stock} onChange={(e) => setStock(e.target.value)} />
                                 </div>
                             </div>
 
@@ -262,7 +276,7 @@ const ProductNewForm = () => {
                                     onBlur={() => setIsFragSelectOpen(false)}
                                 >
                                     <span className='fragranceValue'>
-                                        {fragranceSelect.map(frag => (
+                                        {fragrance.map(frag => (
                                             <button key={frag.value} className="option-badge"
                                                 onClick={e => {
                                                     e.stopPropagation()
@@ -279,7 +293,7 @@ const ProductNewForm = () => {
                                     <div className="fragranceClearBTN"
                                         onClick={(e) => {
                                             e.stopPropagation()
-                                            setFragranceSelect([])
+                                            setFragrance([])
                                         }}
                                     >
                                         <FontAwesomeIcon icon={faXmark} />
@@ -338,16 +352,7 @@ const ProductNewForm = () => {
                             </div>
 
                             <div className="imgsContainer">
-                                {preImages && preImages.map((theImg, index) => (
-                                    <div className="image" key={theImg.name}>
-                                        <span className="delete" onClick={() => deleteImage(theImg)}>
-                                            <div className="imgsDelIcon">
-                                                <FontAwesomeIcon icon={faXmark} />
-                                            </div>
-                                        </span>
-                                        <img src={theImg.url} alt="" />
-                                    </div>
-                                ))}
+                                {imaggesContent}
                             </div>
                         </div>
                     </div>

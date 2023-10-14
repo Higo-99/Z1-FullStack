@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class Products extends Model { };
     Products.init({
-        images: DataTypes.ARRAY(DataTypes.TEXT),
+        images: DataTypes.TEXT,
         label: DataTypes.STRING,
         code: DataTypes.STRING,
         stock: DataTypes.INTEGER,
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         prevPrice: DataTypes.INTEGER,
         type: DataTypes.STRING,
         volume: DataTypes.STRING,
-        fragrance: DataTypes.ARRAY(DataTypes.STRING),
+        fragrance: DataTypes.STRING,
         description: DataTypes.TEXT,
     }, {
         sequelize,

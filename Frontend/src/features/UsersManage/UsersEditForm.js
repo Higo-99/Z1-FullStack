@@ -88,19 +88,12 @@ const UsersEditForm = ({ user }) => {
 
     const onDelUser = async () => {
         await deleteUser({ id: user.id })
-    }
+    };
 
     const navigate = useNavigate();
 
     useEffect(() => {
         if (isEditSuccess || isDelSuccess) {
-            // setAvatar('')
-            // setFirstName('')
-            // setLastName('')
-            // setBirthday('')
-            // setPhoneNumber('')
-            // setAddress('')
-            // setRoleId('')
             navigate('/usersManage')
         }
     }, [isEditSuccess, isDelSuccess, navigate]);

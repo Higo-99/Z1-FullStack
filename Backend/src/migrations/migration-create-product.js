@@ -10,7 +10,7 @@ module.exports = {
                 type: Sequelize.INTEGER
             },
             images: {
-                type: Sequelize.ARRAY(Sequelize.TEXT)
+                type: Sequelize.TEXT
             },
             label: {
                 type: Sequelize.STRING
@@ -35,7 +35,7 @@ module.exports = {
                 type: Sequelize.STRING
             },
             fragrance: {
-                type: Sequelize.ARRAY(Sequelize.STRING)
+                type: Sequelize.STRING
             },
             description: {
                 type: Sequelize.TEXT
