@@ -20,9 +20,7 @@ const ProductsInfor = ({ productId }) => {
         return (
             <tr>
                 <td className='table__cell'>{product.id}</td>
-                <td className='table__cell'>{
-                    <img src={product.images} alt="" />
-                }</td>
+                <td className='table__cell'>{'image'}</td>
                 <td className='table__cell'>{product.label}</td>
                 <td className='table__cell'>{product.code}</td>
                 <td className='table__cell'>{product.price}</td>

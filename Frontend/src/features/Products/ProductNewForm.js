@@ -142,11 +142,12 @@ const ProductNewForm = () => {
                     }]
                 );
                 const convertImg = await convertToBase64(files[i]);
+                const imgOb = JSON.stringify({
+                    name: files[i].name,
+                    data: convertImg
+                });
                 setImagesSelect(theBinaryImg => [
-                    ...theBinaryImg, {
-                        name: files[i].name,
-                        data: convertImg
-                    }]
+                    ...theBinaryImg, imgOb]
                 );
             }
         };
@@ -159,7 +160,6 @@ const ProductNewForm = () => {
         };
         setImagesSelect(imagesSelect.filter(e => e.name !== theImg.name));
     };
-
 
     useEffect(() => {
         setImages(JSON.stringify(imagesSelect))
@@ -175,12 +175,7 @@ const ProductNewForm = () => {
     const onSaveProduct = async (e) => {
         e.preventDefault();
         if (!isLoading) {
-            // images, label, code, stock, price, prevPrice, type, volume, fragrance, description
-            // await addNewProduct({
-            //     images, label, code, stock, price, prevPrice, type, volume, fragrance, description
-            // })
-            console.log(images);
-
+            await addNewProduct({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
         }
     };
 

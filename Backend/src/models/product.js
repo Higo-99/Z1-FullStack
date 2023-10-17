@@ -5,7 +5,6 @@ const {
 module.exports = (sequelize, DataTypes) => {
     class Products extends Model { };
     Products.init({
-        images: DataTypes.TEXT,
         label: DataTypes.STRING,
         code: DataTypes.STRING,
         stock: DataTypes.INTEGER,
