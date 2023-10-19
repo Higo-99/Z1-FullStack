@@ -213,7 +213,7 @@ input[type=checkbox]:checked+.langExpand-menu {
 
 $MiniBurgerMenuWidth: 120px;
 @media screen and (max-width: 768px) {
-    .userBtnLabel {
+    .userLabel {
         display: none;
     }
 }
@@ -236,4 +236,6 @@ $MiniBurgerMenuWidth: 120px;
     .userDropdown-content {
         font-size: 14px;
     }
+
+
 }

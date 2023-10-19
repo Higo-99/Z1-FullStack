@@ -16,6 +16,20 @@ const Header = () => {
     };
     const [searchDrop, SetSearchDrop] = useState(false);
 
+    const searchDropDownRef = useRef();
+    useEffect(() => {
+        let handler = (e) => {
+            if (!searchDropDownRef.current.contains(e.target)) {
+                SetSearchDrop(false)
+            }
+        };
+        document.addEventListener('mousedown', handler);
+
+        return () => {
+            document.removeEventListener('mousedown', handler);
+        }
+    });
+
     const navigate = useNavigate();
     const goHome = () => {
         navigate('/')
@@ -52,8 +66,7 @@ const Header = () => {
                     </div> */}
                     <div className="hRightInner dropSearchBtn">
                         <button className='headerBtnIcon'
-                            onClick={() => { SetSearchDrop(!searchDrop) }}
-                            onBlur={() => SetSearchDrop(false)} >
+                            onClick={() => { SetSearchDrop(!searchDrop) }} >
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
                         </button>
                     </div>
@@ -69,7 +82,7 @@ const Header = () => {
                 </div>
 
             </div>
-            <div className="searchdropdownblock" >
+            <div className="searchdropdownblock" ref={searchDropDownRef}>
                 <SearchDD active={searchDrop ? 'active' : 'inactive'} />
             </div>
         </div>
