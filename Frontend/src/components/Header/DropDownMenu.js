@@ -227,7 +227,7 @@ export const UserDD = () => {
                     onClick={() => setUserDrop(!userDrop)}
                 >
                     <FontAwesomeIcon icon={faUser} className='headerIcon' />
-                    {/* <label className='userLabel'>{`<User's name>`}</label> */}
+                    <label className='userLabel'>{`<User's name>`}</label>
                 </button>
             </div>
 

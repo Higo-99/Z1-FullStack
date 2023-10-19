@@ -174,6 +174,10 @@ input[type=checkbox]:checked+.expand-menu {
     position: relative;
 }
 
+.headerBtnIcon {
+    display: flex;
+}
+
 .userDropdown-content {
     background-color: $headerColor;
     color: $headerContentColor;
