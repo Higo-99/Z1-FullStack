@@ -11,12 +11,16 @@ const ProductsInfor = ({ productId }) => {
         })
     });
     if (product) {
-        const fragrances = JSON.parse(product.fragrance);
-        const fragranceContent = (
-            fragrances?.map(frag => (
-                frag.label + ' '
-            ))
-        );
+
+        /*    
+            const fragrances = JSON.parse(product.fragrance);
+            const fragranceContent = (
+                fragrances?.map(frag => (
+                    frag.label + ' '
+                ))
+            );
+        */
+
         return (
             <tr>
                 <td className='table__cell'>{product.id}</td>
@@ -25,7 +29,7 @@ const ProductsInfor = ({ productId }) => {
                 <td className='table__cell'>{product.code}</td>
                 <td className='table__cell'>{product.price}</td>
                 <td className='table__cell'>{product.type}</td>
-                <td className='table__cell'>{fragranceContent}</td>
+                <td className='table__cell'>{product.stock}</td>
                 <td className='table__cell'>
                     <button
                         className="icon-button table__button"

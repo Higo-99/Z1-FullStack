@@ -194,9 +194,9 @@ export const UserDD = () => {
             if (!userDropdownRef.current.contains(e.target)) {
                 setUserDrop(false)
             };
-            if (userDropdownContentRef.current.contains(e.target)) {
-                setUserDrop(false)
-            };
+            // if (userDropdownContentRef.current.contains(e.target)) {
+            //     setUserDrop(false)
+            // };
         };
         document.addEventListener('mousedown', handler);
 

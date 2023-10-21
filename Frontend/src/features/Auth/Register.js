@@ -25,9 +25,6 @@ const Register = () => {
     const [validPwdMatch, setvalidPwdMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
-    const [errMsg, setErrMsg] = useState('');
-    // const [success, setSuccess] = useState(false);
-
     const [passType, setPassType] = useState('password');
     const [confirmPassType, setConfirmPassType] = useState('password');
     const [psIcon, setPsIcon] = useState(faEyeSlash);
@@ -65,10 +62,6 @@ const Register = () => {
         setvalidPwdMatch(pwd === matchPwd);
     }, [pwd, matchPwd]);
 
-    useEffect(() => {
-        setErrMsg('')
-    }, [pwd, matchPwd]);
-
     const [addNewUser, {
         isLoading,
         isSuccess,
@@ -98,8 +91,6 @@ const Register = () => {
 
     const content = (
         <section className="background center">
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}
-                aria-live='assertive' > {errMsg} </p>
 
             <div className="container center">
                 <h1 className='headform' >Register</h1>
@@ -184,7 +175,11 @@ const Register = () => {
                         8 to 24 characters.<br />
                         Must include uppercase a lowercase letters
                         a number and a special character.<br />
-                        Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                        Allowed special characters: <span aria-label="exclamation mark">!</span>
+                        <span aria-label="at symbol">@</span>
+                        <span aria-label="hashtag">#</span>
+                        <span aria-label="dollar sign">$</span>
+                        <span aria-label="percent">%</span>
                     </p>
 
                     <p id="confirmnote" className={matchFocus && !validPwdMatch ? "formMessage" : "offscreen"}>

@@ -46,7 +46,7 @@ const ProductsList = () => {
                                 <th scope="col" className='table__th'>Code</th>
                                 <th scope="col" className='table__th'>Price</th>
                                 <th scope="col" className='table__th'>Type</th>
-                                <th scope="col" className='table__th'>Fragrance</th>
+                                <th scope="col" className='table__th'>Stock</th>
                                 <th scope="col" className='table__th'>Edit</th>
                             </tr>
                         </thead>
