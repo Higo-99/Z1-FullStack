@@ -194,9 +194,6 @@ export const UserDD = () => {
             if (!userDropdownRef.current.contains(e.target)) {
                 setUserDrop(false)
             };
-            // if (userDropdownContentRef.current.contains(e.target)) {
-            //     setUserDrop(false)
-            // };
         };
         document.addEventListener('mousedown', handler);
 
@@ -234,10 +231,10 @@ export const UserDD = () => {
             <div className="" ref={userDropdownContentRef}>
                 <ul className={`userDropdown-content ${userDropActive}`}  >
                     {/* <ul className={`userDropdown-content`} > */}
-                    <li className='maindrop'>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
                         <Link className='dropCom'>THÔNG TIN TÀI KHOẢN</Link>
                     </li>
-                    <li className='maindrop'>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
                         <Link className='dropCom'>YÊU THÍCH</Link>
                     </li>
 
@@ -259,23 +256,23 @@ export const UserDD = () => {
                         </ul>
                     </li>  */}
 
-                    <li className='maindrop'>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
                         <Link className='dropCom' to={'/usersManage'}>NGƯỜI DÙNG</Link>
                     </li>
-                    <li className='maindrop'>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
                         <Link className='dropCom' to={'/productsManage'}>SẢN PHẨM</Link>
                     </li>
-                    <li className='maindrop'>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
                         <Link className='dropCom'>ĐĂNG XUẤT</Link>
                     </li>
                 </ul>
 
                 {/* <ul className={`userDropdown-content ${userDropActive}`} > */}
                 <ul className={`userDropdown-content`} >
-                    <li className='maindrop'>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
                         <Link className='dropCom' to={'/login'}>ĐĂNG NHẬP</Link>
                     </li>
-                    <li className='maindrop'>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
                         <Link className='dropCom' to={'/register'}>ĐĂNG KÝ</Link>
                     </li>
                 </ul>
