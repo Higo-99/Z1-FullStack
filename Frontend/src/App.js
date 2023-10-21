@@ -7,10 +7,10 @@ import UsersEdit from './features/UsersManage/UsersEdit';
 import useTitle from './hooks/useTitle';
 import NotFound from './components/NotFound/NotFound';
 import Layout from './components/Layout/Layout';
-import Test from './Test/Test';
 import HomePage from './components/Homepages/HomePage';
-import ProductsList from './features/Products/ProductsList';
-import ProductNewForm from './features/Products/ProductNewForm';
+import ProductsList from './features/Products/Products-List&Info/ProductsList';
+import ProductNewForm from './features/Products/ProductNew/ProductNewForm';
+import Test from './Test/Test';
 
 function App() {
   useTitle('Z1_App Main page')

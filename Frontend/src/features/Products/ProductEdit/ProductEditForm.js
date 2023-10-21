@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import './ProductNewForm.scss';
+import '.././ProductNew&EditForm.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { useAddNewProductMutation } from "./productApiSlice";
+import { useAddNewProductMutation } from "../productApiSlice";
 import { useNavigate } from "react-router-dom";
-import { fragranceList } from './ProductSelectOptions';
+import { fragranceList } from '../ProductSelectOptions';
 
 const ProductNewForm = () => {
     const [label, setLabel] = useState('');

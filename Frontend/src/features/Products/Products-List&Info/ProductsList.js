@@ -1,5 +1,5 @@
 import './Products-List&Info.scss';
-import { useGetProductsQuery } from "./productApiSlice";
+import { useGetProductsQuery } from "../productApiSlice";
 import PulseLoader from 'react-spinners/PulseLoader';
 import ProductsInfor from './ProductsInfor';
 import { Link } from 'react-router-dom';

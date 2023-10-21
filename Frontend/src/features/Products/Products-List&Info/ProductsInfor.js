@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import './Products-List&Info.scss';
-import { useGetProductsQuery } from './productApiSlice';
+import { useGetProductsQuery } from '../productApiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
