@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useAddNewProductMutation } from "../productApiSlice";
+import { useAddNewProductMutation } from "../productInforApiSlice";
 import { fragranceList } from '../ProductSelectOptions';
 
 const ProductNewInfo = ({
