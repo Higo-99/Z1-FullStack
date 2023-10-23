@@ -53,6 +53,8 @@ const UsersEditForm = ({ user }) => {
         })
     };
 
+
+
     useEffect(() => {
         return () => {
             avatar && URL.revokeObjectURL(avatar.preview);
@@ -61,6 +63,7 @@ const UsersEditForm = ({ user }) => {
 
     const handlePreviewAvatar = async (e) => {
         const file = e.target.files[0];
+        console.log(file.name)
         file.preview = URL.createObjectURL(file);
         setAvatar(file);
         const base64 = await convertToBase64(file);

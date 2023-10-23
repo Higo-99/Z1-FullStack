@@ -202,19 +202,21 @@ const ProductNewInfo = ({
                     <div className={`fragranceCaret ${isFragSelectOpen ? 'active' : ''}`}
                         onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
                     ></div>
-                    <ul className={`fragranceList ${isFragSelectOpen ? 'active' : ''}`}>
-                        {fragranceList.map(fragranceOption => (
-                            <li key={fragranceOption.value}
-                                className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
-                                onClick={e => {
-                                    e.stopPropagation()
-                                    selectFragrance(fragranceOption)
-                                }}
-                            >
-                                {fragranceOption.label}
-                            </li>
-                        ))}
-                    </ul>
+                    <div className={`fragrancedropdown ${isFragSelectOpen ? 'active' : ''}`}>
+                        <ul className={`fragranceList active`}>
+                            {fragranceList.map(fragranceOption => (
+                                <li key={fragranceOption.value}
+                                    className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
+                                    onClick={e => {
+                                        e.stopPropagation()
+                                        selectFragrance(fragranceOption)
+                                    }}
+                                >
+                                    {fragranceOption.label}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
 

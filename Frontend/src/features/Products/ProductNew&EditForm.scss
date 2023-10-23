@@ -102,16 +102,13 @@ $InputHeight: 40px;
 
     & input,
     & select,
-    & .fragranceSelect,
-    & .ProductIntroduce {
+    & .fragranceSelect {
         border-radius: 4px;
         min-height: $InputHeight;
-        max-height: 200px;
         line-height: 38px;
         padding: 0px 10px;
         border: 2px solid transparent;
         outline: none;
-        resize: none;
     }
 
     & input:hover,
@@ -138,6 +135,8 @@ $InputHeight: 40px;
     gap: .5em;
     flex-wrap: wrap;
     padding: 6px 0px;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .fragranceClearBTN {
@@ -172,27 +171,32 @@ $InputHeight: 40px;
     border-top-color: #86cdff;
 }
 
-.fragranceList {
+.fragrancedropdown {
     position: absolute;
     left: 0;
     top: calc(100% + 5px);
-    max-height: 190px;
     width: 100%;
-    overflow-y: auto;
     border: 2px solid $secondary-bg-color;
     outline: none;
     border-radius: 5px;
     background-color: white;
     z-index: 1;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     transform-origin: top;
     transition: transform 0.15s linear;
     transform: rotateX(90deg);
+    padding: 5px;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
-.fragranceList.active {
+.fragrancedropdown.active {
     transform: rotateX(0deg);
+}
+
+.fragranceList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
 }
 
 .fragranceOption {
@@ -242,7 +246,7 @@ $InputHeight: 40px;
 }
 
 .option-badge>.remove-btn {
-    font-size: 13px;
+    font-size: 15px;
     color: #000000;
 }
 
@@ -252,8 +256,17 @@ $InputHeight: 40px;
     padding: 10px;
 }
 
+.ProductIntroduce {
+    min-height: 100px;
+    max-height: 150px;
+    border-radius: 4px;
+    padding: 0px 10px;
+    border: 2px solid transparent;
+    outline: none;
+    resize: none;
+}
+
 .imgsInputCard {
-    overflow: hidden;
     position: relative;
     width: 100%;
 }
@@ -388,13 +401,29 @@ $InputHeight: 40px;
     }
 }
 
+$FontSize768px: 16px;
 @media screen and (max-width: 768px) {
     .Product {
 
+        & label,
         & input,
-        label {
-            font-size: 14px;
+        & select,
+        & .ProductIntroduce {
+            font-size: $FontSize768px;
         }
+    }
+
+    .fragranceList {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .option-badge {
+        font-size: $FontSize768px;
+    }
+
+    .fragranceOption {
+        font-size: $FontSize768px;
+        margin: 2px 4px;
     }
 
     .imgsContainer {
@@ -409,13 +438,29 @@ $InputHeight: 40px;
     }
 }
 
+$FontSize475px: 15px;
 @media screen and (max-width: 475px) {
     .Product {
 
+        & label,
         & input,
-        label {
-            font-size: 13px;
+        & select,
+        & .ProductIntroduce {
+            font-size: $FontSize475px;
         }
+    }
+
+    .fragranceList {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .option-badge {
+        font-size: $FontSize475px;
+    }
+
+    .fragranceOption {
+        font-size: $FontSize475px;
+        margin: 2px 4px;
     }
 
     .imgsContainer {
@@ -430,13 +475,29 @@ $InputHeight: 40px;
     }
 }
 
+$FontSize350px: 14px;
 @media screen and (max-width: 350px) {
     .Product {
 
+        & label,
         & input,
-        label {
-            font-size: 12px;
+        & select,
+        & .ProductIntroduce {
+            font-size: $FontSize350px;
         }
+    }
+
+    .option-badge {
+        font-size: $FontSize350px;
+    }
+
+    .fragranceList {
+        grid-template-columns: 1fr;
+    }
+
+    .fragranceOption {
+        font-size: $FontSize350px;
+        margin: 2px 4px;
     }
 
     .imgsContainer {

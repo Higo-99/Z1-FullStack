@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -6,6 +6,8 @@ const ProductNewImage = () => {
     const [images, setImages] = useState('');
     const [imagesSelect, setImagesSelect] = useState([]);
     const [preImagesSelect, setPreImagesSelect] = useState([]);
+
+
     const [isDragging, setIsDragging] = useState(false);
 
     const fileInputRef = useRef();
@@ -83,10 +85,6 @@ const ProductNewImage = () => {
         };
     };
 
-    imagesSelect && imagesSelect.map((theImg, index) => (
-        console.log(theImg.data)
-    ))
-
     const deleteImage = (theImg) => {
         if (theImg.url) {
             setPreImagesSelect(preImagesSelect.filter(e => e.url !== theImg.url));
@@ -94,10 +92,6 @@ const ProductNewImage = () => {
         };
         setImagesSelect(imagesSelect.filter(e => e.name !== theImg.name));
     };
-
-    // useEffect(() => {
-    //     setImages(JSON.stringify(imagesSelect))
-    // }, [imagesSelect]);
 
     const content = (
         <div className="">
@@ -120,24 +114,14 @@ const ProductNewImage = () => {
             </div>
 
             <div className="imgsContainer">
-                {/* {preImagesSelect && preImagesSelect.map((theImg, index) => (
+                {preImagesSelect && preImagesSelect.map((theImg, index) => (
                     <div className="image" key={theImg.name}>
                         <span className="delete" onClick={() => deleteImage(theImg)}>
                             <div className="imgsDelIcon">
                                 <FontAwesomeIcon icon={faXmark} />
                             </div>
                         </span>
-                        <img src={theImg.url} alt="" />
-                    </div>
-                ))} */}
-                {imagesSelect && imagesSelect.map((theImg, index) => (
-                    <div className="image" key={theImg.name}>
-                        <span className="delete" onClick={() => deleteImage(theImg)}>
-                            <div className="imgsDelIcon">
-                                <FontAwesomeIcon icon={faXmark} />
-                            </div>
-                        </span>
-                        <img src={theImg.data} alt="" />
+                        <img src={theImg.url} alt={theImg.name} />
                     </div>
                 ))}
 
