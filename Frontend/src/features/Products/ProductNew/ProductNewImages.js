@@ -1,12 +1,16 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { useAddNewProductImageMutation } from "../productImageApiSlice";
 
-const ProductNewImage = () => {
-    const [images, setImages] = useState('');
-    const [imagesSelect, setImagesSelect] = useState([]);
-    const [preImagesSelect, setPreImagesSelect] = useState([]);
-
+const ProductNewImage = ({
+    code,
+    clickSave, setClickSave,
+    setImageErrContent,
+    setIsSaveImagesSuccess
+}) => {
+    const [images, setimages] = useState([]);
+    const [preimages, setPreimages] = useState([]);
 
     const [isDragging, setIsDragging] = useState(false);
 
@@ -31,20 +35,19 @@ const ProductNewImage = () => {
         const files = e.target.files;
         if (files.length === 0) return;
         for (let i = 0; i < files.length; i++) {
-            if (!preImagesSelect.some(e => e.name === files[i].name)) {
-                setPreImagesSelect(theImg => [
+            if (!preimages.some(e => e.name === files[i].name)) {
+                setPreimages(theImg => [
                     ...theImg, {
                         name: files[i].name,
                         url: URL.createObjectURL(files[i])
                     }]
                 );
                 const convertImg = await convertToBase64(files[i]);
-                setImagesSelect(theBI => [
-                    ...theBI, {
-                        name: files[i].name,
-                        data: convertImg
-                    }]
-                );
+                const imgBinary = {
+                    name: files[i].name,
+                    data: convertImg
+                };
+                setimages(theBI => [...theBI, { imgBinary }]);
             }
         };
     };
@@ -65,8 +68,8 @@ const ProductNewImage = () => {
         setIsDragging(false);
         const files = e.dataTransfer.files;
         for (let i = 0; i < files.length; i++) {
-            if (!preImagesSelect.some(e => e.name === files[i].name)) {
-                setPreImagesSelect(theImg => [
+            if (!preimages.some(e => e.name === files[i].name)) {
+                setPreimages(theImg => [
                     ...theImg, {
                         name: files[i].name,
                         url: URL.createObjectURL(files[i])
@@ -74,28 +77,66 @@ const ProductNewImage = () => {
                 );
                 const convertImg = await convertToBase64(files[i]);
                 const imgBinary = {
+                    code: code,
                     name: files[i].name,
                     data: convertImg
                 };
-                setImagesSelect(theBinaryImg => [
-                    ...theBinaryImg, imgBinary]
-                );
-
+                setimages(theBinaryImg => [...theBinaryImg, imgBinary]);
             }
         };
     };
 
     const deleteImage = (theImg) => {
         if (theImg.url) {
-            setPreImagesSelect(preImagesSelect.filter(e => e.url !== theImg.url));
+            setPreimages(preimages.filter(e => e.url !== theImg.url));
             URL.revokeObjectURL(theImg.url);
         };
-        setImagesSelect(imagesSelect.filter(e => e.name !== theImg.name));
+        setimages(images.filter(e => e.name !== theImg.name));
     };
+
+    const [addNewImage, {
+        isLoading,
+        isSuccess,
+        isError,
+        error
+    }] = useAddNewProductImageMutation();
+
+    const onSaveImgs = async (e) => {
+        if (images.length & !isLoading) {
+            for (let i = 0; i < images.length; i++) {
+                await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
+
+                // console.log(i)          //stand
+                // console.log(code)       //code
+                // console.log(images[i].name) //name
+                // console.log(images[i].data) //data
+            }
+            setImageErrContent('')
+        } else {
+            setImageErrContent('Missing Images')
+        }
+    };
+
+    useEffect(() => {
+        if (clickSave) {
+            onSaveImgs();
+            setClickSave(false);
+        }
+    }, [clickSave]);
+
+    useEffect(() => {
+        if (error) { setImageErrContent(error?.data?.message) }
+    }, [error]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            setIsSaveImagesSuccess(true)
+        }
+    }, [isSuccess]);
 
     const content = (
         <div className="">
-            <p>ImagesSelect uploading</p>
+            <p>Images</p>
             <div className="drag-area"
                 onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}
             >
@@ -114,7 +155,7 @@ const ProductNewImage = () => {
             </div>
 
             <div className="imgsContainer">
-                {preImagesSelect && preImagesSelect.map((theImg, index) => (
+                {preimages && preimages.map((theImg, index) => (
                     <div className="image" key={theImg.name}>
                         <span className="delete" onClick={() => deleteImage(theImg)}>
                             <div className="imgsDelIcon">

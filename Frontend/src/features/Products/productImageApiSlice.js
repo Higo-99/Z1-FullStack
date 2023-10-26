@@ -38,3 +38,8 @@ export const productImageApiSlice = apiSlice.injectEndpoints({
         }),
     })
 })
+
+export const {
+    useGetProductImagesQuery,
+    useAddNewProductImageMutation
+} = productImageApiSlice;

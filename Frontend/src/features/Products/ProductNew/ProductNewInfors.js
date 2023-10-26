@@ -7,7 +7,7 @@ import { fragranceList } from '../ProductSelectOptions';
 const ProductNewInfo = ({
     code, setCode,
     clickSave, setClickSave,
-    setinforErrContent,
+    setInforErrContent,
     setIsSaveInforSuccess
 }) => {
 
@@ -81,25 +81,25 @@ const ProductNewInfo = ({
         }));
     }, [introduce, style]);
 
-    const [addNewProduct, {
+    const [addNewProductInfors, {
         isLoading,
         isSuccess,
         isError,
         error
     }] = useAddNewProductMutation();
 
+    const onSaveInfors = async (e) => {
+        if (!isLoading) {
+            await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
+        }
+    };
+
     useEffect(() => {
         if (clickSave) {
-            onSaveProduct();
+            // onSaveInfors();
             setClickSave(false);
         }
     }, [clickSave]);
-
-    const onSaveProduct = async (e) => {
-        if (!isLoading) {
-            await addNewProduct({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
-        }
-    };
 
     useEffect(() => {
         if (isSuccess) {
@@ -109,7 +109,7 @@ const ProductNewInfo = ({
 
     useEffect(() => {
         if (error) {
-            setinforErrContent(error?.data?.message)
+            setInforErrContent(error?.data?.message)
         };
     }, [error]);
 

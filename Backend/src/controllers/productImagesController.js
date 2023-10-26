@@ -7,21 +7,23 @@ const getting = async (req, res) => {
     };
     res.json(productImages);
 };
+
 const creating = async (req, res) => {
-    const { code, name, position, data } = req.body;
-    if (!code, !name, !position, !data) {
+    const { code, name, stand, data } = req.body;
+    if (!code, !name, !stand, !data) {
         res.status(400).json({ message: 'All information needs to be filled' })
     };
-    const imageObject = { code, name, position, data };
+    const imageObject = { code, name, stand, data };
     const newImage = await db.ProductImages.create(imageObject);
     if (newImage) {
-        res.status(201).json({ message: `Image ${name} added` })
+        res.status(201).json({ message: `Image ${name} for product ${code} added succeed` })
     } else {
         res.status(400).json({ message: 'Invalid image data received' })
     };
 };
+
 const editting = async (req, res) => {
-    const { id, name, position, data } = req.body;
+    const { id, name, stand, data } = req.body;
     const theImage = await db.productImages.findOne({ where: { id: id } });
     if (!theImage) {
         res.status(400).json({ message: 'Image not found' })
@@ -29,12 +31,13 @@ const editting = async (req, res) => {
         await db.ProductImages.upsert({
             id: id,
             name: name,
-            position: position,
+            stand: stand,
             data: data
         })
     };
     res.json({ message: `Producy ${theImage.code}'s image has been updated!` });
 };
+
 const deleting = async (req, res) => {
     const { id } = req.body;
     const theImage = await db.ProductImages.findOne({ where: { id: id } });

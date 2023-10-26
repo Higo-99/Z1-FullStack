@@ -10,8 +10,11 @@ const ProductNewForm = () => {
     const [clickSave, setClickSave] = useState(false);
 
     const [code, setCode] = useState('');
-    const [inforErrContent, setinforErrContent] = useState('');
+    const [inforErrContent, setInforErrContent] = useState('');
     const [isSaveInforSuccess, setIsSaveInforSuccess] = useState(false);
+
+    const [imageErrContent, setImageErrContent] = useState('');
+    const [isSaveImagesSuccess, setIsSaveImagesSuccess] = useState(false);
 
     const onSaveProduct = () => {
         setClickSave(true);
@@ -20,7 +23,7 @@ const ProductNewForm = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (isSaveInforSuccess) {
+        if (isSaveInforSuccess & isSaveImagesSuccess) {
             navigate('/productsManage')
         }
     }, [isSaveInforSuccess, navigate]);
@@ -28,6 +31,7 @@ const ProductNewForm = () => {
     const content = (
         <div className="productFormBackground">
             <p className={inforErrContent ? "errmsg" : "offscreen"}>{inforErrContent}</p>
+            <p className={imageErrContent ? "errmsg" : "offscreen"}>{imageErrContent}</p>
             <div className="productFormContent">
                 <div className="productForm" action="" >
                     <div className="productFormHeader">
@@ -40,14 +44,17 @@ const ProductNewForm = () => {
                             <ProductNewInfo
                                 code={code} setCode={setCode}
                                 clickSave={clickSave} setClickSave={setClickSave}
-                                setinforErrContent={setinforErrContent}
+                                setInforErrContent={setInforErrContent}
                                 setIsSaveInforSuccess={setIsSaveInforSuccess}
                             />
                         </div>
 
                         <div className="imgsInputCard">
                             <ProductNewImage
-
+                                code={code}
+                                clickSave={clickSave} setClickSave={setClickSave}
+                                setImageErrContent={setImageErrContent}
+                                setIsSaveImagesSuccess={setIsSaveImagesSuccess}
                             />
                         </div>
                     </div>

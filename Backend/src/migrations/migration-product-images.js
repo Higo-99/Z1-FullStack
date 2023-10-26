@@ -15,7 +15,7 @@ module.exports = {
             name: {
                 type: Sequelize.STRING
             },
-            position: {
+            stand: {
                 type: Sequelize.STRING
             },
             data: {
