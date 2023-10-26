@@ -1,4 +1,5 @@
 const db = require('../models/index');
+const { Op } = require("sequelize");
 
 const getting = async (req, res) => {
     const productImages = await db.ProductImages.findAll();
@@ -13,6 +14,19 @@ const creating = async (req, res) => {
     if (!code, !name, !stand, !data) {
         res.status(400).json({ message: 'All information needs to be filled' })
     };
+
+    const duplicate = await db.ProductImages.findOne({
+        where: {
+            [Op.and]: [
+                { name: name },
+                { code: code }
+            ]
+        }
+    });
+    if (duplicate) {
+        return res.status(409).json({ message: 'There are image already has been saved' });
+    };
+
     const imageObject = { code, name, stand, data };
     const newImage = await db.ProductImages.create(imageObject);
     if (newImage) {

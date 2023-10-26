@@ -7,7 +7,9 @@ const ProductNewImage = ({
     code,
     clickSave, setClickSave,
     setImageErrContent,
-    setIsSaveImagesSuccess
+    setIsSaveImagesSuccess,
+    isInfors,
+    setIsImages
 }) => {
     const [images, setimages] = useState([]);
     const [preimages, setPreimages] = useState([]);
@@ -101,21 +103,24 @@ const ProductNewImage = ({
         error
     }] = useAddNewProductImageMutation();
 
+    const canSave = isInfors && !isLoading && code;
+
     const onSaveImgs = async (e) => {
-        if (images.length & !isLoading) {
+        if (canSave) {
             for (let i = 0; i < images.length; i++) {
                 await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
-
-                // console.log(i)          //stand
-                // console.log(code)       //code
-                // console.log(images[i].name) //name
-                // console.log(images[i].data) //data
             }
-            setImageErrContent('')
-        } else {
-            setImageErrContent('Missing Images')
         }
     };
+
+    useEffect(() => {
+        if (images.length) {
+            setIsImages(true)
+        } else {
+            setImageErrContent('There are no image')
+            setIsImages(false)
+        }
+    }, [images]);
 
     useEffect(() => {
         if (clickSave) {

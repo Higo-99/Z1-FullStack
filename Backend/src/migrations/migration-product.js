@@ -14,7 +14,7 @@ module.exports = {
             },
             code: {
                 type: Sequelize.STRING,
-                unique: true
+                unique: true,
             },
             stock: {
                 type: Sequelize.INTEGER

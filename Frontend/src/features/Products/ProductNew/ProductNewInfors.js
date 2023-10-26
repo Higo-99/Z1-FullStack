@@ -8,7 +8,9 @@ const ProductNewInfo = ({
     code, setCode,
     clickSave, setClickSave,
     setInforErrContent,
-    setIsSaveInforSuccess
+    setIsSaveInforSuccess,
+    isImages,
+    setIsInfors
 }) => {
 
     // const [code, setCode] = useState(''); 
@@ -88,15 +90,25 @@ const ProductNewInfo = ({
         error
     }] = useAddNewProductMutation();
 
+    const canSave = !isLoading && isImages;
+
     const onSaveInfors = async (e) => {
-        if (!isLoading) {
+        if (canSave) {
             await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
         }
     };
 
     useEffect(() => {
+        if (label && code && stock) {
+            setIsInfors(true)
+        } else {
+            setIsInfors(false)
+        }
+    }, [label, code, stock]);
+
+    useEffect(() => {
         if (clickSave) {
-            // onSaveInfors();
+            onSaveInfors();
             setClickSave(false);
         }
     }, [clickSave]);

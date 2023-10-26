@@ -12,9 +12,11 @@ const ProductNewForm = () => {
     const [code, setCode] = useState('');
     const [inforErrContent, setInforErrContent] = useState('');
     const [isSaveInforSuccess, setIsSaveInforSuccess] = useState(false);
+    const [isInfors, setIsInfors] = useState(false);
 
     const [imageErrContent, setImageErrContent] = useState('');
     const [isSaveImagesSuccess, setIsSaveImagesSuccess] = useState(false);
+    const [isImages, setIsImages] = useState(false);
 
     const onSaveProduct = () => {
         setClickSave(true);
@@ -46,6 +48,8 @@ const ProductNewForm = () => {
                                 clickSave={clickSave} setClickSave={setClickSave}
                                 setInforErrContent={setInforErrContent}
                                 setIsSaveInforSuccess={setIsSaveInforSuccess}
+                                isImages={isImages}
+                                setIsInfors={setIsInfors}
                             />
                         </div>
 
@@ -55,6 +59,8 @@ const ProductNewForm = () => {
                                 clickSave={clickSave} setClickSave={setClickSave}
                                 setImageErrContent={setImageErrContent}
                                 setIsSaveImagesSuccess={setIsSaveImagesSuccess}
+                                isInfors={isInfors}
+                                setIsImages={setIsImages}
                             />
                         </div>
                     </div>
