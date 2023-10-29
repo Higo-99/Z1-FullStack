@@ -104,14 +104,6 @@ const ProductNewImage = ({
 
     const canSave = isInfors && !isLoading;
 
-    useEffect(() => {
-        if (images.length) {
-            setIsImages(true)
-        } else {
-            setIsImages(false)
-        }
-    }, [images, setIsImages]);
-
     const onSaveImgs = async (e) => {
         if (canSave) {
             for (let i = 0; i < images.length; i++) {
@@ -119,6 +111,14 @@ const ProductNewImage = ({
             }
         }
     };
+
+    useEffect(() => {
+        if (images.length) {
+            setIsImages(true)
+        } else {
+            setIsImages(false)
+        }
+    }, [images, setIsImages]);
 
     useEffect(() => {
         if (clickSave) {
