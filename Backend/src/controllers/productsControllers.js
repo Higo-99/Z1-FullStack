@@ -5,14 +5,14 @@ const { Op } = require("sequelize");
 const getting = async (req, res) => {
     const products = await db.Products.findAll();
     if (!products) {
-        return res.status(400).json({ message: 'No users found' });
+        return res.status(400).json({ message: 'No product found' });
     };
     res.json(products);
 };
 
 const creating = async (req, res) => {
     const {
-        images, label, code, stock, volume, price, prevPrice, type, fragrance, description
+        label, code, stock, volume, price, prevPrice, type, fragrance, description
     } = req.body;
     if (!label, !code, !price) {
         return res.status(400).json({ message: 'Label, Code, Price field are required' });
@@ -31,7 +31,7 @@ const creating = async (req, res) => {
     };
 
     const productObject = {
-        images, label, code, stock, volume, price, prevPrice, type, fragrance, description
+        label, code, stock, volume, price, prevPrice, type, fragrance, description
     };
     const newProduct = await db.Products.create(productObject);
     if (newProduct) {

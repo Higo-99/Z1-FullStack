@@ -25,9 +25,6 @@ const Register = () => {
     const [validPwdMatch, setvalidPwdMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
-    const [errMsg, setErrMsg] = useState('');
-    // const [success, setSuccess] = useState(false);
-
     const [passType, setPassType] = useState('password');
     const [confirmPassType, setConfirmPassType] = useState('password');
     const [psIcon, setPsIcon] = useState(faEyeSlash);
@@ -65,10 +62,6 @@ const Register = () => {
         setvalidPwdMatch(pwd === matchPwd);
     }, [pwd, matchPwd]);
 
-    useEffect(() => {
-        setErrMsg('')
-    }, [pwd, matchPwd]);
-
     const [addNewUser, {
         isLoading,
         isSuccess,
@@ -98,14 +91,12 @@ const Register = () => {
 
     const content = (
         <section className="background center">
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"}
-                aria-live='assertive' > {errMsg} </p>
 
             <div className="container center">
                 <h1 className='headform' >Register</h1>
                 <form className='baseform center ' onSubmit={handleSubmit} >
                     <div className="email input">
-                        <label htmlFor="">
+                        <label htmlFor="email">
                             Email:
                             <FontAwesomeIcon icon={faCheck} className={validEmail ? 'valid' : 'hide'} />
                             <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? 'hide' : 'invalid'} />
@@ -120,7 +111,7 @@ const Register = () => {
                     </div>
 
                     <div className="pass input">
-                        <label htmlFor="">
+                        <label htmlFor="password">
                             Password
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? 'valid' : 'hide'} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? 'hide' : 'invalid'} />
@@ -140,7 +131,7 @@ const Register = () => {
                     </div>
 
                     <div className="pass input">
-                        <label htmlFor="">
+                        <label htmlFor="confirm_pwd">
                             Confirm Password:
                             <FontAwesomeIcon icon={faCheck} className={validPwdMatch && matchPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwdMatch || !matchPwd ? "hide" : "invalid"} />
@@ -184,7 +175,11 @@ const Register = () => {
                         8 to 24 characters.<br />
                         Must include uppercase a lowercase letters
                         a number and a special character.<br />
-                        Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                        Allowed special characters: <span aria-label="exclamation mark">!</span>
+                        <span aria-label="at symbol">@</span>
+                        <span aria-label="hashtag">#</span>
+                        <span aria-label="dollar sign">$</span>
+                        <span aria-label="percent">%</span>
                     </p>
 
                     <p id="confirmnote" className={matchFocus && !validPwdMatch ? "formMessage" : "offscreen"}>

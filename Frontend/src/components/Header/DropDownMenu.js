@@ -67,8 +67,8 @@ export const BurgerMenuDD = () => {
             {/* Menu */}
             <ul className={`dropdown-content ${burgerStateCheck}`}>
                 {/* 1st maindroplist */}
-                <li className='maindrop'>
-                    <Link className='dropCom'>TRANG CHỦ</Link>
+                <li className='maindrop' onClick={() => setBurgerState(false)}>
+                    <Link className='dropCom' to={'/'}>TRANG CHỦ</Link>
                 </li>
                 {/* End 1st maindroplist */}
 
@@ -186,6 +186,22 @@ export const UserDD = () => {
 
     let userDropActive = userDrop ? 'active' : 'inactive';
 
+    const userDropdownRef = useRef();
+    const userDropdownContentRef = useRef();
+
+    useEffect(() => {
+        let handler = (e) => {
+            if (!userDropdownRef.current.contains(e.target)) {
+                setUserDrop(false)
+            };
+        };
+        document.addEventListener('mousedown', handler);
+
+        return () => {
+            document.removeEventListener('mousedown', handler);
+        }
+    });
+
     // const [checkBox, setcheckBox] = useState(false);
     // const checkBoxRef = useRef();
     // useEffect(() => {
@@ -202,63 +218,66 @@ export const UserDD = () => {
     // });
 
     return (
-        <div className="userDropdown-menu" >
+        <div className="userDropdown-menu" ref={userDropdownRef} >
             <div className="userBtnContents">
                 <button className='headerBtnIcon' id='headerBtnIcon'
-                    onClick={() => setUserDrop(!userDrop)} onBlur={() => setUserDrop(false)}
+                    onClick={() => setUserDrop(!userDrop)}
                 >
                     <FontAwesomeIcon icon={faUser} className='headerIcon' />
-                    <label>{`<User's name>`}</label>
+                    <label className='userLabel'>{`<User's name>`}</label>
                 </button>
             </div>
 
-            <ul className={`userDropdown-content ${userDropActive}`} >
-                {/* <ul className={`userDropdown-content`} > */}
-                <li className='maindrop'>
-                    <Link className='dropCom'>THÔNG TIN TÀI KHOẢN</Link>
-                </li>
-                <li className='maindrop'>
-                    <Link className='dropCom'>YÊU THÍCH</Link>
-                </li>
+            <div className="" ref={userDropdownContentRef}>
+                <ul className={`userDropdown-content ${userDropActive}`}  >
+                    {/* <ul className={`userDropdown-content`} > */}
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
+                        <Link className='dropCom'>THÔNG TIN TÀI KHOẢN</Link>
+                    </li>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
+                        <Link className='dropCom'>YÊU THÍCH</Link>
+                    </li>
 
-                {/*  <li className='maindrop'>
-                    <label ref={checkBoxRef} htmlFor="checkbox-lang" className='dropCom'>
-                        Language
-                    </label>
-                    <input
-                        type="checkbox" name="checkbox-lang" id="checkbox-lang" className='checkbox'
-                        checked={checkBox} onClick={() => setcheckBox(!checkBox)} readOnly
-                    />
-                    <ul className='langExpand-menu'>
-                        <li>
-                            <Link className='dropCom'>VietNamese</Link>
-                        </li>
-                        <li>
-                            <Link className='dropCom'>English</Link>
-                        </li>
-                    </ul>
-                </li>  */}
+                    {/* <li className='maindrop'>
+                        <label ref={checkBoxRef} htmlFor="checkbox-lang" className='dropCom'>
+                            Language
+                        </label>
+                        <input
+                            type="checkbox" name="checkbox-lang" id="checkbox-lang" className='checkbox'
+                            checked={checkBox} onClick={() => setcheckBox(!checkBox)} readOnly
+                        />
+                        <ul className='langExpand-menu'>
+                            <li>
+                                <Link className='dropCom'>VietNamese</Link>
+                            </li>
+                            <li>
+                                <Link className='dropCom'>English</Link>
+                            </li>
+                        </ul>
+                    </li>  */}
 
-                <li className='maindrop'>
-                    <Link className='dropCom' to={'/usersManage'}>NGƯỜI DÙNG</Link>
-                </li>
-                <li className='maindrop'>
-                    <Link className='dropCom' to={'/productsManage'}>SẢN PHẨM</Link>
-                </li>
-                <li className='maindrop'>
-                    <Link className='dropCom'>ĐĂNG XUẤT</Link>
-                </li>
-            </ul>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
+                        <Link className='dropCom' to={'/usersManage'}>NGƯỜI DÙNG</Link>
+                    </li>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
+                        <Link className='dropCom' to={'/productsManage'}>SẢN PHẨM</Link>
+                    </li>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
+                        <Link className='dropCom'>ĐĂNG XUẤT</Link>
+                    </li>
+                </ul>
 
-            {/* <ul className={`userDropdown-content ${userDropActive}`} > */}
-            <ul className={`userDropdown-content`} >
-                <li className='maindrop'>
-                    <Link className='dropCom' to={'/login'}>ĐĂNG NHẬP</Link>
-                </li>
-                <li className='maindrop'>
-                    <Link className='dropCom' to={'/register'}>ĐĂNG KÝ</Link>
-                </li>
-            </ul>
+                {/* <ul className={`userDropdown-content ${userDropActive}`} > */}
+                <ul className={`userDropdown-content`} >
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
+                        <Link className='dropCom' to={'/login'}>ĐĂNG NHẬP</Link>
+                    </li>
+                    <li className='maindrop' onClick={() => setUserDrop(false)}>
+                        <Link className='dropCom' to={'/register'}>ĐĂNG KÝ</Link>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     )
 };

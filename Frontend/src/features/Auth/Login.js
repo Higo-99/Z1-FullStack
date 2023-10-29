@@ -29,6 +29,8 @@ const Login = () => {
         }
     };
 
+    const canLogin = email && password;
+
     const submitHandle = async () => {
         setErr('');
         try {
@@ -79,7 +81,7 @@ const Login = () => {
                     </div>
 
                     <div >
-                        <button className="form-btn" disabled={!email || !password ? true : false}
+                        <button className="form-btn" disabled={!canLogin}
                             onClick={submitHandle}
                         >
                             Sign In

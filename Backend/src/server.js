@@ -22,6 +22,7 @@ app.set('view engine', 'html');
 app.use('/', require('./route/root'));
 app.use('/users', require('./route/userRoutes'));
 app.use('/products', require('./route/productRoutes'));
+app.use('/productImages', require('./route/productImagesRoutes'));
 app.all('*', (req, res) => {
     res.status(404);
     if (req.accepts('html')) {

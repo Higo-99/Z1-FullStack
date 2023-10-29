@@ -33,7 +33,7 @@ $linearColorLighter: linear-gradient(135deg, rgb(40, 219, 222) 0%,
     flex-direction: column;
     width: 100%;
     margin: 8px;
-    font-size: 17px;
+    font-size: 18px;
 }
 
 .formMessage {
@@ -45,11 +45,16 @@ $linearColorLighter: linear-gradient(135deg, rgb(40, 219, 222) 0%,
     height: fit-content;
 }
 
+label {
+    display: flex;
+}
+
 input {
     border: 1px solid rgb(185, 184, 184);
     border-radius: 5px;
-    height: 25px;
+    height: 30px;
     padding: 0 5px;
+    font-size: 18px;
 }
 
 input:hover {
@@ -66,7 +71,8 @@ input:hover {
     .passIcon {
         position: absolute;
         right: 0;
-        bottom: 0;
+        bottom: 50%;
+        transform: translateY(50%);
         height: 25px;
         width: 25px;
         background-color: rgba(255, 255, 255, 0);

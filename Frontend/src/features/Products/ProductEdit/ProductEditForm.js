@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import './ProductNewForm.scss';
+import '.././ProductNew&EditForm.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { useAddNewProductMutation } from "./productApiSlice";
+import { useAddNewProductMutation } from "../productApiSlice";
 import { useNavigate } from "react-router-dom";
+import { fragranceList } from '../ProductSelectOptions';
 
 const ProductNewForm = () => {
     const [label, setLabel] = useState('');
@@ -14,46 +15,68 @@ const ProductNewForm = () => {
     const [formatPrice, setFormatPrice] = useState();
     const [prevPrice, setPrevPrice] = useState();
     const [formatPrevPrice, setFormatPrevPrice] = useState();
-    const [type, setType] = useState('');
-
+    const [type, setType] = useState('Nam');
     const [fragrance, setFragrance] = useState([]);
-
-    const [description, setdescription] = useState('');
+    const [description, setDescription] = useState('');
     const [images, setImages] = useState([]);
     const [preImages, setPreImages] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
-    const fileInputRef = useRef();
+
+    const [introduce, setIntroduce] = useState('');
+    const [style, setStyle] = useState('');
 
     const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, "");
 
     const onChangeVolume = (e) => {
         setVolume(addCommas(removeNonNumeric(e.target.value)))
-    }
+    };
+
     const onChangePrice = (e) => {
         setFormatPrice(addCommas(removeNonNumeric(e.target.value)));
+    };
+    const onChangePrevPrice = (e) => {
+        setFormatPrevPrice(addCommas(removeNonNumeric(e.target.value)));
     };
     useEffect(() => {
         if (formatPrice) {
             const number = formatPrice.replace(/,/g, '');
             setPrice(parseInt(number));
-        }
-    }, [formatPrice]);
-
-    const onChangePrevPrice = (e) => {
-        setFormatPrevPrice(addCommas(removeNonNumeric(e.target.value)));
-    };
-    useEffect(() => {
+        };
         if (formatPrevPrice) {
             const number = formatPrevPrice.replace(/,/g, '');
             setPrevPrice(parseInt(number));
-        }
-    }, [formatPrevPrice]);
+        };
+    }, [formatPrice, formatPrevPrice]);
 
+    const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
+
+    const selectFragrance = (fragranceOption) => {
+        if (fragrance.includes(fragranceOption)) {
+            setFragrance(fragrance.filter(op => op !== fragranceOption))
+        }
+        else {
+            setFragrance([...fragrance, fragranceOption])
+        }
+    };
+
+    const isSelected = (fragranceOption) => {
+        return fragrance.includes(fragranceOption);
+    };
+
+    const introduceRef = useRef();
+    useEffect(() => {
+        introduceRef.current.style.height = introduceRef.current.scrollHeight + 'px';
+        setDescription({
+            introduce: introduce,
+            style: style
+        });
+    }, [introduce, style]);
+
+    const fileInputRef = useRef();
     const selectFiles = () => {
         fileInputRef.current.click();
     };
-
     const convertToBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const fileReader = new FileReader();
@@ -89,14 +112,6 @@ const ProductNewForm = () => {
         };
     };
 
-    const deletePreImage = (theImg) => {
-        if (theImg.url) {
-            setPreImages(preImages.filter(e => e.url !== theImg.url));
-            URL.revokeObjectURL(theImg.url);
-        };
-        setImages(images.filter(e => e.name !== theImg.name));
-    };
-
     const onDragOver = (e) => {
         e.preventDefault();
         setIsDragging(true);
@@ -121,9 +136,45 @@ const ProductNewForm = () => {
                     }]
                 );
                 const convertImg = await convertToBase64(files[i]);
-                setImages(theBI => [...theBI, convertImg])
+                setImages(theBinaryImg => [
+                    ...theBinaryImg, {
+                        name: files[i].name,
+                        data: convertImg
+                    }]
+                );
             }
         };
+    };
+
+    const imaggesContent = (
+        (images?.map((theImg) => (
+            <div className="image" key={theImg.name}>
+                <span className="delete" onClick={() => deleteImage(theImg)}>
+                    <div className="imgsDelIcon">
+                        <FontAwesomeIcon icon={faXmark} />
+                    </div>
+                </span>
+                <img src={theImg.data} alt="" />
+            </div>
+        )))
+            (preImages?.map((theImg) => (
+                <div className="image" key={theImg.name}>
+                    <span className="delete" onClick={() => deleteImage(theImg)}>
+                        <div className="imgsDelIcon">
+                            <FontAwesomeIcon icon={faXmark} />
+                        </div>
+                    </span>
+                    <img src={theImg.url} alt="" />
+                </div>
+            )))
+    );
+
+    const deleteImage = (theImg) => {
+        if (theImg.url) {
+            setPreImages(preImages.filter(e => e.url !== theImg.url));
+            URL.revokeObjectURL(theImg.url);
+        };
+        setImages(images.filter(e => e.name !== theImg.name));
     };
 
     const [addNewProduct, {
@@ -135,10 +186,9 @@ const ProductNewForm = () => {
 
     const onSaveProduct = async () => {
         if (!isLoading) {
-            // await addNewProduct({
-            //     images, label, code, price, prevPrice
-            // })
-            console.log(images, label, code, volume, price, prevPrice)
+            await addNewProduct({
+                images, label, code, stock, price, prevPrice, type, volume, fragrance, description
+            })
         }
     };
 
@@ -216,15 +266,69 @@ const ProductNewForm = () => {
                                         value={volume} onChange={onChangeVolume} />
                                 </div>
                             </div>
+
                             <div className="fragrance Product">
                                 <label htmlFor="fragranceProduct">Fragrance</label>
-                                <select name="fragranceProduct" id="fragranceProduct">
-                                    OPTIONS
-                                </select>
+
+                                <div
+                                    tabIndex={0} className="fragranceSelect" id="fragranceProduct"
+                                    onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
+                                    onBlur={() => setIsFragSelectOpen(false)}
+                                >
+                                    <span className='fragranceValue'>
+                                        {fragrance.map(frag => (
+                                            <button key={frag.value} className="option-badge"
+                                                onClick={e => {
+                                                    e.stopPropagation()
+                                                    selectFragrance(frag)
+                                                }}
+                                            >
+                                                {frag.label}
+                                                <span className='remove-btn'>
+                                                    <FontAwesomeIcon icon={faXmark} />
+                                                </span>
+                                            </button>
+                                        ))}
+                                    </span>
+                                    <div className="fragranceClearBTN"
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            setFragrance([])
+                                        }}
+                                    >
+                                        <FontAwesomeIcon icon={faXmark} />
+                                    </div>
+                                    <div className="fragranceDivider"></div>
+                                    <div className={`fragranceCaret ${isFragSelectOpen ? 'active' : ''}`}
+                                        onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
+                                    ></div>
+                                    <ul className={`fragranceList ${isFragSelectOpen ? 'active' : ''}`}>
+                                        {fragranceList.map(fragranceOption => (
+                                            <li key={fragranceOption.value}
+                                                className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
+                                                onClick={e => {
+                                                    e.stopPropagation()
+                                                    selectFragrance(fragranceOption)
+                                                }}
+                                            >
+                                                {fragranceOption.label}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </div>
+
                             <div className="description Product">
                                 <label htmlFor="descriptionProduct">Description</label>
-                                <input type="text" name="descriptionProduct" id="descriptionProduct" />
+                                <div className="descriptionProductContent">
+                                    <label htmlFor="introduce">Introduce</label>
+                                    <textarea name="introduce" id="introduce"
+                                        ref={introduceRef} className='ProductIntroduce'
+                                        value={introduce} onChange={(e) => setIntroduce(e.target.value)} />
+                                    <label htmlFor="style">Style</label>
+                                    <input type="text" name="style" id="style" className='ProductStyle'
+                                        value={style} onChange={(e) => setStyle(e.target.value)} />
+                                </div>
                             </div>
 
                         </div>
@@ -248,16 +352,7 @@ const ProductNewForm = () => {
                             </div>
 
                             <div className="imgsContainer">
-                                {preImages && preImages.map((theImg, index) => (
-                                    <div className="image" key={theImg.name}>
-                                        <span className="delete" onClick={() => deletePreImage(theImg)}>
-                                            <div className="imgsDelIcon">
-                                                <FontAwesomeIcon icon={faXmark} />
-                                            </div>
-                                        </span>
-                                        <img src={theImg.url} alt="" />
-                                    </div>
-                                ))}
+                                {imaggesContent}
                             </div>
                         </div>
                     </div>
