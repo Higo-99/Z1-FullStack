@@ -18,16 +18,35 @@ const ProductsInfor = ({ productId, code }) => {
         })
     });
 
-    let firstImageData;
+    let firstBlobImageData;
 
     if (image) {
         const { ids, entities } = image;
         const filteredIds = ids.filter(imgId => entities[imgId].code === code);
         const firstImageFilter = filteredIds.filter(id => entities[id].stand === '0')
-        firstImageData = entities[firstImageFilter].data;
+        firstBlobImageData = entities[firstImageFilter];
     };
 
-    const imgContent = <img className='tdImg' src={firstImageData} alt="" />;
+    const base64ToBlob = (base64Data) => {
+        const parts = base64Data.split(',');
+        const type = parts[0].match(/:(.*?);/)[1];
+        const byteCharacters = atob(parts[1]);
+        const byteNumbers = new Uint8Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        };
+
+        return new Blob([byteNumbers], { type: type });
+    };
+
+    let imgContent;
+    if (firstBlobImageData) {
+        const imgData = firstBlobImageData.data;
+        const imgName = firstBlobImageData.name;
+        const deCodeImg = base64ToBlob(imgData);
+        const imgUrl = URL.createObjectURL(deCodeImg)
+        imgContent = (<img className='tdImg' src={imgUrl} alt={imgName} />);
+    };
 
     if (product) {
         return (

@@ -56,7 +56,9 @@ th {
 }
 
 .tdImg {
-    max-height: 80px;
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
 }
 
 tr:nth-child(even) {
@@ -72,6 +74,10 @@ tr:hover {
     text-align: left;
     border: 1px solid var(--TABLE-COLOR);
     padding: 0.5em;
+}
+
+.table__cell {
+    height: 100px;
 }
 
 .table__cell:last-child {

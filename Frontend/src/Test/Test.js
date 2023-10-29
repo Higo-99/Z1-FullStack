@@ -30,16 +30,6 @@ const Test = () => {
         return new Blob([byteNumbers], { type: type });
     }
 
-    const decodeBase64Obj = (base64Data) => {
-        const parts = base64Data.split(',');
-        const type = parts[0].match(/:(.*?);/)[1];
-        const byteCharacters = atob(parts[1]);
-
-        const blob = new Blob([byteCharacters], { type: type });
-
-    }
-
-
     return (
         <div>
             <h1>Base64 to Blob Image</h1>
