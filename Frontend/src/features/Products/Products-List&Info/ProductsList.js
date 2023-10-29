@@ -24,9 +24,9 @@ const ProductsList = () => {
     if (isLoading) { content = <PulseLoader color='#0099ff' /> };
     if (isError) { content = <p> {error?.data?.message} </p> };
     if (isSuccess) {
-        const { ids } = products;
+        const { ids, entities } = products;
         const tableContent = ids?.length &&
-            ids.map(productId => <ProductsInfor key={productId} productId={productId} />);
+            ids.map(productId => <ProductsInfor key={productId} productId={productId} code={entities[productId].code} />);
 
         content = (
             <div className="">

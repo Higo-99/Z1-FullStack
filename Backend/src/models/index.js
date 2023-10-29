@@ -63,8 +63,8 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
-
 sequelize.sync({ alter: true })
+
 /*
 This line will copy all models to db
 

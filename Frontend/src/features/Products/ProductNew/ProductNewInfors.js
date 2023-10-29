@@ -12,10 +12,6 @@ const ProductNewInfo = ({
     isImages,
     setIsInfors
 }) => {
-
-    // const [code, setCode] = useState(''); 
-    // => In ProductNewForm -> need its value to pass in product's image
-
     const [label, setLabel] = useState('');
     const [volume, setVolume] = useState('');
     const [stock, setStock] = useState('');
@@ -93,6 +89,7 @@ const ProductNewInfo = ({
 
     const onSaveInfors = async (e) => {
         if (canSave) {
+            // await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
             await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
         }
     };
@@ -104,16 +101,14 @@ const ProductNewInfo = ({
         } else {
             setIsInfors(false)
         }
-    },
-        [setIsInfors, label, code, price]
-    );
+    }, [setIsInfors, label, code, price]);
 
     useEffect(() => {
         if (clickSave) {
             onSaveInfors();
             setClickSave(false);
         }
-    }, [onSaveInfors, clickSave, setClickSave]);
+    }, [clickSave, setClickSave]);
 
     useEffect(() => {
         if (isSuccess) {

@@ -102,7 +102,7 @@ const ProductNewImage = ({
         error
     }] = useAddNewProductImageMutation();
 
-    const canSave = isInfors && !isLoading && code;
+    const canSave = isInfors && !isLoading;
 
     const onSaveImgs = async (e) => {
         if (canSave) {
