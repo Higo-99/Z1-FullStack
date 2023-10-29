@@ -87,12 +87,6 @@ const ProductNewInfo = ({
 
     const canSave = !isLoading && isImages;
 
-    const onSaveInfors = async (e) => {
-        if (canSave) {
-            await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
-        }
-    };
-
     useEffect(() => {
         if (label && code && price) {
             setIsInfors(true)
@@ -102,12 +96,17 @@ const ProductNewInfo = ({
         }
     }, [setIsInfors, label, code, price]);
 
+    const onSaveInfors = async (e) => {
+        if (canSave) {
+            await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
+        }
+    };
+
     useEffect(() => {
         if (clickSave) {
             onSaveInfors();
             setClickSave(false);
         };
-
     }, [clickSave, setClickSave]);
 
     useEffect(() => {
