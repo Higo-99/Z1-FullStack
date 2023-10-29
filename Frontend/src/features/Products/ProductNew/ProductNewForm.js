@@ -18,6 +18,7 @@ const ProductNewForm = () => {
     const [isSaveImagesSuccess, setIsSaveImagesSuccess] = useState(false);
     const [isImages, setIsImages] = useState(false);
 
+    const canSave = isImages && isInfors;
     const onSaveProduct = () => {
         setClickSave(true);
     };
@@ -28,7 +29,7 @@ const ProductNewForm = () => {
         if (isSaveInforSuccess & isSaveImagesSuccess) {
             navigate('/productsManage')
         }
-    }, [isSaveInforSuccess, navigate]);
+    }, [isSaveInforSuccess, isSaveImagesSuccess, navigate]);
 
     const content = (
         <div className="productFormBackground">
@@ -66,7 +67,7 @@ const ProductNewForm = () => {
                     </div>
 
                     <div className="productFormBtn">
-                        <button className="AddNewBtn" onClick={onSaveProduct}>
+                        <button className="AddNewBtn" onClick={onSaveProduct} disabled={!canSave}>
                             Add New
                         </button>
                     </div>

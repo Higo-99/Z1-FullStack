@@ -86,7 +86,6 @@ const ProductNewInfo = ({
     const [addNewProductInfors, {
         isLoading,
         isSuccess,
-        isError,
         error
     }] = useAddNewProductMutation();
 
@@ -99,31 +98,34 @@ const ProductNewInfo = ({
     };
 
     useEffect(() => {
-        if (label && code && stock) {
+        if (label && code && price) {
             setIsInfors(true)
+
         } else {
             setIsInfors(false)
         }
-    }, [label, code, stock]);
+    },
+        [setIsInfors, label, code, price]
+    );
 
     useEffect(() => {
         if (clickSave) {
             onSaveInfors();
             setClickSave(false);
         }
-    }, [clickSave]);
+    }, [onSaveInfors, clickSave, setClickSave]);
 
     useEffect(() => {
         if (isSuccess) {
             setIsSaveInforSuccess(true)
         }
-    }, [isSuccess]);
+    }, [isSuccess, setIsSaveInforSuccess]);
 
     useEffect(() => {
         if (error) {
             setInforErrContent(error?.data?.message)
         };
-    }, [error]);
+    }, [error, setInforErrContent]);
 
     const content = (
         <div className="">

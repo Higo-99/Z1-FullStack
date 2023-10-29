@@ -399,6 +399,11 @@ $InputHeight: 40px;
             background: #00c835;
         }
     }
+
+    & .AddNewBtn:disabled {
+        background-color: #cccccc;
+        color: #666666;
+    }
 }
 
 $FontSize768px: 16px;

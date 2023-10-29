@@ -99,7 +99,6 @@ const ProductNewImage = ({
     const [addNewImage, {
         isLoading,
         isSuccess,
-        isError,
         error
     }] = useAddNewProductImageMutation();
 
@@ -117,27 +116,26 @@ const ProductNewImage = ({
         if (images.length) {
             setIsImages(true)
         } else {
-            setImageErrContent('There are no image')
             setIsImages(false)
         }
-    }, [images]);
+    }, [images, setIsImages]);
 
     useEffect(() => {
         if (clickSave) {
             onSaveImgs();
             setClickSave(false);
         }
-    }, [clickSave]);
+    }, [setClickSave, clickSave]);
 
     useEffect(() => {
         if (error) { setImageErrContent(error?.data?.message) }
-    }, [error]);
+    }, [error, setImageErrContent]);
 
     useEffect(() => {
         if (isSuccess) {
             setIsSaveImagesSuccess(true)
         }
-    }, [isSuccess]);
+    }, [isSuccess, setIsSaveImagesSuccess]);
 
     const content = (
         <div className="">
