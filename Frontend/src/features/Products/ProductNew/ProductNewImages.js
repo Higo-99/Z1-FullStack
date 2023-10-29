@@ -104,14 +104,6 @@ const ProductNewImage = ({
 
     const canSave = isInfors && !isLoading;
 
-    const onSaveImgs = async (e) => {
-        if (canSave) {
-            for (let i = 0; i < images.length; i++) {
-                await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
-            }
-        }
-    };
-
     useEffect(() => {
         if (images.length) {
             setIsImages(true)
@@ -121,11 +113,20 @@ const ProductNewImage = ({
     }, [images, setIsImages]);
 
     useEffect(() => {
+        const onSaveImgs = async (e) => {
+            if (canSave) {
+                for (let i = 0; i < images.length; i++) {
+                    await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
+                }
+            }
+        };
         if (clickSave) {
             onSaveImgs();
             setClickSave(false);
         }
-    }, [setClickSave, clickSave]);
+    }, [
+        canSave, addNewImage, setClickSave, clickSave, code, images
+    ]);
 
     useEffect(() => {
         if (error) { setImageErrContent(error?.data?.message) }
