@@ -1,46 +1,108 @@
-import React, { useState, useEffect } from 'react';
-import { content } from './base64';
+import { useEffect, useRef, useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { fragranceList } from './ProductSelectOptions';
 
 const Test = () => {
-    const [imageBlob, setImageBlob] = useState(null);
+    const [fragrance, setFragrance] = useState('');
+    const [fragranceSelect, setFragranceSelect] = useState([fragranceList[0]]);
+
+    const productFragRef = useRef();
+    const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
+    useEffect(() => {
+        let handler = (e) => {
+            if (!productFragRef.current.contains(e.target)) {
+                setIsFragSelectOpen(false)
+            };
+        };
+        document.addEventListener('mousedown', handler);
+
+        return () => {
+            document.removeEventListener('mousedown', handler);
+        }
+    });
+
+    const selectFragrance = (fragranceOption) => {
+        if (fragranceSelect.includes(fragranceOption)) {
+            setFragranceSelect(fragranceSelect.filter(op => op !== fragranceOption))
+        }
+        else {
+            setFragranceSelect([...fragranceSelect, fragranceOption])
+        }
+    };
+
+    const isSelected = (fragranceOption) => {
+        return fragranceSelect.includes(fragranceOption);
+    };
 
     useEffect(() => {
-        // Replace this with your actual base64 encoded image
-        const base64Image = content;
+        setFragrance(JSON.stringify(fragranceSelect));
+    }, [fragranceSelect]);
 
+    console.log(fragranceSelect);
 
-        // Convert the base64 data to a Blob
-        const blob = base64ToBlob(base64Image);
+    const fragranceContent = (
+        fragranceList.map(fragranceOption => (
+            <li key={fragranceOption.value}
+                className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
+                onClick={e => {
+                    e.stopPropagation()
+                    selectFragrance(fragranceOption)
+                }}
+            >
+                {fragranceOption.label}
+            </li>
+        ))
+    );
 
-        // Set the Blob in the state
-        setImageBlob(blob);
-    }, []);
-
-    // Function to convert base64 to Blob
-    const base64ToBlob = (base64Data) => {
-        const parts = base64Data.split(',');
-        const type = parts[0].match(/:(.*?);/)[1];
-        const byteCharacters = atob(parts[1]);
-        const byteNumbers = new Uint8Array(byteCharacters.length);
-
-        for (let i = 0; i < byteCharacters.length; i++) {
-            byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-
-        return new Blob([byteNumbers], { type: type });
-    }
 
     return (
-        <div>
-            <h1>Base64 to Blob Image</h1>
-            {imageBlob && (
-                <img
-                    src={URL.createObjectURL(imageBlob)}
-                    alt="Blob Image"
-                    style={{ maxWidth: '100%' }}
-                />
-            )}
+        <div className="fragrance Product" ref={productFragRef}>
+            <label
+                htmlFor="fragranceProduct"
+                onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
+            >
+                Fragrance
+            </label>
+            <div
+                tabIndex={0} className="fragranceSelect" id="fragranceProduct"
+                onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
+            >
+                <span className='fragranceValue'>
+                    {fragranceSelect.map(frag => (
+                        <button key={frag.value} className="option-badge"
+                            onClick={e => {
+                                e.stopPropagation()
+                                selectFragrance(frag)
+                            }}
+                        >
+                            {frag.label}
+                            <span className='remove-btn'>
+                                <FontAwesomeIcon icon={faXmark} />
+                            </span>
+                        </button>
+                    ))}
+                </span>
+                <div className="fragranceClearBTN"
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        setFragranceSelect([])
+                    }}
+                >
+                    <FontAwesomeIcon icon={faXmark} />
+                </div>
+                <div className="fragranceDivider"></div>
+                <div className={`fragranceCaret ${isFragSelectOpen ? 'active' : ''}`}
+                    onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
+                ></div>
+                <div className={`fragrancedropdown ${isFragSelectOpen ? 'active' : ''}`}>
+                    <ul className={`fragranceList active`}>
+                        {fragranceContent}
+                    </ul>
+                </div>
+            </div>
         </div>
-    );
+    )
 }
-export default Test;
+
+export default Test
