@@ -5,7 +5,6 @@ import TopPromotion from '../../img/Banner/Top-Promotion.jpg';
 import ProductCard from '../ProductCard/ProductCard';
 
 const HomePage = () => {
-
     const content = (
         <div className="HomePage">
             <div className="banner">

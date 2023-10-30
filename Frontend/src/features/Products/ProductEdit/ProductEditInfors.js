@@ -11,7 +11,7 @@ const ProductNewInfo = ({
     setInforErrContent,
     setIsSaveInforSuccess,
     isImages,
-    setIsInfors
+    setIsInfors,
 }) => {
     const [label, setLabel] = useState(product.label);
     const [volume, setVolume] = useState(product.volume);
@@ -21,12 +21,12 @@ const ProductNewInfo = ({
     const [prevPrice, setPrevPrice] = useState(product.prevPrice);
     const [formatPrevPrice, setFormatPrevPrice] = useState(product.formatPrevPrice);
     const [type, setType] = useState(product.type);
-    const [fragrance, setFragrance] = useState(product.fragrance);
-    const [fragranceSelect, setFragranceSelect] = useState([]);
+    const [fragrance, setFragrance] = useState('');
+    const [fragranceSelect, setFragranceSelect] = useState(JSON.parse(product.fragrance));
     const [description, setDescription] = useState('');
 
-    const [introduce, setIntroduce] = useState('');
-    const [style, setStyle] = useState('');
+    const [introduce, setIntroduce] = useState(JSON.parse(product.description).introduce);
+    const [style, setStyle] = useState(JSON.parse(product.description).style);
 
     const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, "");
@@ -52,7 +52,20 @@ const ProductNewInfo = ({
         };
     }, [formatPrice, formatPrevPrice]);
 
+    const productFragRef = useRef();
     const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
+    useEffect(() => {
+        let handler = (e) => {
+            if (!productFragRef.current.contains(e.target)) {
+                setIsFragSelectOpen(false)
+            };
+        };
+        document.addEventListener('mousedown', handler);
+
+        return () => {
+            document.removeEventListener('mousedown', handler);
+        }
+    });
 
     const selectFragrance = (fragranceOption) => {
         if (fragranceSelect.includes(fragranceOption)) {
@@ -69,7 +82,24 @@ const ProductNewInfo = ({
 
     useEffect(() => {
         setFragrance(JSON.stringify(fragranceSelect));
-    }, [fragranceSelect])
+    }, [fragranceSelect]);
+
+    let fragranceContent;
+    if (product) {
+        fragranceContent = (
+            fragranceList.map(fragranceOption => (
+                <li key={fragranceOption.value}
+                    className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
+                    onClick={e => {
+                        e.stopPropagation()
+                        selectFragrance(fragranceOption)
+                    }}
+                >
+                    {fragranceOption.label}
+                </li>
+            ))
+        );
+    };
 
     const introduceRef = useRef();
     useEffect(() => {
@@ -79,6 +109,15 @@ const ProductNewInfo = ({
             style: style
         }));
     }, [introduce, style]);
+
+    const allInfors = [label, code, price].every(Boolean);
+    useEffect(() => {
+        if (allInfors) {
+            setIsInfors(true)
+        } else {
+            setIsInfors(false)
+        }
+    }, [allInfors]);
 
     const [addNewProductInfors, {
         isLoading,
@@ -95,20 +134,10 @@ const ProductNewInfo = ({
     };
 
     useEffect(() => {
-        if (label && code && price) {
-            setIsInfors(true)
-
-        } else {
-            setIsInfors(false)
-        }
-    }, [setIsInfors, label, code, price]);
-
-    useEffect(() => {
         if (clickSave) {
             onSaveInfors();
             setClickSave(false);
         };
-
     }, [clickSave, setClickSave]);
 
     useEffect(() => {
@@ -177,13 +206,16 @@ const ProductNewInfo = ({
                 </div>
             </div>
 
-            <div className="fragrance Product">
-                <label htmlFor="fragranceProduct">Fragrance</label>
-
+            <div className="fragrance Product" ref={productFragRef}>
+                <label
+                    htmlFor="fragranceProduct"
+                    onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
+                >
+                    Fragrance
+                </label>
                 <div
                     tabIndex={0} className="fragranceSelect" id="fragranceProduct"
                     onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
-                    onBlur={() => setIsFragSelectOpen(false)}
                 >
                     <span className='fragranceValue'>
                         {fragranceSelect.map(frag => (
@@ -214,17 +246,7 @@ const ProductNewInfo = ({
                     ></div>
                     <div className={`fragrancedropdown ${isFragSelectOpen ? 'active' : ''}`}>
                         <ul className={`fragranceList active`}>
-                            {fragranceList.map(fragranceOption => (
-                                <li key={fragranceOption.value}
-                                    className={`fragranceOption ${isSelected(fragranceOption) ? 'selected' : ''}`}
-                                    onClick={e => {
-                                        e.stopPropagation()
-                                        selectFragrance(fragranceOption)
-                                    }}
-                                >
-                                    {fragranceOption.label}
-                                </li>
-                            ))}
+                            {fragranceContent}
                         </ul>
                     </div>
                 </div>
@@ -243,7 +265,8 @@ const ProductNewInfo = ({
                 </div>
             </div>
         </div>
-    )
+    );
+
     return content;
 
 };

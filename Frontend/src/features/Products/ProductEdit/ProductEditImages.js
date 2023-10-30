@@ -88,6 +88,14 @@ const ProductNewImage = ({
         };
     };
 
+    useEffect(() => {
+        if (images.length) {
+            setIsImages(true)
+        } else {
+            setIsImages(false)
+        }
+    }, [images, setIsImages]);
+
     const deleteImage = (theImg) => {
         if (theImg.url) {
             setPreimages(preimages.filter(e => e.url !== theImg.url));
@@ -111,14 +119,6 @@ const ProductNewImage = ({
             }
         }
     };
-
-    useEffect(() => {
-        if (images.length) {
-            setIsImages(true)
-        } else {
-            setIsImages(false)
-        }
-    }, [images, setIsImages]);
 
     useEffect(() => {
         if (clickSave) {
