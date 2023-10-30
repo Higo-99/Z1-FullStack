@@ -4,8 +4,22 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { fragranceList } from './ProductSelectOptions';
 
 const Test = () => {
+    const frgs = [{ label: "Akigalawood", value: "Akigalawood" },
+    { label: "Amberwood", value: "Amberwood" }];
+    const frgs2 = [{ label: "Akigalawood", value: "Akigalawood" }];
+
     const [fragrance, setFragrance] = useState('');
-    const [fragranceSelect, setFragranceSelect] = useState([fragranceList[0]]);
+    const [fragranceSelect, setFragranceSelect] = useState([]);
+
+    for (let i = 0; i < frgs.length; i++) {
+        for (let j = 0; j < fragranceList.length; j++) {
+            if (fragranceList[j].value === frgs[i].value) {
+                if (!fragranceSelect.includes(fragranceList[j])) {
+                    setFragranceSelect([...fragranceSelect, fragranceList[j]])
+                }
+            }
+        }
+    };
 
     const productFragRef = useRef();
     const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
@@ -38,8 +52,7 @@ const Test = () => {
     useEffect(() => {
         setFragrance(JSON.stringify(fragranceSelect));
     }, [fragranceSelect]);
-
-    console.log(fragranceSelect);
+    // console.log(fragranceSelect);
 
     const fragranceContent = (
         fragranceList.map(fragranceOption => (
