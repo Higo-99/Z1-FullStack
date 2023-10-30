@@ -4,6 +4,7 @@ import { useGetProductsQuery } from '../productInforApiSlice';
 import { useGetProductImagesQuery } from '../productImageApiSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 
 const ProductsInfor = ({ productId, code }) => {
     const { product } = useGetProductsQuery('product', {
@@ -48,7 +49,10 @@ const ProductsInfor = ({ productId, code }) => {
         imgContent = (<img className='tdImg' src={imgUrl} alt={imgName} />);
     };
 
+    const navigate = useNavigate();
+
     if (product) {
+        const handleEdit = () => navigate(`/productsManage/${productId}`);
         return (
             <tr>
                 <td className='table__cell'>{product.id}</td>
@@ -61,7 +65,7 @@ const ProductsInfor = ({ productId, code }) => {
                 <td className='table__cell'>
                     <button
                         className="icon-button table__button"
-                    // onClick={handleEdit}
+                        onClick={handleEdit}
                     >
                         <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
