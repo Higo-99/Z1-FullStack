@@ -11,8 +11,9 @@ const Test = () => {
     ];
 
     const idsToFind = [1, 3];
+    const nameToFind = ['Object 1', 'Object 2'];
 
-    const foundObjects = myArray.filter(item => idsToFind.includes(item.id));
+    const foundObjects = myArray.filter(item => nameToFind.includes(item.name));
 
     if (foundObjects.length > 0) {
         // Objects with the specified ids were found
@@ -24,11 +25,11 @@ const Test = () => {
 
     const frgs2 = [fragranceList[1], fragranceList[3]];
 
-    const frgs = [{ label: "Akigalawood", value: "Akigalawood" },
-    { label: "Amberwood", value: "Amberwood" }];
+    const savedfrags = ["Akigalawood", "Amberwood"];
+    const oldFrags = fragranceList.filter(frag => savedfrags.includes(frag.value));
 
     const [fragrance, setFragrance] = useState('');
-    const [fragranceSelect, setFragranceSelect] = useState(frgs);
+    const [fragranceSelect, setFragranceSelect] = useState(oldFrags);
 
     const productFragRef = useRef();
     const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
