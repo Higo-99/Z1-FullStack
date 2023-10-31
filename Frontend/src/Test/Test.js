@@ -4,22 +4,31 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { fragranceList } from './ProductSelectOptions';
 
 const Test = () => {
+    const myArray = [
+        { id: 1, name: 'Object 1' },
+        { id: 2, name: 'Object 2' },
+        { id: 3, name: 'Object 3' }
+    ];
+
+    const idsToFind = [1, 3];
+
+    const foundObjects = myArray.filter(item => idsToFind.includes(item.id));
+
+    if (foundObjects.length > 0) {
+        // Objects with the specified ids were found
+        console.log('Found Objects:', foundObjects);
+    } else {
+        // Objects with the specified ids were not found
+        console.log('Objects not found');
+    }
+
+    const frgs2 = [fragranceList[1], fragranceList[3]];
+
     const frgs = [{ label: "Akigalawood", value: "Akigalawood" },
     { label: "Amberwood", value: "Amberwood" }];
-    const frgs2 = [{ label: "Akigalawood", value: "Akigalawood" }];
 
     const [fragrance, setFragrance] = useState('');
-    const [fragranceSelect, setFragranceSelect] = useState([]);
-
-    for (let i = 0; i < frgs.length; i++) {
-        for (let j = 0; j < fragranceList.length; j++) {
-            if (fragranceList[j].value === frgs[i].value) {
-                if (!fragranceSelect.includes(fragranceList[j])) {
-                    setFragranceSelect([...fragranceSelect, fragranceList[j]])
-                }
-            }
-        }
-    };
+    const [fragranceSelect, setFragranceSelect] = useState(frgs);
 
     const productFragRef = useRef();
     const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
