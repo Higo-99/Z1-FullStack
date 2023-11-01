@@ -12,8 +12,9 @@ module.exports = (sequelize, DataTypes) => {
         prevPrice: DataTypes.INTEGER,
         type: DataTypes.STRING,
         volume: DataTypes.STRING,
-        fragrance: DataTypes.STRING,
-        description: DataTypes.TEXT,
+        fragrance: DataTypes.ARRAY(DataTypes.STRING),
+        introduce: DataTypes.STRING,
+        style: DataTypes.STRING,
     }, {
         sequelize,
         modelName: 'Products',

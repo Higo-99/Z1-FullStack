@@ -22,7 +22,7 @@ const ProductNewInfo = ({
     const [type, setType] = useState('Nam');
     const [fragrance, setFragrance] = useState('');
     const [fragranceSelect, setFragranceSelect] = useState([]);
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(''); // delete this fraction
 
     const [introduce, setIntroduce] = useState('');
     const [style, setStyle] = useState('');

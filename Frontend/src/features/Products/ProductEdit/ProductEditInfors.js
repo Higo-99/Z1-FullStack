@@ -23,7 +23,7 @@ const ProductNewInfo = ({
     const [type, setType] = useState(product.type);
     const [fragrance, setFragrance] = useState('');
     const [fragranceSelect, setFragranceSelect] = useState(JSON.parse(product.fragrance));
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(''); // delete this fraction
 
     const [introduce, setIntroduce] = useState(JSON.parse(product.description).introduce);
     const [style, setStyle] = useState(JSON.parse(product.description).style);

@@ -32,10 +32,13 @@ module.exports = {
                 type: Sequelize.STRING
             },
             fragrance: {
+                type: Sequelize.ARRAY(Sequelize.STRING)
+            },
+            introduce: {
                 type: Sequelize.STRING
             },
-            description: {
-                type: Sequelize.TEXT
+            style: {
+                type: Sequelize.STRING
             },
 
             createdAt: {
