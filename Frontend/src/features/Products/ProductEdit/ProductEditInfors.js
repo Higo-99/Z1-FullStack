@@ -6,6 +6,9 @@ import { fragranceList } from '../ProductSelectOptions';
 
 const ProductNewInfo = ({
     product,
+    filterFrags,
+    oldFormatPrice,
+    oldFormatPrevPrice,
     code, setCode,
     clickSave, setClickSave,
     setInforErrContent,
@@ -17,16 +20,14 @@ const ProductNewInfo = ({
     const [volume, setVolume] = useState(product.volume);
     const [stock, setStock] = useState(product.stock);
     const [price, setPrice] = useState(product.price);
-    const [formatPrice, setFormatPrice] = useState(product.formatPrice);
+    const [formatPrice, setFormatPrice] = useState(oldFormatPrice);
     const [prevPrice, setPrevPrice] = useState(product.prevPrice);
-    const [formatPrevPrice, setFormatPrevPrice] = useState(product.formatPrevPrice);
+    const [formatPrevPrice, setFormatPrevPrice] = useState(oldFormatPrevPrice);
     const [type, setType] = useState(product.type);
-    const [fragrance, setFragrance] = useState('');
-    const [fragranceSelect, setFragranceSelect] = useState(JSON.parse(product.fragrance));
-    const [description, setDescription] = useState(''); // delete this fraction
-
-    const [introduce, setIntroduce] = useState(JSON.parse(product.description).introduce);
-    const [style, setStyle] = useState(JSON.parse(product.description).style);
+    const [fragrance, setFragrance] = useState(product.fragrance);
+    const [fragranceSelect, setFragranceSelect] = useState(filterFrags);
+    const [introduce, setIntroduce] = useState(product.introduce);
+    const [style, setStyle] = useState(product.style);
 
     const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     const removeNonNumeric = num => num.toString().replace(/[^0-9]/g, "");
@@ -70,19 +71,19 @@ const ProductNewInfo = ({
     const selectFragrance = (fragranceOption) => {
         if (fragranceSelect.includes(fragranceOption)) {
             setFragranceSelect(fragranceSelect.filter(op => op !== fragranceOption))
+            setFragrance(fragrance.filter(op => op !== fragranceOption.value))
         }
         else {
             setFragranceSelect([...fragranceSelect, fragranceOption])
+            setFragrance([...fragrance, fragranceOption.value])
         }
     };
+
+    console.log('Edit re-render');
 
     const isSelected = (fragranceOption) => {
         return fragranceSelect.includes(fragranceOption);
     };
-
-    useEffect(() => {
-        setFragrance(JSON.stringify(fragranceSelect));
-    }, [fragranceSelect]);
 
     let fragranceContent;
     if (product) {
@@ -104,11 +105,7 @@ const ProductNewInfo = ({
     const introduceRef = useRef();
     useEffect(() => {
         introduceRef.current.style.height = introduceRef.current.scrollHeight + 'px';
-        setDescription(JSON.stringify({
-            introduce: introduce,
-            style: style
-        }));
-    }, [introduce, style]);
+    }, [introduce]);
 
     const allInfors = [label, code, price].every(Boolean);
     useEffect(() => {
@@ -129,7 +126,7 @@ const ProductNewInfo = ({
 
     const onSaveInfors = async (e) => {
         if (canSave) {
-            await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
+            await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style })
         }
     };
 

@@ -5,18 +5,25 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import ProductEditInfors from "./ProductEditInfors";
 import ProductEditImages from "./ProductEditImages";
+import { fragranceList } from "../ProductSelectOptions";
 
 const ProductEditForm = ({ product }) => {
-    const [clickSave, setClickSave] = useState(false);
-
-    const [code, setCode] = useState(product.code);
     const [inforErrContent, setInforErrContent] = useState('');
     const [isSaveInforSuccess, setIsSaveInforSuccess] = useState(false);
-    const [isInfors, setIsInfors] = useState(false);
+    const [isInfors, setIsInfors] = useState(true);
 
     const [imageErrContent, setImageErrContent] = useState('');
     const [isSaveImagesSuccess, setIsSaveImagesSuccess] = useState(false);
-    const [isImages, setIsImages] = useState(false);
+    const [isImages, setIsImages] = useState(true);
+
+    const [clickSave, setClickSave] = useState(false);
+
+    const [code, setCode] = useState(product.code);
+    const productFrags = product.fragrance;
+    const filterFrags = fragranceList.filter(frag => productFrags.includes(frag.value));
+    const addCommas = num => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const oldFormatPrice = addCommas(JSON.stringify(product.price));
+    const oldFormatPrevPrice = addCommas(JSON.stringify(product.prevPrice));
 
     const canSave = isImages && isInfors;
     const onSaveProduct = () => {
@@ -48,6 +55,9 @@ const ProductEditForm = ({ product }) => {
                         <div className="top">
                             <ProductEditInfors
                                 product={product}
+                                filterFrags={filterFrags}
+                                oldFormatPrice={oldFormatPrice}
+                                oldFormatPrevPrice={oldFormatPrevPrice}
                                 code={code} setCode={setCode}
                                 clickSave={clickSave} setClickSave={setClickSave}
                                 setInforErrContent={setInforErrContent}

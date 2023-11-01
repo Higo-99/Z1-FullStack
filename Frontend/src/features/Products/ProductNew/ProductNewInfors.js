@@ -20,10 +20,8 @@ const ProductNewInfo = ({
     const [prevPrice, setPrevPrice] = useState();
     const [formatPrevPrice, setFormatPrevPrice] = useState();
     const [type, setType] = useState('Nam');
-    const [fragrance, setFragrance] = useState('');
+    const [fragrance, setFragrance] = useState([]);
     const [fragranceSelect, setFragranceSelect] = useState([]);
-    const [description, setDescription] = useState(''); // delete this fraction
-
     const [introduce, setIntroduce] = useState('');
     const [style, setStyle] = useState('');
 
@@ -52,13 +50,28 @@ const ProductNewInfo = ({
     }, [formatPrice, formatPrevPrice]);
 
     const [isFragSelectOpen, setIsFragSelectOpen] = useState(false);
+    const productFragRef = useRef();
+    useEffect(() => {
+        let handler = (e) => {
+            if (!productFragRef.current.contains(e.target)) {
+                setIsFragSelectOpen(false)
+            };
+        };
+        document.addEventListener('mousedown', handler);
+
+        return () => {
+            document.removeEventListener('mousedown', handler);
+        }
+    });
 
     const selectFragrance = (fragranceOption) => {
         if (fragranceSelect.includes(fragranceOption)) {
             setFragranceSelect(fragranceSelect.filter(op => op !== fragranceOption))
+            setFragrance(fragrance.filter(op => op !== fragranceOption.value))
         }
         else {
             setFragranceSelect([...fragranceSelect, fragranceOption])
+            setFragrance([...fragrance, fragranceOption.value])
         }
     };
 
@@ -66,18 +79,10 @@ const ProductNewInfo = ({
         return fragranceSelect.includes(fragranceOption);
     };
 
-    useEffect(() => {
-        setFragrance(JSON.stringify(fragranceSelect));
-    }, [fragranceSelect])
-
     const introduceRef = useRef();
     useEffect(() => {
         introduceRef.current.style.height = introduceRef.current.scrollHeight + 'px';
-        setDescription(JSON.stringify({
-            introduce: introduce,
-            style: style
-        }));
-    }, [introduce, style]);
+    }, [introduce]);
 
     const [addNewProductInfors, {
         isLoading,
@@ -89,18 +94,18 @@ const ProductNewInfo = ({
 
     const onSaveInfors = async (e) => {
         if (canSave) {
-            await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, description })
+            await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style })
         }
     };
 
+    const allInfors = [label, code, price].every(Boolean);
     useEffect(() => {
-        if (label && code && price) {
+        if (allInfors) {
             setIsInfors(true)
-
         } else {
             setIsInfors(false)
         }
-    }, [setIsInfors, label, code, price]);
+    }, [allInfors]);
 
     useEffect(() => {
         if (clickSave) {
@@ -176,13 +181,12 @@ const ProductNewInfo = ({
                 </div>
             </div>
 
-            <div className="fragrance Product">
+            <div className="fragrance Product" ref={productFragRef}>
                 <label htmlFor="fragranceProduct">Fragrance</label>
 
                 <div
                     tabIndex={0} className="fragranceSelect" id="fragranceProduct"
                     onClick={() => setIsFragSelectOpen(!isFragSelectOpen)}
-                    onBlur={() => setIsFragSelectOpen(false)}
                 >
                     <span className='fragranceValue'>
                         {fragranceSelect.map(frag => (
@@ -203,6 +207,7 @@ const ProductNewInfo = ({
                         onClick={(e) => {
                             e.stopPropagation()
                             setFragranceSelect([])
+                            setFragrance([])
                         }}
                     >
                         <FontAwesomeIcon icon={faXmark} />
