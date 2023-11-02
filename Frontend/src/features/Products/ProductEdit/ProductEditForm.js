@@ -1,3 +1,7 @@
+import { useParams } from 'react-router-dom';
+import useTitle from '../../../hooks/useTitle'
+import { useGetProductsQuery } from '../productInforApiSlice';
+import PulseLoader from 'react-spinners/PulseLoader';
 import { useEffect, useState } from "react";
 import '.././ProductNew&EditForm.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,7 +11,16 @@ import ProductEditInfors from "./ProductEditInfors";
 import ProductEditImages from "./ProductEditImages";
 import { fragranceList } from "../ProductSelectOptions";
 
-const ProductEditForm = ({ product }) => {
+const ProductEditForm = () => {
+    useTitle('Edit product Z1_App');
+    const { id } = useParams();
+
+    const { product } = useGetProductsQuery('product', {
+        selectFromResult: ({ data }) => ({
+            product: data?.entities[id]
+        })
+    });
+
     const [inforErrContent, setInforErrContent] = useState('');
     const [isSaveInforSuccess, setIsSaveInforSuccess] = useState(false);
     const [isInfors, setIsInfors] = useState(true);
@@ -39,6 +52,8 @@ const ProductEditForm = ({ product }) => {
             navigate('/productsManage')
         }
     }, [successAll, navigate]);
+
+    if (!product) { return <PulseLoader color='#0099ff' /> };
 
     const content = (
         <div className="productFormBackground">
@@ -81,7 +96,7 @@ const ProductEditForm = ({ product }) => {
 
                     <div className="productFormBtn">
                         <button className="AddNewBtn" onClick={onSaveProduct} disabled={!canSave}>
-                            Add New
+                            Save Edit
                         </button>
                     </div>
                 </div>

@@ -37,16 +37,14 @@ const creating = async (req, res) => {
 };
 
 const editting = async (req, res) => {
-    const { id, name, stand, data } = req.body;
+    const { id, code } = req.body;
     const theImage = await db.productImages.findOne({ where: { id: id } });
     if (!theImage) {
         res.status(400).json({ message: 'Image not found' })
     } else {
         await db.ProductImages.upsert({
             id: id,
-            name: name,
-            stand: stand,
-            data: data
+            code: code
         })
     };
     res.json({ message: `Producy ${theImage.code}'s image has been updated!` });

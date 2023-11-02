@@ -37,7 +37,7 @@ const ProductNewImage = ({
         const files = e.target.files;
         if (files.length === 0) return;
         for (let i = 0; i < files.length; i++) {
-            if (!preimages.some(e => e.name === files[i].name)) {
+            if (!preimages.some(img => img.name === files[i].name)) {
                 setPreimages(theImg => [
                     ...theImg, {
                         name: files[i].name,
@@ -70,7 +70,7 @@ const ProductNewImage = ({
         setIsDragging(false);
         const files = e.dataTransfer.files;
         for (let i = 0; i < files.length; i++) {
-            if (!preimages.some(e => e.name === files[i].name)) {
+            if (!preimages.some(e => e.name === files[i].name)) { // check if there are any old imgs with the same name
                 setPreimages(theImg => [
                     ...theImg, {
                         name: files[i].name,
@@ -89,7 +89,7 @@ const ProductNewImage = ({
     };
 
     useEffect(() => {
-        if (images.length) {
+        if (images.length) { // and check if there are old imgs? ========================
             setIsImages(true)
         } else {
             setIsImages(false)

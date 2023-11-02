@@ -47,6 +47,11 @@ const editting = async (req, res) => {
         id, images, label, code, stock, volume, price, prevPrice, type, fragrance, introduce, style
     } = req.body;
 
+    const theProduct = await db.Products.findOne({ where: { id: id } });
+    if (!theProduct) {
+        return res.status(400).json({ message: 'Product not found' });
+    };
+
     const duplicate = await db.Products.findOne({
         where: {
             [Op.and]: [
@@ -56,29 +61,28 @@ const editting = async (req, res) => {
         }
     });
     if (duplicate) {
-        return res.status(409).json({ message: 'This product already has in store' });
+        if (duplicate.id !== theProduct.id) {
+            return res.status(409).json({ message: 'Duplicate product' });
+        }
     };
 
-    const theProduct = await db.Products.findOne({ where: { id: id } });
-    if (!theProduct) {
-        return res.status(400).json({ message: 'Product not found' });
-    } else {
-        await db.Products.upsert({
-            id: id,
-            images: images,
-            label: label,
-            code: code,
-            stock: stock,
-            volume: volume,
-            price: price,
-            prevPrice: prevPrice,
-            type: type,
-            fragrance: fragrance,
-            introduce: introduce,
-            style: style,
-        });
-    }
-    res.json({ message: `Product ${theProduct.code}'s data has been updated!` });
+    await db.Products.update({
+        images: images,
+        label: label,
+        code: code,
+        stock: stock,
+        volume: volume,
+        price: price,
+        prevPrice: prevPrice,
+        type: type,
+        fragrance: fragrance,
+        introduce: introduce,
+        style: style,
+    }, {
+        where: { id: id }
+    });
+
+    res.json({ message: `Product ${code}'s data has been updated!` });
 };
 
 const deleting = async (req, res) => {

@@ -79,8 +79,6 @@ const ProductNewInfo = ({
         }
     };
 
-    console.log('Edit re-render');
-
     const isSelected = (fragranceOption) => {
         return fragranceSelect.includes(fragranceOption);
     };

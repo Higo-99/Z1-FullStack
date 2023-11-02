@@ -11,7 +11,7 @@ const ProductNewImage = ({
     isInfors,
     setIsImages
 }) => {
-    const [images, setimages] = useState([]);
+    const [images, setImages] = useState([]);
     const [preimages, setPreimages] = useState([]);
 
     const [isDragging, setIsDragging] = useState(false);
@@ -37,7 +37,7 @@ const ProductNewImage = ({
         const files = e.target.files;
         if (files.length === 0) return;
         for (let i = 0; i < files.length; i++) {
-            if (!preimages.some(e => e.name === files[i].name)) {
+            if (!preimages.some(img => img.name === files[i].name)) {
                 setPreimages(theImg => [
                     ...theImg, {
                         name: files[i].name,
@@ -49,7 +49,7 @@ const ProductNewImage = ({
                     name: files[i].name,
                     data: convertImg
                 };
-                setimages(theBI => [...theBI, { imgBinary }]);
+                setImages(theBI => [...theBI, { imgBinary }]);
             }
         };
     };
@@ -83,7 +83,7 @@ const ProductNewImage = ({
                     name: files[i].name,
                     data: convertImg
                 };
-                setimages(theBinaryImg => [...theBinaryImg, imgBinary]);
+                setImages(theBinaryImg => [...theBinaryImg, imgBinary]);
             }
         };
     };
@@ -93,7 +93,7 @@ const ProductNewImage = ({
             setPreimages(preimages.filter(e => e.url !== theImg.url));
             URL.revokeObjectURL(theImg.url);
         };
-        setimages(images.filter(e => e.name !== theImg.name));
+        setImages(images.filter(e => e.name !== theImg.name));
     };
 
     const [addNewImage, {
