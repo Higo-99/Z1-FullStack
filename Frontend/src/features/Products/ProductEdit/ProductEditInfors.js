@@ -112,7 +112,7 @@ const ProductNewInfo = ({
         } else {
             setIsInfors(false)
         }
-    }, [allInfors]);
+    }, [allInfors, setIsInfors]);
 
     const [addNewProductInfors, {
         isLoading,
@@ -122,18 +122,26 @@ const ProductNewInfo = ({
 
     const canSave = !isLoading && isImages;
 
-    const onSaveInfors = async (e) => {
-        if (canSave) {
-            await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style })
-        }
-    };
+    // const onSaveInfors = async (e) => {
+    //     if (canSave) {
+    //         await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style })
+    //     }
+    // };
 
     useEffect(() => {
         if (clickSave) {
+            const onSaveInfors = async (e) => {
+                if (canSave) {
+                    await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style })
+                }
+            };
             onSaveInfors();
             setClickSave(false);
         };
-    }, [clickSave, setClickSave]);
+    }, [
+        canSave, addNewProductInfors, clickSave, setClickSave,
+        label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
+    ]);
 
     useEffect(() => {
         if (isSuccess) {

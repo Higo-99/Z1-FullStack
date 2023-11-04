@@ -36,10 +36,32 @@ export const productImageApiSlice = apiSlice.injectEndpoints({
                 { type: 'ProductImage', id: 'LIST' }
             ]
         }),
+        updateProductImage: builder.mutation({
+            query: initialProductImageData => ({
+                url: '/productImages',
+                method: 'PACTH',
+                body: { ...initialProductImageData }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'ProductImage', id: arg.id }
+            ]
+        }),
+        deleteProductImage: builder.mutation({
+            query: ({ id }) => ({
+                url: '/productImages',
+                method: 'DELETE',
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                { type: 'ProductImage', id: arg.id }
+            ]
+        }),
     })
 })
 
 export const {
     useGetProductImagesQuery,
-    useAddNewProductImageMutation
+    useAddNewProductImageMutation,
+    useUpdateProductImageMutation,
+    useDeleteProductImageMutation
 } = productImageApiSlice;

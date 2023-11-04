@@ -32,7 +32,7 @@ const UsersEditForm = ({ user }) => {
     const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
     const [address, setAddress] = useState(user.address);
     const [gender, setGender] = useState(user.gender);
-    const [roleId, setRoleId] = useState(user.roleId);
+    // const [roleId, setRoleId] = useState(user.roleId);
 
     const imgInputRef = useRef();
 
@@ -84,7 +84,8 @@ const UsersEditForm = ({ user }) => {
     const onSaveEdit = async () => {
         if (!isEditLoading) {
             await editUser({
-                id: user.id, image, firstName, lastName, birthday, phoneNumber, address, gender, roleId
+                id: user.id, image, firstName, lastName, birthday, phoneNumber, address, gender,
+                // roleId
             })
         }
     };

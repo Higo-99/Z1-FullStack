@@ -7,6 +7,7 @@ import ProductNewInfors from "./ProductNewInfors";
 import ProductNewImage from "./ProductNewImages";
 
 const ProductNewForm = () => {
+    console.log('Main Form');
     const [clickSave, setClickSave] = useState(false);
 
     const [code, setCode] = useState('');

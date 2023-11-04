@@ -12,6 +12,7 @@ const ProductNewInfo = ({
     isImages,
     setIsInfors
 }) => {
+    console.log('Infors Form');
     const [label, setLabel] = useState('');
     const [volume, setVolume] = useState('');
     const [stock, setStock] = useState('');
@@ -92,12 +93,6 @@ const ProductNewInfo = ({
 
     const canSave = !isLoading && isImages;
 
-    const onSaveInfors = async (e) => {
-        if (canSave) {
-            await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style })
-        }
-    };
-
     const allInfors = [label, code, price].every(Boolean);
     useEffect(() => {
         if (allInfors) {
@@ -109,11 +104,20 @@ const ProductNewInfo = ({
 
     useEffect(() => {
         if (clickSave) {
+            const onSaveInfors = async (e) => {
+                if (canSave) {
+                    await addNewProductInfors({
+                        label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
+                    })
+                }
+            };
             onSaveInfors();
             setClickSave(false);
         };
-
-    }, [clickSave, setClickSave]);
+    }, [
+        canSave, addNewProductInfors, clickSave, setClickSave,
+        label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
+    ]);
 
     useEffect(() => {
         if (isSuccess) {

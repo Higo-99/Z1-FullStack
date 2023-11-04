@@ -11,7 +11,6 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Register = () => {
     const emailRef = useRef();
-    const errRef = useRef();
 
     const [email, setEmail] = useState('');
     const [validEmail, setValidEmail] = useState(false);

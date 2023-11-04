@@ -11,6 +11,7 @@ const ProductNewImage = ({
     isInfors,
     setIsImages
 }) => {
+    console.log('Images Form');
     const [images, setImages] = useState([]);
     const [preimages, setPreimages] = useState([]);
 
@@ -104,14 +105,6 @@ const ProductNewImage = ({
 
     const canSave = isInfors && !isLoading;
 
-    const onSaveImgs = async (e) => {
-        if (canSave) {
-            for (let i = 0; i < images.length; i++) {
-                await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
-            }
-        }
-    };
-
     useEffect(() => {
         if (images.length) {
             setIsImages(true)
@@ -122,10 +115,17 @@ const ProductNewImage = ({
 
     useEffect(() => {
         if (clickSave) {
+            const onSaveImgs = async (e) => {
+                if (canSave) {
+                    for (let i = 0; i < images.length; i++) {
+                        await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
+                    }
+                }
+            };
             onSaveImgs();
             setClickSave(false);
         }
-    }, [setClickSave, clickSave]);
+    }, [addNewImage, canSave, code, images, setClickSave, clickSave]);
 
     useEffect(() => {
         if (error) { setImageErrContent(error?.data?.message) }

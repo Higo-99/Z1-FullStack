@@ -112,20 +112,27 @@ const ProductNewImage = ({
 
     const canSave = isInfors && !isLoading;
 
-    const onSaveImgs = async (e) => {
-        if (canSave) {
-            for (let i = 0; i < images.length; i++) {
-                await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
-            }
-        }
-    };
+    // const onSaveImgs = async (e) => {
+    //     if (canSave) {
+    //         for (let i = 0; i < images.length; i++) {
+    //             await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
+    //         }
+    //     }
+    // };
 
     useEffect(() => {
         if (clickSave) {
+            const onSaveImgs = async (e) => {
+                if (canSave) {
+                    for (let i = 0; i < images.length; i++) {
+                        await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
+                    }
+                }
+            };
             onSaveImgs();
             setClickSave(false);
         }
-    }, [setClickSave, clickSave]);
+    }, [addNewImage, canSave, code, images, setClickSave, clickSave]);
 
     useEffect(() => {
         if (error) { setImageErrContent(error?.data?.message) }
