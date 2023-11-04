@@ -11,7 +11,6 @@ const ProductNewImage = ({
     isInfors,
     setIsImages
 }) => {
-    console.log('Images Form');
     const [images, setImages] = useState([]);
     const [preimages, setPreimages] = useState([]);
 

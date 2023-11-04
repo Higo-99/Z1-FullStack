@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import useTitle from '../hooks/useTitle';
 
 const Test = () => {
+    useTitle('Testing Z1-App');
+
     const [label, setLabel] = useState('');
+    console.log('test re-render')
     return (
         <div>
             <div className="label Product">

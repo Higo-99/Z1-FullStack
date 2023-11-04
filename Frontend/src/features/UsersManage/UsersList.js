@@ -5,7 +5,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 import UsersInfor from './UsersInfor';
 
 const UserList = () => {
-    useTitle('Users List Z1_App');
+    useTitle('Z1_App Users list');
 
     const {
         data: users,

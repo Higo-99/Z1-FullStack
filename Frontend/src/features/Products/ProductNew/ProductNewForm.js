@@ -5,9 +5,11 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import ProductNewInfors from "./ProductNewInfors";
 import ProductNewImage from "./ProductNewImages";
+import useTitle from "../../../hooks/useTitle";
 
 const ProductNewForm = () => {
-    console.log('Main Form');
+    useTitle('Z1_App Add new Product');
+
     const [clickSave, setClickSave] = useState(false);
 
     const [code, setCode] = useState('');

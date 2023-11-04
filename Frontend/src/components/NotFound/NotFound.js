@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './NotFound.scss';
+import useTitle from '../../hooks/useTitle';
 
 const NotFound = () => {
-
+    useTitle('Z1_App Not found')
     const navigate = useNavigate();
     const gohome = () => navigate('/')
 

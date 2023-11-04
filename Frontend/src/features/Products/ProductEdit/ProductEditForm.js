@@ -12,7 +12,8 @@ import ProductEditImages from "./ProductEditImages";
 import { fragranceList } from "../ProductSelectOptions";
 
 const ProductEditForm = () => {
-    useTitle('Edit product Z1_App');
+    useTitle('Z1_App Edit product');
+
     const { id } = useParams();
 
     const { product } = useGetProductsQuery('product', {

@@ -12,7 +12,6 @@ const ProductNewInfo = ({
     isImages,
     setIsInfors
 }) => {
-    console.log('Infors Form');
     const [label, setLabel] = useState('');
     const [volume, setVolume] = useState('');
     const [stock, setStock] = useState('');
@@ -100,7 +99,7 @@ const ProductNewInfo = ({
         } else {
             setIsInfors(false)
         }
-    }, [allInfors]);
+    }, [allInfors, setIsInfors]);
 
     useEffect(() => {
         if (clickSave) {

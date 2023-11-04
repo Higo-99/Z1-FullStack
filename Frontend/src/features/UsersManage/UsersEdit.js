@@ -6,7 +6,7 @@ import PulseLoader from 'react-spinners/PulseLoader';
 import UsersEditForm from './UsersEditForm';
 
 const UsersEdit = () => {
-    useTitle('Edit user Z1_App');
+    useTitle('Z1_App Edit user');
 
     const { id } = useParams();
 

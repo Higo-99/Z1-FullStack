@@ -5,11 +5,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import './form.scss'
 import './Register.scss'
 import { useAddNewUserMutation } from '../UsersManage/userApiSlice';
+import useTitle from "../../hooks/useTitle";
 
 const EMAIL_REGEX = /^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const Register = () => {
+    useTitle('Z1_App Register');
+
     const emailRef = useRef();
 
     const [email, setEmail] = useState('');

@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+
+import './form.scss';
+import './Login.scss'; import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareFacebook, faSquareGooglePlus } from '@fortawesome/free-brands-svg-icons';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import './form.scss';
-import './Login.scss';
+import useTitle from '../../hooks/useTitle';
+
 
 const Login = () => {
+    useTitle('Z1_App Login');
+
     const [email, setEmail] = useState('');
     const [password, setpassword] = useState('');
     const [passType, setPassType] = useState('password');

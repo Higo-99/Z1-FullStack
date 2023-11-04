@@ -10,12 +10,12 @@ import Layout from './components/Layout/Layout';
 import HomePage from './components/Homepages/HomePage';
 import ProductsList from './features/Products/Products-List&Info/ProductsList';
 import ProductNewForm from './features/Products/ProductNew/ProductNewForm';
-// import ProductEdit from './features/Products/ProductEdit/ProductEdit';
 import ProductEditForm from './features/Products/ProductEdit/ProductEditForm';
 import Test from './Test/Test';
 
 function App() {
-  useTitle('Z1_App Main page')
+  useTitle('Z1_App Main page');
+
   return (
     <div className="App">
       <Routes>
