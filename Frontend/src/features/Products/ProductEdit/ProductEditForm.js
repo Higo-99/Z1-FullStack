@@ -1,7 +1,3 @@
-import { useParams } from 'react-router-dom';
-import useTitle from '../../../hooks/useTitle'
-import { useGetProductsQuery } from '../productInforApiSlice';
-import PulseLoader from 'react-spinners/PulseLoader';
 import { useEffect, useState } from "react";
 import '.././ProductNew&EditForm.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,18 +6,9 @@ import { useNavigate } from "react-router-dom";
 import ProductEditInfors from "./ProductEditInfors";
 import ProductEditImages from "./ProductEditImages";
 import { fragranceList } from "../ProductSelectOptions";
+import { useGetProductImagesQuery } from '../productImageApiSlice';
 
-const ProductEditForm = () => {
-    useTitle('Z1_App Edit product');
-
-    const { id } = useParams();
-
-    const { product } = useGetProductsQuery('product', {
-        selectFromResult: ({ data }) => ({
-            product: data?.entities[id]
-        })
-    });
-
+const ProductEditForm = ({ product, savedImages }) => {
     const [inforErrContent, setInforErrContent] = useState('');
     const [isSaveInforSuccess, setIsSaveInforSuccess] = useState(false);
     const [isInfors, setIsInfors] = useState(true);
@@ -39,6 +26,20 @@ const ProductEditForm = () => {
     const oldFormatPrice = addCommas(JSON.stringify(product.price));
     const oldFormatPrevPrice = addCommas(JSON.stringify(product.prevPrice));
 
+    // const { images } = useGetProductImagesQuery('images', {
+    //     selectFromResult: ({ data }) => ({
+    //         images: data
+    //     })
+    // });
+
+    // let savedImages;
+
+    // if (images) {
+    //     const { ids, entities } = images;
+    //     const filteredIds = ids.filter(id => entities[id].code === product.code);
+    //     savedImages = filteredIds.map(idImg => entities[idImg]);
+    // };
+
     const canSave = isImages && isInfors;
     const onSaveProduct = () => {
         setClickSave(true);
@@ -53,8 +54,6 @@ const ProductEditForm = () => {
             navigate('/productsManage')
         }
     }, [successAll, navigate]);
-
-    if (!product) { return <PulseLoader color='#0099ff' /> };
 
     const content = (
         <div className="productFormBackground">
@@ -85,6 +84,7 @@ const ProductEditForm = () => {
 
                         <div className="imgsInputCard">
                             <ProductEditImages
+                                savedImages={savedImages}
                                 code={code}
                                 clickSave={clickSave} setClickSave={setClickSave}
                                 setImageErrContent={setImageErrContent}

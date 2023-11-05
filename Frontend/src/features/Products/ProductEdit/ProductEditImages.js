@@ -4,6 +4,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useAddNewProductImageMutation } from "../productImageApiSlice";
 
 const ProductNewImage = ({
+    savedImages,
     code,
     clickSave, setClickSave,
     setImageErrContent,
@@ -11,10 +12,23 @@ const ProductNewImage = ({
     isInfors,
     setIsImages
 }) => {
+    const [oldImages, setOldImages] = useState([]);
     const [images, setimages] = useState([]);
     const [preimages, setPreimages] = useState([]);
 
     const [isDragging, setIsDragging] = useState(false);
+
+    const base64ToBlob = (base64Data) => {
+        const parts = base64Data.split(',');
+        const type = parts[0].match(/:(.*?);/)[1];
+        const byteCharacters = atob(parts[1]);
+        const byteNumbers = new Uint8Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+        };
+
+        return new Blob([byteNumbers], { type: type });
+    };
 
     const fileInputRef = useRef();
     const selectFiles = () => {
@@ -96,7 +110,7 @@ const ProductNewImage = ({
         }
     }, [images, setIsImages]);
 
-    const deleteImage = (theImg) => {
+    const deletePreImage = (theImg) => {
         if (theImg.url) {
             setPreimages(preimages.filter(e => e.url !== theImg.url));
             URL.revokeObjectURL(theImg.url);
@@ -111,14 +125,6 @@ const ProductNewImage = ({
     }] = useAddNewProductImageMutation();
 
     const canSave = isInfors && !isLoading;
-
-    // const onSaveImgs = async (e) => {
-    //     if (canSave) {
-    //         for (let i = 0; i < images.length; i++) {
-    //             await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
-    //         }
-    //     }
-    // };
 
     useEffect(() => {
         if (clickSave) {
@@ -147,36 +153,53 @@ const ProductNewImage = ({
     const content = (
         <div className="">
             <p>Images</p>
-            <div className="drag-area"
-                onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}
-            >
-                <div className="innerD-D-area">
-                    {isDragging ? (<span className="imgsSelect">
-                        Drop img here
-                    </span>) : (<div className="">
-                        Drag & Drop here or {''}
-                        <span className="imgsSelect" onClick={selectFiles}>
-                            Browse
-                        </span>
-                    </div>)}
+            <div className="InProductImg">
+                <p>Saved Images</p>
+                <div className="imgsContainer">
+                    {savedImages && savedImages.map((theImg, index) => (
+                        <div className="image" key={theImg.name}>
+                            <span className="delete"
+                            // onClick={() => deletePreImage(theImg)}
+                            >
+                                <div className="imgsDelIcon">
+                                    <FontAwesomeIcon icon={faXmark} />
+                                </div>
+                            </span>
+                            <img src={URL.createObjectURL(base64ToBlob(theImg.data))} alt={theImg.name} />
+                        </div>
+                    ))}
                 </div>
-                <input type="file" name="file" id="file" className="file"
-                    multiple ref={fileInputRef} onChange={onFileSelect} />
-            </div>
-
-            <div className="imgsContainer">
-                {preimages && preimages.map((theImg, index) => (
-                    <div className="image" key={theImg.name}>
-                        <span className="delete" onClick={() => deleteImage(theImg)}>
-                            <div className="imgsDelIcon">
-                                <FontAwesomeIcon icon={faXmark} />
-                            </div>
-                        </span>
-                        <img src={theImg.url} alt={theImg.name} />
+                <div className="drag-area"
+                    onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}
+                >
+                    <div className="innerD-D-area">
+                        {isDragging ? (<span className="imgsSelect">
+                            Drop img here
+                        </span>) : (<div className="">
+                            Drag & Drop here or {''}
+                            <span className="imgsSelect" onClick={selectFiles}>
+                                Browse
+                            </span>
+                        </div>)}
                     </div>
-                ))}
-
+                    <input type="file" name="file" id="file" className="file"
+                        multiple ref={fileInputRef} onChange={onFileSelect} />
+                </div>
+                <p className={preimages.length ? "''" : "offscreen"}>New Images:</p>
+                <div className="imgsContainer">
+                    {preimages && preimages.map((theImg, index) => (
+                        <div className="image" key={theImg.name}>
+                            <span className="delete" onClick={() => deletePreImage(theImg)}>
+                                <div className="imgsDelIcon">
+                                    <FontAwesomeIcon icon={faXmark} />
+                                </div>
+                            </span>
+                            <img src={theImg.url} alt={theImg.name} />
+                        </div>
+                    ))}
+                </div>
             </div>
+
         </div>
     );
 

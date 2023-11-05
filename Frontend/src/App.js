@@ -10,7 +10,7 @@ import Layout from './components/Layout/Layout';
 import HomePage from './components/Homepages/HomePage';
 import ProductsList from './features/Products/Products-List&Info/ProductsList';
 import ProductNewForm from './features/Products/ProductNew/ProductNewForm';
-import ProductEditForm from './features/Products/ProductEdit/ProductEditForm';
+import ProductEdit from './features/Products/ProductEdit/ProductEdit';
 import Test from './Test/Test';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
           </Route>
           <Route path='/productsManage'>
             <Route index element={<ProductsList />} />
-            <Route path=':id' element={<ProductEditForm />} />
+            <Route path=':id' element={<ProductEdit />} />
             <Route path='addNew' element={<ProductNewForm />} />
           </Route>
 

@@ -122,7 +122,6 @@ const ProductNewImage = ({
                 }
             };
             onSaveImgs();
-            setClickSave(false);
         }
     }, [addNewImage, canSave, code, images, setClickSave, clickSave]);
 

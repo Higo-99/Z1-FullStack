@@ -1,7 +1,7 @@
 import './Products-List&Info.scss';
 import { useGetProductsQuery } from "../productInforApiSlice";
 import PulseLoader from 'react-spinners/PulseLoader';
-import ProductsInfor from './ProductsInfor';
+import Product from './Product';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
@@ -28,7 +28,7 @@ const ProductsList = () => {
     if (isSuccess) {
         const { ids, entities } = products;
         const tableContent = ids?.length &&
-            ids.map(productId => <ProductsInfor key={productId} productId={productId} code={entities[productId].code} />);
+            ids.map(productId => <Product key={productId} productId={productId} code={entities[productId].code} />);
 
         content = (
             <div className="">

@@ -105,13 +105,15 @@ const ProductNewInfo = ({
         if (clickSave) {
             const onSaveInfors = async (e) => {
                 if (canSave) {
+                    // await addNewProductInfors({
+                    //     label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
+                    // })
                     await addNewProductInfors({
                         label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
                     })
                 }
             };
             onSaveInfors();
-            setClickSave(false);
         };
     }, [
         canSave, addNewProductInfors, clickSave, setClickSave,

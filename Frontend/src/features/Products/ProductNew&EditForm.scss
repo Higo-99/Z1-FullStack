@@ -266,6 +266,12 @@ $InputHeight: 40px;
     resize: none;
 }
 
+.InProductImg {
+    margin: 5px 0px;
+    border-top: 3px dotted $secondary-bg-color;
+    padding: 10px 0px;
+}
+
 .imgsInputCard {
     position: relative;
     width: 100%;

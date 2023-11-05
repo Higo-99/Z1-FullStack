@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
 
-const ProductsInfor = ({ productId, code }) => {
+const Product = ({ productId, code }) => {
     const { product } = useGetProductsQuery('product', {
         selectFromResult: ({ data }) => ({
             product: data?.entities[productId]
@@ -78,6 +78,6 @@ const ProductsInfor = ({ productId, code }) => {
     };
 };
 
-const ProductMemoized = memo(ProductsInfor);
+const ProductMemoized = memo(Product);
 
 export default ProductMemoized;
