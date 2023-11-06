@@ -43,6 +43,9 @@ const ProductNewInfo = ({
             const number = formatPrice.replace(/,/g, '');
             setPrice(parseInt(number));
         };
+        if (!formatPrice) {
+            setPrice('');
+        };
         if (formatPrevPrice) {
             const number = formatPrevPrice.replace(/,/g, '');
             setPrevPrice(parseInt(number));
@@ -96,7 +99,8 @@ const ProductNewInfo = ({
     useEffect(() => {
         if (allInfors) {
             setIsInfors(true)
-        } else {
+        }
+        else {
             setIsInfors(false)
         }
     }, [allInfors, setIsInfors]);
@@ -106,11 +110,12 @@ const ProductNewInfo = ({
             const onSaveInfors = async (e) => {
                 if (canSave) {
                     await addNewProductInfors({
-                        label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
+                        label, code, price, prevPrice, type, volume, fragrance, introduce, style
                     })
                 }
             };
             onSaveInfors();
+            setClickSave(false);
         };
     }, [
         canSave, addNewProductInfors, clickSave, setClickSave,

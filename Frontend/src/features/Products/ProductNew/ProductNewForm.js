@@ -62,7 +62,8 @@ const ProductNewForm = () => {
                         <div className="imgsInputCard">
                             <ProductNewImage
                                 code={code}
-                                clickSave={clickSave} setClickSave={setClickSave}
+                                clickSave={clickSave}
+                                isSaveInforSuccess={isSaveInforSuccess}
                                 setImageErrContent={setImageErrContent}
                                 setIsSaveImagesSuccess={setIsSaveImagesSuccess}
                                 isInfors={isInfors}

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useAddNewProductMutation } from "../productInforApiSlice";
+import { useUpdateProductMutation } from "../productInforApiSlice";
 import { fragranceList } from '../ProductSelectOptions';
 
 const ProductNewInfo = ({
@@ -10,11 +10,12 @@ const ProductNewInfo = ({
     oldFormatPrice,
     oldFormatPrevPrice,
     code, setCode,
+    setIsInfors,
+    isImages,
     clickSave, setClickSave,
+    setIsInforsSaving,
     setInforErrContent,
     setIsSaveInforSuccess,
-    isImages,
-    setIsInfors,
 }) => {
     const [label, setLabel] = useState(product.label);
     const [volume, setVolume] = useState(product.volume);
@@ -46,6 +47,9 @@ const ProductNewInfo = ({
         if (formatPrice) {
             const number = formatPrice.replace(/,/g, '');
             setPrice(parseInt(number));
+        };
+        if (!formatPrice) {
+            setPrice('');
         };
         if (formatPrevPrice) {
             const number = formatPrevPrice.replace(/,/g, '');
@@ -114,46 +118,48 @@ const ProductNewInfo = ({
         }
     }, [allInfors, setIsInfors]);
 
-    const [addNewProductInfors, {
+    const [updateProductInfors, {
         isLoading,
         isSuccess,
         error
-    }] = useAddNewProductMutation();
+    }] = useUpdateProductMutation();
 
     const canSave = !isLoading && isImages;
-
-    // const onSaveInfors = async (e) => {
-    //     if (canSave) {
-    //         await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style })
-    //     }
-    // };
 
     useEffect(() => {
         if (clickSave) {
             const onSaveInfors = async (e) => {
                 if (canSave) {
-                    await addNewProductInfors({ label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style })
+                    await updateProductInfors({
+                        id: product.id, label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
+                    })
                 }
             };
             onSaveInfors();
             setClickSave(false);
         };
     }, [
-        canSave, addNewProductInfors, clickSave, setClickSave,
+        canSave, updateProductInfors, clickSave, setClickSave,
         label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
     ]);
 
     useEffect(() => {
-        if (isSuccess) {
-            setIsSaveInforSuccess(true)
+        if (isLoading) {
+            setIsInforsSaving(true)
         }
-    }, [isSuccess, setIsSaveInforSuccess]);
+    }, [isLoading, setIsInforsSaving]);
 
     useEffect(() => {
         if (error) {
             setInforErrContent(error?.data?.message)
         };
     }, [error, setInforErrContent]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            setIsSaveInforSuccess(true)
+        }
+    }, [isSuccess, setIsSaveInforSuccess]);
 
     const content = (
         <div className="">

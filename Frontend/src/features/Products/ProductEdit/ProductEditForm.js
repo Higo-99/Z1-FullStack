@@ -6,16 +6,19 @@ import { useNavigate } from "react-router-dom";
 import ProductEditInfors from "./ProductEditInfors";
 import ProductEditImages from "./ProductEditImages";
 import { fragranceList } from "../ProductSelectOptions";
-import { useGetProductImagesQuery } from '../productImageApiSlice';
+import HashLoader from 'react-spinners/HashLoader';
 
 const ProductEditForm = ({ product, savedImages }) => {
+    const [isInfors, setIsInfors] = useState(true);
+    const [isInforsSaving, setIsInforsSaving] = useState(false);
     const [inforErrContent, setInforErrContent] = useState('');
     const [isSaveInforSuccess, setIsSaveInforSuccess] = useState(false);
-    const [isInfors, setIsInfors] = useState(true);
 
-    const [imageErrContent, setImageErrContent] = useState('');
-    const [isSaveImagesSuccess, setIsSaveImagesSuccess] = useState(false);
     const [isImages, setIsImages] = useState(true);
+    const [imageErrContent, setImageErrContent] = useState('');
+    const [isImagesSaving, setIsImagesSaving] = useState(false);
+    const [updateImageErrContent, setUpdateImageErrContent] = useState('');
+    const [isSaveImagesSuccess, setIsSaveImagesSuccess] = useState(false);
 
     const [clickSave, setClickSave] = useState(false);
 
@@ -26,24 +29,12 @@ const ProductEditForm = ({ product, savedImages }) => {
     const oldFormatPrice = addCommas(JSON.stringify(product.price));
     const oldFormatPrevPrice = addCommas(JSON.stringify(product.prevPrice));
 
-    // const { images } = useGetProductImagesQuery('images', {
-    //     selectFromResult: ({ data }) => ({
-    //         images: data
-    //     })
-    // });
-
-    // let savedImages;
-
-    // if (images) {
-    //     const { ids, entities } = images;
-    //     const filteredIds = ids.filter(id => entities[id].code === product.code);
-    //     savedImages = filteredIds.map(idImg => entities[idImg]);
-    // };
-
     const canSave = isImages && isInfors;
     const onSaveProduct = () => {
         setClickSave(true);
     };
+
+    const loading = isImagesSaving || isInforsSaving;
 
     const navigate = useNavigate();
 
@@ -59,6 +50,14 @@ const ProductEditForm = ({ product, savedImages }) => {
         <div className="productFormBackground">
             <p className={inforErrContent ? "errmsg" : "offscreen"}>{inforErrContent}</p>
             <p className={imageErrContent ? "errmsg" : "offscreen"}>{imageErrContent}</p>
+            <p className={updateImageErrContent ? "errmsg" : "offscreen"}>{updateImageErrContent}</p>
+
+            <div className={`loadingOverplay ${loading ? 'active' : 'offscreen'}`}>
+                <div className="loadingContent">
+                    <HashLoader color='#8eecff' loading={loading} />
+                </div>
+            </div>
+
             <div className="productFormContent">
                 <div className="productForm" action="" >
                     <div className="productFormHeader">
@@ -74,23 +73,26 @@ const ProductEditForm = ({ product, savedImages }) => {
                                 oldFormatPrice={oldFormatPrice}
                                 oldFormatPrevPrice={oldFormatPrevPrice}
                                 code={code} setCode={setCode}
+                                setIsInfors={setIsInfors}
+                                isImages={isImages}
                                 clickSave={clickSave} setClickSave={setClickSave}
+                                setIsInforsSaving={setIsInforsSaving}
                                 setInforErrContent={setInforErrContent}
                                 setIsSaveInforSuccess={setIsSaveInforSuccess}
-                                isImages={isImages}
-                                setIsInfors={setIsInfors}
                             />
                         </div>
 
                         <div className="imgsInputCard">
                             <ProductEditImages
-                                savedImages={savedImages}
                                 code={code}
-                                clickSave={clickSave} setClickSave={setClickSave}
-                                setImageErrContent={setImageErrContent}
-                                setIsSaveImagesSuccess={setIsSaveImagesSuccess}
-                                isInfors={isInfors}
+                                savedImages={savedImages}
                                 setIsImages={setIsImages}
+                                isInfors={isInfors}
+                                isSaveInforSuccess={isSaveInforSuccess}
+                                setIsImagesSaving={setIsImagesSaving}
+                                setImageErrContent={setImageErrContent}
+                                setUpdateImageErrContent={setUpdateImageErrContent}
+                                setIsSaveImagesSuccess={setIsSaveImagesSuccess}
                             />
                         </div>
                     </div>

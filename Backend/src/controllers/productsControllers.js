@@ -44,7 +44,7 @@ const creating = async (req, res) => {
 
 const editting = async (req, res) => {
     const {
-        id, images, label, code, stock, volume, price, prevPrice, type, fragrance, introduce, style
+        id, label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
     } = req.body;
 
     const theProduct = await db.Products.findOne({ where: { id: id } });
@@ -67,14 +67,13 @@ const editting = async (req, res) => {
     };
 
     await db.Products.update({
-        images: images,
         label: label,
         code: code,
         stock: stock,
-        volume: volume,
         price: price,
         prevPrice: prevPrice,
         type: type,
+        volume: volume,
         fragrance: fragrance,
         introduce: introduce,
         style: style,

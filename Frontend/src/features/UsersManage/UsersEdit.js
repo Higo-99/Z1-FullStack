@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import useTitle from '../../hooks/useTitle';
 import { useGetUsersQuery } from './userApiSlice';
-import PulseLoader from 'react-spinners/PulseLoader';
+import HashLoader from 'react-spinners/HashLoader';
 import UsersEditForm from './UsersEditForm';
 
 const UsersEdit = () => {
@@ -16,7 +16,15 @@ const UsersEdit = () => {
         })
     });
 
-    if (!user) { return <PulseLoader color='#0099ff' /> };
+    if (!user) {
+        return (
+            <div className={`loadingOverplay active`}>
+                <div className="loadingContent">
+                    <HashLoader color='#8eecff' />
+                </div>
+            </div>
+        )
+    };
 
     let content = <UsersEditForm user={user} />;
 

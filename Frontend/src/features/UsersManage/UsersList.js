@@ -1,7 +1,7 @@
 import useTitle from '../../hooks/useTitle';
 import './Users-List&Infor.scss';
 import { useGetUsersQuery } from './userApiSlice';
-import PulseLoader from 'react-spinners/PulseLoader';
+import HashLoader from 'react-spinners/HashLoader';
 import UsersInfor from './UsersInfor';
 
 const UserList = () => {
@@ -21,7 +21,15 @@ const UserList = () => {
     );
 
     let content;
-    if (isLoading) { content = <PulseLoader color='#0099ff' /> };
+    if (isLoading) {
+        content = (
+            <div className={`loadingOverplay active`}>
+                <div className="loadingContent">
+                    <HashLoader color='#8eecff' />
+                </div>
+            </div>
+        )
+    };
     if (isError) { content = <p className='errmsg'>{error?.data?.message}</p> };
     if (isSuccess) {
         const { ids } = users;

@@ -5,7 +5,8 @@ import { useAddNewProductImageMutation } from "../productImageApiSlice";
 
 const ProductNewImage = ({
     code,
-    clickSave, setClickSave,
+    clickSave,
+    isSaveInforSuccess,
     setImageErrContent,
     setIsSaveImagesSuccess,
     isInfors,
@@ -107,13 +108,14 @@ const ProductNewImage = ({
     useEffect(() => {
         if (images.length) {
             setIsImages(true)
-        } else {
+        }
+        else {
             setIsImages(false)
         }
-    }, [images, setIsImages]);
+    }, [images.length, setIsImages]);
 
     useEffect(() => {
-        if (clickSave) {
+        if (clickSave && isSaveInforSuccess) {
             const onSaveImgs = async (e) => {
                 if (canSave) {
                     for (let i = 0; i < images.length; i++) {
@@ -123,7 +125,7 @@ const ProductNewImage = ({
             };
             onSaveImgs();
         }
-    }, [addNewImage, canSave, code, images, setClickSave, clickSave]);
+    }, [addNewImage, canSave, code, images, clickSave, isSaveInforSuccess]);
 
     useEffect(() => {
         if (error) { setImageErrContent(error?.data?.message) }

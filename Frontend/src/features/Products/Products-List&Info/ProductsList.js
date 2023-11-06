@@ -1,6 +1,6 @@
 import './Products-List&Info.scss';
 import { useGetProductsQuery } from "../productInforApiSlice";
-import PulseLoader from 'react-spinners/PulseLoader';
+import HashLoader from 'react-spinners/HashLoader';
 import Product from './Product';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,7 +23,15 @@ const ProductsList = () => {
 
     let content;
 
-    if (isLoading) { content = <PulseLoader color='#0099ff' /> };
+    if (isLoading) {
+        content = (
+            <div className={`loadingOverplay active`}>
+                <div className="loadingContent">
+                    <HashLoader color='#8eecff' />
+                </div>
+            </div>
+        )
+    };
     if (isError) { content = <p> {error?.data?.message} </p> };
     if (isSuccess) {
         const { ids, entities } = products;

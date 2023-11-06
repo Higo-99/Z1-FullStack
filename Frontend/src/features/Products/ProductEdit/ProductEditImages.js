@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
-import { useAddNewProductImageMutation } from "../productImageApiSlice";
+import { useAddNewProductImageMutation, useUpdateProductImageMutation } from "../productImageApiSlice";
 
 const ProductNewImage = ({
-    savedImages,
     code,
-    clickSave, setClickSave,
-    setImageErrContent,
-    setIsSaveImagesSuccess,
+    savedImages,
+    setIsImages,
     isInfors,
-    setIsImages
+    isSaveInforSuccess,
+    setIsImagesSaving,
+    setImageErrContent,
+    setUpdateImageErrContent,
+    setIsSaveImagesSuccess,
 }) => {
-    const [oldImages, setOldImages] = useState([]);
     const [images, setimages] = useState([]);
     const [preimages, setPreimages] = useState([]);
 
@@ -84,7 +85,7 @@ const ProductNewImage = ({
         setIsDragging(false);
         const files = e.dataTransfer.files;
         for (let i = 0; i < files.length; i++) {
-            if (!preimages.some(e => e.name === files[i].name)) { // check if there are any old imgs with the same name
+            if (!preimages.some(e => e.name === files[i].name)) {
                 setPreimages(theImg => [
                     ...theImg, {
                         name: files[i].name,
@@ -103,12 +104,21 @@ const ProductNewImage = ({
     };
 
     useEffect(() => {
-        if (images.length) { // and check if there are old imgs? ========================
+        if (images.length) {
             setIsImages(true)
-        } else {
+        }
+        if (savedImages) {
+            if (savedImages.length) {
+                setIsImages(true)
+            }
+            else {
+                setIsImages(false)
+            }
+        }
+        else {
             setIsImages(false)
         }
-    }, [images, setIsImages]);
+    }, [images, savedImages, setIsImages]);
 
     const deletePreImage = (theImg) => {
         if (theImg.url) {
@@ -119,36 +129,71 @@ const ProductNewImage = ({
     };
 
     const [addNewImage, {
-        isLoading,
-        isSuccess,
-        error
+        isLoading: addNewLoading,
+        isSuccess: addNewSuccess,
+        error: addnewError
     }] = useAddNewProductImageMutation();
 
-    const canSave = isInfors && !isLoading;
+    const [updateImgages, {
+        isLoading: updateLoading,
+        isSuccess: updateSuccess,
+        error: updateError
+    }] = useUpdateProductImageMutation();
+
+    const canSave = isInfors && !addNewLoading;
+    const canUpdate = isInfors && !updateLoading;
 
     useEffect(() => {
-        if (clickSave) {
-            const onSaveImgs = async (e) => {
-                if (canSave) {
-                    for (let i = 0; i < images.length; i++) {
-                        await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
+        if (isSaveInforSuccess) {
+            if (images.length) {
+                const onSaveImgs = async () => {
+                    if (canSave) {
+                        for (let i = 0; i < images.length; i++) {
+                            const sequelStand = i + savedImages.length;
+                            await addNewImage({
+                                code, name: images[i].name, stand: sequelStand, data: images[i].data
+                            })
+                        }
                     }
-                }
+                };
+                onSaveImgs();
             };
-            onSaveImgs();
-            setClickSave(false);
+            if (savedImages) {
+                const onUpdateImgs = async () => {
+                    if (canUpdate) {
+                        for (let i = 0; i < savedImages.length; i++) {
+                            await updateImgages({
+                                id: savedImages.id, code,
+                            })
+                        }
+                    }
+                };
+                onUpdateImgs();
+            }
         }
-    }, [addNewImage, canSave, code, images, setClickSave, clickSave]);
+    }, [addNewImage, updateImgages, canSave, canUpdate, savedImages, code, images, isSaveInforSuccess]);
 
     useEffect(() => {
-        if (error) { setImageErrContent(error?.data?.message) }
-    }, [error, setImageErrContent]);
+        if (addNewLoading || updateLoading) {
+            setIsImagesSaving(true)
+        };
+    }, [addNewLoading, updateLoading, setIsImagesSaving]);
 
     useEffect(() => {
-        if (isSuccess) {
+        if (addnewError) { setImageErrContent(addnewError?.data?.message) };
+        if (updateError) { setUpdateImageErrContent(updateError?.data?.message) };
+    }, [addnewError, updateError, setImageErrContent, setUpdateImageErrContent]);
+
+    useEffect(() => {
+        if (images.length) {
+            if (addNewSuccess && updateSuccess) {
+                setIsSaveImagesSuccess(true)
+            }
+        };
+        if (updateSuccess) {
             setIsSaveImagesSuccess(true)
         }
-    }, [isSuccess, setIsSaveImagesSuccess]);
+    }, [images.length, addNewSuccess, updateSuccess, setIsSaveImagesSuccess]);
 
     const content = (
         <div className="">

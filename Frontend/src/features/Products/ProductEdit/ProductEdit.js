@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import useTitle from '../../../hooks/useTitle'
 import { useGetProductsQuery } from '../productInforApiSlice';
-import PulseLoader from 'react-spinners/PulseLoader';
+import HashLoader from 'react-spinners/HashLoader';
 import ProductEditForm from "./ProductEditForm";
 import { useGetProductImagesQuery } from '../productImageApiSlice';
 
@@ -29,7 +29,15 @@ const ProductEdit = () => {
         savedImages = filteredIds.map(idImg => entities[idImg]);
     };
 
-    if (!product) { return <PulseLoader color='#0099ff' /> };
+    if (!product) {
+        return (
+            <div className={`loadingOverplay active`}>
+                <div className="loadingContent">
+                    <HashLoader color='#8eecff' />
+                </div>
+            </div>
+        )
+    };
 
     return (<ProductEditForm product={product} savedImages={savedImages} />);
 };
