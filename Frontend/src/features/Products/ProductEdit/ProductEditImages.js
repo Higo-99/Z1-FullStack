@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useAddNewProductImageMutation, useUpdateProductImageMutation } from "../productImageApiSlice";
 
-const ProductNewImage = ({
+const ProductEditImages = ({
     code,
+    clickSave,
     savedImages,
     setIsImages,
     isInfors,
@@ -145,33 +146,17 @@ const ProductNewImage = ({
 
     useEffect(() => {
         if (isSaveInforSuccess) {
-            if (images.length) {
-                const onSaveImgs = async () => {
-                    if (canSave) {
-                        for (let i = 0; i < images.length; i++) {
-                            const sequelStand = i + savedImages.length;
-                            await addNewImage({
-                                code, name: images[i].name, stand: sequelStand, data: images[i].data
-                            })
-                        }
+            const onUpdateImg = async () => {
+                if (canUpdate) {                //     
+                    for (let i = 0; i < savedImages.length; i++) {
+                        await updateImgages({ id: savedImages[i].id, code })
                     }
-                };
-                onSaveImgs();
+                }
             };
-            if (savedImages) {
-                const onUpdateImgs = async () => {
-                    if (canUpdate) {
-                        for (let i = 0; i < savedImages.length; i++) {
-                            await updateImgages({
-                                id: savedImages.id, code,
-                            })
-                        }
-                    }
-                };
-                onUpdateImgs();
-            }
+            onUpdateImg();
         }
-    }, [addNewImage, updateImgages, canSave, canUpdate, savedImages, code, images, isSaveInforSuccess]);
+    }, [addNewImage, canUpdate, code, images, savedImages, isSaveInforSuccess]);
+
 
     useEffect(() => {
         if (addNewLoading || updateLoading) {
@@ -192,7 +177,7 @@ const ProductNewImage = ({
         };
         if (updateSuccess) {
             setIsSaveImagesSuccess(true)
-        }
+        };
     }, [images.length, addNewSuccess, updateSuccess, setIsSaveImagesSuccess]);
 
     const content = (
@@ -251,4 +236,4 @@ const ProductNewImage = ({
     return content;
 };
 
-export default ProductNewImage;
+export default ProductEditImages;

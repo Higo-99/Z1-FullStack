@@ -116,7 +116,7 @@ const ProductNewImage = ({
 
     useEffect(() => {
         if (clickSave && isSaveInforSuccess) {
-            const onSaveImgs = async (e) => {
+            const onSaveImgs = async () => {
                 if (canSave) {
                     for (let i = 0; i < images.length; i++) {
                         await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })

@@ -85,6 +85,7 @@ const ProductEditForm = ({ product, savedImages }) => {
                         <div className="imgsInputCard">
                             <ProductEditImages
                                 code={code}
+                                clickSave={clickSave}
                                 savedImages={savedImages}
                                 setIsImages={setIsImages}
                                 isInfors={isInfors}

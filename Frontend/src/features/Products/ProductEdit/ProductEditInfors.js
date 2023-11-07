@@ -4,7 +4,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useUpdateProductMutation } from "../productInforApiSlice";
 import { fragranceList } from '../ProductSelectOptions';
 
-const ProductNewInfo = ({
+const ProductEditInfors = ({
     product,
     filterFrags,
     oldFormatPrice,
@@ -140,7 +140,7 @@ const ProductNewInfo = ({
         };
     }, [
         canSave, updateProductInfors, clickSave, setClickSave,
-        label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
+        product.id, label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
     ]);
 
     useEffect(() => {
@@ -280,4 +280,4 @@ const ProductNewInfo = ({
 
 };
 
-export default ProductNewInfo;
+export default ProductEditInfors;
