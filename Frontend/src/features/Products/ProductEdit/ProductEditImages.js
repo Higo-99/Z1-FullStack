@@ -153,9 +153,20 @@ const ProductEditImages = ({
                     }
                 }
             };
+            const onSaveImgs = async () => {
+                if (canSave) {
+                    for (let i = 0; i < images.length; i++) {
+                        await addNewImage({ code, name: images[i].name, stand: i + savedImages.length, data: images[i].data })
+                    }
+                }
+            };
+
             onUpdateImg();
+            if (images.length) {
+                onSaveImgs();
+            };
         }
-    }, [addNewImage, canUpdate, code, images, savedImages, isSaveInforSuccess]);
+    }, [updateImgages, addNewImage, canUpdate, canSave, code, images, savedImages, isSaveInforSuccess]);
 
 
     useEffect(() => {
@@ -173,7 +184,7 @@ const ProductEditImages = ({
         if (images.length) {
             if (addNewSuccess && updateSuccess) {
                 setIsSaveImagesSuccess(true)
-            }
+            };
         };
         if (updateSuccess) {
             setIsSaveImagesSuccess(true)

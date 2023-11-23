@@ -52,7 +52,7 @@ const Product = ({ productId, code }) => {
     const navigate = useNavigate();
 
     if (product) {
-        const handleEdit = () => navigate(`/productsManage/${productId}`);
+        const handleEdit = () => navigate(`/productsManage/${product.id}`);
         return (
             <tr>
                 <td className='table__cell'>{product.id}</td>
