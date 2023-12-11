@@ -3,7 +3,7 @@ require('express-async-errors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { corsOptions } = require('./config/corsOptions');
+const corsOptions = require('./config/corsOptions');
 const path = require('path');
 const errorHandler = require('./middleware/errorHandler');
 // const cookieParser = require('cookie-parser');
