@@ -93,7 +93,8 @@ const ProductNewInfo = ({
         error
     }] = useAddNewProductMutation();
 
-    const canSave = !isLoading && isImages;
+    // const canSave = !isLoading && isImages;
+    const canSave = !isLoading;
 
     const allInfors = [label, code, price].every(Boolean);
     useEffect(() => {
@@ -105,22 +106,20 @@ const ProductNewInfo = ({
         }
     }, [allInfors, setIsInfors]);
 
+    const onSaveInfors = async (e) => {
+        if (canSave) {
+            await addNewProductInfors({
+                label, code, price, prevPrice, type, volume, fragrance, introduce, style
+            })
+        }
+    };
+
     useEffect(() => {
         if (clickSave) {
-            const onSaveInfors = async (e) => {
-                if (canSave) {
-                    await addNewProductInfors({
-                        label, code, price, prevPrice, type, volume, fragrance, introduce, style
-                    })
-                }
-            };
             onSaveInfors();
             setClickSave(false);
         };
-    }, [
-        canSave, addNewProductInfors, clickSave, setClickSave,
-        label, code, stock, price, prevPrice, type, volume, fragrance, introduce, style
-    ]);
+    }, [clickSave, setClickSave, onSaveInfors]);
 
     useEffect(() => {
         if (isSuccess) {
@@ -135,7 +134,7 @@ const ProductNewInfo = ({
     }, [error, setInforErrContent]);
 
     const content = (
-        <div className="">
+        <form className="" onSubmit={e => e.preventDefault()}>
             <div className="label Product">
                 <label htmlFor="labelProduct">Label</label>
                 <input type="text" id="labelProduct"
@@ -253,7 +252,7 @@ const ProductNewInfo = ({
                         value={style} onChange={(e) => setStyle(e.target.value)} />
                 </div>
             </div>
-        </div>
+        </form>
     )
     return content;
 

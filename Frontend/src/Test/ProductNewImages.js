@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 // import { useAddNewProductImageMutation } from "../productImageApiSlice";
+import { useAddNewProductImageMutation } from "../features/Products/productImageApiSlice";
 
 const ProductNewImage = ({
     code,
@@ -97,13 +98,13 @@ const ProductNewImage = ({
         setImages(images.filter(e => e.name !== theImg.name));
     };
 
-    // const [addNewImage, {
-    //     isLoading,
-    //     isSuccess,
-    //     error
-    // }] = useAddNewProductImageMutation();
+    const [addNewImage, {
+        isLoading,
+        isSuccess,
+        error
+    }] = useAddNewProductImageMutation();
 
-    // const canSave = isInfors && !isLoading;
+    const canSave = isInfors && !isLoading;
 
     useEffect(() => {
         if (images.length) {
@@ -114,28 +115,28 @@ const ProductNewImage = ({
         }
     }, [images.length, setIsImages]);
 
-    // useEffect(() => {
-    //     if (clickSave && isSaveInforSuccess) {
-    //         const onSaveImgs = async () => {
-    //             if (canSave) {
-    //                 for (let i = 0; i < images.length; i++) {
-    //                     await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
-    //                 }
-    //             }
-    //         };
-    //         onSaveImgs();
-    //     }
-    // }, [addNewImage, canSave, code, images, clickSave, isSaveInforSuccess]);
+    useEffect(() => {
+        if (clickSave && isSaveInforSuccess) {
+            const onSaveImgs = async () => {
+                if (canSave) {
+                    for (let i = 0; i < images.length; i++) {
+                        await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
+                    }
+                }
+            };
+            onSaveImgs();
+        }
+    }, [addNewImage, canSave, code, images, clickSave, isSaveInforSuccess]);
 
-    // useEffect(() => {
-    //     if (error) { setImageErrContent(error?.data?.message) }
-    // }, [error, setImageErrContent]);
+    useEffect(() => {
+        if (error) { setImageErrContent(error?.data?.message) }
+    }, [error, setImageErrContent]);
 
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //         setIsSaveImagesSuccess(true)
-    //     }
-    // }, [isSuccess, setIsSaveImagesSuccess]);
+    useEffect(() => {
+        if (isSuccess) {
+            setIsSaveImagesSuccess(true)
+        }
+    }, [isSuccess, setIsSaveImagesSuccess]);
 
     const content = (
         <div className="">

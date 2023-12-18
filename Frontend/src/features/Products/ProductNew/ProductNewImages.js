@@ -21,18 +21,6 @@ const ProductNewImage = ({
     const selectFiles = () => {
         fileInputRef.current.click();
     };
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-            fileReader.onload = () => {
-                resolve(fileReader.result)
-            };
-            fileReader.onerror = (error) => {
-                reject(error)
-            };
-        })
-    };
 
     const onFileSelect = async (e) => {
         const files = e.target.files;
@@ -45,10 +33,10 @@ const ProductNewImage = ({
                         url: URL.createObjectURL(files[i])
                     }]
                 );
-                const convertImg = await convertToBase64(files[i]);
                 const imgBinary = {
+                    code: code,
                     name: files[i].name,
-                    data: convertImg
+                    data: files[i]
                 };
                 setImages(theBI => [...theBI, { imgBinary }]);
             }
@@ -78,11 +66,10 @@ const ProductNewImage = ({
                         url: URL.createObjectURL(files[i])
                     }]
                 );
-                const convertImg = await convertToBase64(files[i]);
                 const imgBinary = {
                     code: code,
                     name: files[i].name,
-                    data: convertImg
+                    data: files[i]
                 };
                 setImages(theBinaryImg => [...theBinaryImg, imgBinary]);
             }
@@ -114,18 +101,19 @@ const ProductNewImage = ({
         }
     }, [images.length, setIsImages]);
 
+    const onSaveImgs = async () => {
+        if (canSave) {
+            for (let i = 0; i < images.length; i++) {
+                await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
+            }
+        }
+    };
+
     useEffect(() => {
         if (clickSave && isSaveInforSuccess) {
-            const onSaveImgs = async () => {
-                if (canSave) {
-                    for (let i = 0; i < images.length; i++) {
-                        await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
-                    }
-                }
-            };
             onSaveImgs();
         }
-    }, [addNewImage, canSave, code, images, clickSave, isSaveInforSuccess]);
+    }, [clickSave, isSaveInforSuccess, onSaveImgs]);
 
     useEffect(() => {
         if (error) { setImageErrContent(error?.data?.message) }
@@ -138,7 +126,7 @@ const ProductNewImage = ({
     }, [isSuccess, setIsSaveImagesSuccess]);
 
     const content = (
-        <div className="">
+        <form className="" onSubmit={e => e.preventDefault()}>
             <p>Images</p>
             <div className="drag-area"
                 onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}
@@ -170,7 +158,7 @@ const ProductNewImage = ({
                 ))}
 
             </div>
-        </div>
+        </form>
     );
 
     return content;

@@ -21,14 +21,15 @@ const ProductNewForm = () => {
     const [isSaveImagesSuccess, setIsSaveImagesSuccess] = useState(false);
     const [isImages, setIsImages] = useState(false);
 
-    const canSave = isImages && isInfors;
+    // const canSave = isImages && isInfors;
     const onSaveProduct = () => {
         setClickSave(true);
     };
 
     const navigate = useNavigate();
 
-    const successAll = isSaveInforSuccess && isSaveImagesSuccess;
+    const successAll = isSaveInforSuccess
+    // && isSaveImagesSuccess;
 
     useEffect(() => {
         if (successAll) {
@@ -73,7 +74,9 @@ const ProductNewForm = () => {
                     </div>
 
                     <div className="productFormBtn">
-                        <button className="AddNewBtn" onClick={onSaveProduct} disabled={!canSave}>
+                        <button className="AddNewBtn" onClick={onSaveProduct}
+                        // disabled={!canSave}
+                        >
                             Add New
                         </button>
                     </div>
