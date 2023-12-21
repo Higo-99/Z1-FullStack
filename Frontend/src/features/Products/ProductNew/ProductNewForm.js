@@ -28,14 +28,14 @@ const ProductNewForm = () => {
 
     const navigate = useNavigate();
 
-    const successAll = isSaveInforSuccess
-    // && isSaveImagesSuccess;
+    // const successAll = isSaveInforSuccess && isSaveImagesSuccess;
+    // const successAll = isSaveImagesSuccess;
 
-    useEffect(() => {
-        if (successAll) {
-            navigate('/productsManage')
-        }
-    }, [successAll, navigate]);
+    // useEffect(() => {
+    //     if (successAll) {
+    //         navigate('/productsManage')
+    //     }
+    // }, [successAll, navigate]);
 
     const content = (
         <div className="productFormBackground">

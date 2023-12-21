@@ -33,12 +33,8 @@ const ProductNewImage = ({
                         url: URL.createObjectURL(files[i])
                     }]
                 );
-                const imgBinary = {
-                    code: code,
-                    name: files[i].name,
-                    data: files[i]
-                };
-                setImages(theBI => [...theBI, { imgBinary }]);
+                setImages(theBinaryImg => [...theBinaryImg, files[i]]);
+                // setImages(files[i]);
             }
         };
     };
@@ -66,12 +62,7 @@ const ProductNewImage = ({
                         url: URL.createObjectURL(files[i])
                     }]
                 );
-                const imgBinary = {
-                    code: code,
-                    name: files[i].name,
-                    data: files[i]
-                };
-                setImages(theBinaryImg => [...theBinaryImg, imgBinary]);
+                setImages(theBinaryImg => [...theBinaryImg, files[i]]);
             }
         };
     };
@@ -90,7 +81,8 @@ const ProductNewImage = ({
         error
     }] = useAddNewProductImageMutation();
 
-    const canSave = isInfors && !isLoading;
+    // const canSave = isInfors && !isLoading;
+    const canSave = !isLoading;
 
     useEffect(() => {
         if (images.length) {
@@ -103,17 +95,36 @@ const ProductNewImage = ({
 
     const onSaveImgs = async () => {
         if (canSave) {
-            for (let i = 0; i < images.length; i++) {
-                await addNewImage({ code, name: images[i].name, stand: i, data: images[i].data })
-            }
+            // for (let i = 0; i < images.length; i++) {
+            //     const formData = new FormData();
+            //     const formImg = formData.append(images[i].name, images[i]);
+            //     // console.log(images[i])
+            //     await addNewImage(formImg);
+            // }
+            const myFiles = document.getElementById('file').files
+
+            const formData = new FormData()
+
+            Object.keys(myFiles).forEach(key => {
+                formData.append(myFiles.item(key).name, myFiles.item(key))
+            })
+
+            await addNewImage(formData);
         }
     };
 
+    // useEffect(() => {
+    //     if (clickSave && isSaveInforSuccess) {
+    //         onSaveImgs();
+    //     }
+    // }, [clickSave, isSaveInforSuccess, onSaveImgs]);
+
     useEffect(() => {
-        if (clickSave && isSaveInforSuccess) {
+        if (clickSave) {
             onSaveImgs();
+            // console.log('img');
         }
-    }, [clickSave, isSaveInforSuccess, onSaveImgs]);
+    }, [clickSave, onSaveImgs]);
 
     useEffect(() => {
         if (error) { setImageErrContent(error?.data?.message) }

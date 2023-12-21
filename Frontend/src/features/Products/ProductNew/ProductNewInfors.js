@@ -114,12 +114,12 @@ const ProductNewInfo = ({
         }
     };
 
-    useEffect(() => {
-        if (clickSave) {
-            onSaveInfors();
-            setClickSave(false);
-        };
-    }, [clickSave, setClickSave, onSaveInfors]);
+    // useEffect(() => {
+    //     if (clickSave) {
+    //         onSaveInfors();
+    //         setClickSave(false);
+    //     };
+    // }, [clickSave, setClickSave, onSaveInfors]);
 
     useEffect(() => {
         if (isSuccess) {
